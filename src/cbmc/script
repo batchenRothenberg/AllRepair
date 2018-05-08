@@ -1,0 +1,18 @@
+#!/bin/bash
+cdcbmc="/home/batg/Desktop/bugs/cbmc-5.2/src/cbmc"
+cdmarco="/home/batg/Desktop/bugs/marco_py-1.1"
+input=$(pwd)/$1
+cdoutput=$(pwd)/${4-""}
+echo $input $cdoutput
+echo running cbmc
+cd $cdcbmc
+./cbmc $input --function $2 --unwind $3 --z3 --no-unwinding-assertions --no-propagation --outfile $cdoutput/$1.gsmt2 > $cdoutput/$1.cbmcOut
+#cp $1.gsmt2 /home/batg/Desktop/bugs/marco_py-1.1
+#echo runnning marco
+#cd $cdmarco
+#./batmarco.py $1.gsmt2 --smt -v -s --smus > $1.marcoOut 2> $1.marcoErr
+#echo copying files
+#rm $1.gsmt2
+#mv $1.gsmt2 $1.cbmcOut $cdcbmc/output/
+#cp $1.marcoOut $cdcbmc/output/
+#cp $1.marcoErr $cdcbmc/output/

@@ -1,0 +1,4 @@
+#define CPROVER_PREFIX "__CPROVER_"
+#define CPROVER_FKT_PREFIX "__CPROVER_fkt_"
+#define CPROVER_MACRO_PREFIX "__CPROVER_macro_"
+

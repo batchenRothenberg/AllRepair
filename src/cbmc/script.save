@@ -1,0 +1,12 @@
+#!/bin/bash
+cdcbmc="/home/batg/Desktop/bugs/cbmc-5.2/src/cbmc"
+echo running cbmc
+cd $cdcbmc
+./cbmc $1 --function $2 --unwind $3 --z3 --no-unwinding-assertions --no-propagation --outfile $1.gsmt2 > $1.cbmcOut
+echo copying files
+cp $1.gsmt2 /home/batg/Desktop/bugs/marco_py-1.1
+echo runnning marco
+cd /home/batg/Desktop/bugs/marco_py-1.1
+./batmarco.py $1.gsmt2 --smt -v -s --smus > $1.marcoOut 2> $1.marcoErr
+cp $1.marcoOut $cdcbmc
+/home/batg/Desktop/bugs/cbmc-5.2/src/cbmc
