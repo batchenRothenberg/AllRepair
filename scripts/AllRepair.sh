@@ -133,17 +133,17 @@ for pass in 1 2; do
        				-*)	if [ $pass -eq 1 ]; then ARGS="$ARGS $1";
                                else error $1; fi;;
         		esac;;
-	    	*.c) if [ -f $1 ]; then FILES="${FILES}"$'\n'"${1}"; else file_error $1; fi;;
+	    	*.c) if [[ -f $1 ]]; then FILES="${FILES}"$'\n'"${1}"; else file_error $1; fi;;
             *)  if [[ -d $1 ]]; then DIRS="$DIRS $1"; 
 				else
-                  if [ $pass -eq 1 ]; then ARGS="$ARGS $1";
+                  if [[ $pass -eq 1 ]]; then ARGS="$ARGS $1";
                   else error $1; fi;
 				fi;;
 		esac
         shift
     done
-    if [ $pass -eq 1 ]; then ARGS=`getopt $opts $ARGS`
-        if [ $? != 0 ]; then echo "Try '`cmd` -h' for more information."; exit 2; fi; set -- $ARGS
+    if [[ $pass -eq 1 ]]; then ARGS=`getopt $opts $ARGS`
+        if [[ $? != 0 ]]; then echo "Try '`cmd` -h' for more information."; exit 2; fi; set -- $ARGS
     fi
 done
 
