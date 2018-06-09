@@ -1,3 +1,5 @@
+python/pyminisolvers/libminicard.so
+python/pyminisolvers/libminisat.so
 src/ansi-c/ansi_c_lex.yy.cpp
 src/ansi-c/ansi_c_y.output
 src/ansi-c/ansi_c_y.tab.cpp
