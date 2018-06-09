@@ -119,8 +119,8 @@ class MapSolver:
 
     #bat
     def block_bad_repair(self, bad_path): 
-	print "adding clause: ", [(-x) for x in bad_path]
-	self.solver.add_clause( [(-x) for x in bad_path] )
+	print "adding clause: ", [(-(x+1)) for x in bad_path]
+	self.solver.add_clause( [(-(x+1)) for x in bad_path] )
 
 
 class MinicardMapSolver(MapSolver):
