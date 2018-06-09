@@ -15,52 +15,53 @@ class batMarcoPolo:
         self.n = self.map.n   # number of constraints
         self.got_top = False  # track whether we've explored the complete set (top of the lattice)
         self.hard_constraints = []  # store hard clauses to be passed to shrink()
-	self.i = 1 #bat
+        self.i = 1 #bat
 
     def enumerate_basic(self):
         '''Basic MUS/MCS enumeration, as a simple reference/example.'''
         while True:
             with self.stats.time('seed'):
-            	seed = self.map.next_seed(self.stats)
-            	if seed is None:
-            	    return
-		if self.config['verbose']:
-			print "- Program" ,self.i, "/" , self.subs.mutants
-                	print("Initial seed: %s" % " ".join([str(x+1) for x in seed]))
-			print "Constraints of original code lines: ",self.map.original_vars
-			self.i = self.i+1
-			print len(list(set([x+1 for x in seed]) - set(self.map.original_vars))) , "mutations"
+                seed = self.map.next_seed(self.stats)
+                if seed is None:
+                    return
+            if self.config['verbose']:
+                print "- Program" ,self.i, "/" , self.subs.mutants
+                print("Initial seed: %s" % " ".join([str(x+1) for x in seed]))
+                print "Constraints of original code lines: ",self.map.original_vars
+                self.i = self.i+1
+                print len(list(set([x+1 for x in seed]) - set(self.map.original_vars))) , "mutations"
 
             with self.stats.time('check'):
-		res = self.subs.check_subset(seed)
+                res = self.subs.check_subset(seed)
 
             if res: #subset is sat
                 with self.stats.time('block'):
-			m = self.subs.s.model()
-			#print "aaaaa" , m
-			#print "prb:" , m["main::1::prb!0@1#2"]
-			#print "traversing model..."
-			#for d in m.decls():
-    			#	print "%s = %s" % (d.name(), m[d])
-			#for c in self.subs.s.assertions():
-    			#	print c
-			yield ("S", seed)
-			if self.config['smus']:
-				#print "seed is: ", [x for x in seed]
-				#bad_path_cons= self.subs.get_bad_path(seed)
-				#print "bad path is: ", [x for x in bad_path_cons]
-                		#self.map.block_bad_repair(bad_path_cons)
-				self.map.block_up(seed)
-			else:
-				self.map.block_up(seed) #block_up/down have the same effect- block only seed (since we are looking at fixed size subsets)
+                    m = self.subs.s.model()
+                    #print "aaaaa" , m
+                    #print "prb:" , m["main::1::prb!0@1#2"]
+                    #print "traversing model..."
+                    #for d in m.decls():
+                        #	print "%s = %s" % (d.name(), m[d])
+                    #for c in self.subs.s.assertions():
+                        #	print c
+                    yield ("S", seed)
+                    if self.config['smus']:
+                        #print "seed is: ", [x for x in seed]
+                        #bad_path_cons= self.subs.get_bad_path(seed)
+                        #print "bad path is: ", [x for x in bad_path_cons]
+                        #self.map.block_bad_repair(bad_path_cons)
+                        #self.map.block_up(seed)
+                        self.map.block_bad_repair(seed)
+                    else:
+                        self.map.block_up(seed) #block_up/down have the same effect- block only seed (since we are looking at fixed size subsets)
             else:   #subset is unsat
                 with self.stats.time('block'):
-			yield ("U", seed)
-			if self.config['smus']:
-                		self.map.block_good_repair(seed)
-				#print "block good repair"
-			else:
-				self.map.block_up(seed) #block_up/down have the same effect- block only seed (since we are looking at fixed size subsets)
+                    yield ("U", seed)
+                    if self.config['smus']:
+                        self.map.block_good_repair(seed)
+                        #print "block good repair"
+                    else:
+                        self.map.block_up(seed) #block_up/down have the same effect- block only seed (since we are looking at fixed size subsets)
 
     def record_delta(self, name, oldlen, newlen, up):
         if up:
