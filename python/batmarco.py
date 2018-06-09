@@ -38,6 +38,8 @@ def parse_args():
                             help="assume input is in SMT2 format (autodetected if filename is *.smt2).")
     parser.add_argument('-b', '--bias', type=str, choices=['MUSes', 'MCSes'], default='MUSes',
                         help="bias the search toward MUSes or MCSes early in the execution [default: MUSes] -- all will be enumerated eventually; this just uses heuristics to find more of one or the other early in the enumeration.")
+    parser.add_argument('-r', '--blockrepair', type=str, choices=['basic', 'slicing', 'generalization'], default='basic',
+                        help="control the algorithm used for blocking a bad repair. 'basic': block the one bad program, 'slicing': block all programs where the dynamic slice of the violated assertion hasn't changed, 'generalization': use the error generalization algorithm. ")
 
     # Experimental / Research arguments
     exp_group = parser.add_argument_group('Experimental / research options', "These can typically be ignored; the defaults will give the best performance.")
@@ -208,6 +210,7 @@ def setup_config(args):
     config['verbose'] = args.verbose > 1
     config['limit'] = args.limit #bat
     config['size'] = args.size #bat
+    config['blockrepair'] = args.blockrepair  # bat
 
     return config
 

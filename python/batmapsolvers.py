@@ -118,10 +118,15 @@ class MapSolver:
 	self.solver.add_clause( [(-(x+1)) for x in seed if x+1 not in self.original_vars] )
 
     #bat
-    def block_bad_repair(self, bad_path): 
-	print "adding clause: ", [(-(x+1)) for x in bad_path]
-	self.solver.add_clause( [(-(x+1)) for x in bad_path] )
-
+    def block_bad_repair(self, bad_path, config):
+        # print "adding clause: ", [(-(x+1)) for x in bad_path]
+        self.solver.add_clause( [(-(x+1)) for x in bad_path] )
+        if config['blockrepair']=="basic":
+            print "basic"
+        elif config['blockrepair']=="slicing":
+            print "slicing"
+        elif config['blockrepair']=="generalization":
+            print "generalization"
 
 class MinicardMapSolver(MapSolver):
     def __init__(self, sizes, bias=True, limit=None):   #bat # bias=True is a high/inclusion/MUS bias; False is a low/exclusion/MSS bias.

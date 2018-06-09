@@ -51,7 +51,7 @@ class batMarcoPolo:
                         #print "bad path is: ", [x for x in bad_path_cons]
                         #self.map.block_bad_repair(bad_path_cons)
                         #self.map.block_up(seed)
-                        self.map.block_bad_repair(seed)
+                        self.map.block_bad_repair(seed,self.config)
                     else:
                         self.map.block_up(seed) #block_up/down have the same effect- block only seed (since we are looking at fixed size subsets)
             else:   #subset is unsat
