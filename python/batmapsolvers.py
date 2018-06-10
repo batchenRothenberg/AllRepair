@@ -118,19 +118,6 @@ class MapSolver:
         # self.solver.add_clause( [(x) for x in self.original_vars if x-1 not in seed] ) #bad because it blocks *all* changes to changed lines, instead of the specific changes made.
         self.solver.add_clause([(-(x + 1)) for x in seed if x + 1 not in self.original_vars])
 
-    # bat
-    def block_bad_repair(self, bad_path, config):
-        # print "adding clause: ", [(-(x+1)) for x in bad_path]
-        self.solver.add_clause([(-(x + 1)) for x in bad_path])
-        if config['blockrepair'] == "basic":
-            pass
-        elif config['blockrepair'] == "slicing":
-            print
-            "slicing"
-        elif config['blockrepair'] == "generalization":
-            print
-            "generalization"
-
 
 class MinicardMapSolver(MapSolver):
     def __init__(self, sizes, bias=True,

@@ -49,12 +49,12 @@ class batMarcoPolo:
                     #	print c
                     yield ("S", seed)
                     if self.config['smus']:
-                        # print "seed is: ", [x for x in seed]
-                        # bad_path_cons= self.subs.get_bad_path(seed)
-                        # print "bad path is: ", [x for x in bad_path_cons]
-                        # self.map.block_bad_repair(bad_path_cons)
-                        # self.map.block_up(seed)
-                        self.map.block_bad_repair(seed, self.config)
+                        #print "seed is: ", [x for x in seed]
+                        #bad_path_cons= self.subs.get_bad_path(seed)
+                        #print "bad path is: ", [x for x in bad_path_cons]
+                        #self.map.block_bad_repair(bad_path_cons)
+                        #self.map.block_up(seed)
+                        self.block_bad_repair(seed)
                     else:
                         self.map.block_up(
                             seed)  # block_up/down have the same effect- block only seed (since we are looking at fixed size subsets)
@@ -65,8 +65,18 @@ class batMarcoPolo:
                         self.map.block_good_repair(seed)
                         # print "block good repair"
                     else:
-                        self.map.block_up(
-                            seed)  # block_up/down have the same effect- block only seed (since we are looking at fixed size subsets)
+                        self.map.block_up(seed) #block_up/down have the same effect- block only seed (since we are looking at fixed size subsets)
+
+    #bat
+    def block_bad_repair(self, bad_path):
+        # print "adding clause: ", [(-(x+1)) for x in bad_path]
+        self.map.add_clause( [(-(x+1)) for x in bad_path] )
+        if self.config['blockrepair']=="basic":
+            pass
+        elif self.config['blockrepair']=="slicing":
+            print "slicing"
+        elif self.config['blockrepair']=="generalization":
+            print "generalization"
 
     def record_delta(self, name, oldlen, newlen, up):
         if up:
