@@ -1,11 +1,11 @@
 from z3 import *
 
-def slice_program(sat_solution, smt_solution, assertion_constraint, constraints):
-    assertion = constraints[assertion_constraint]
+def slice_program(sat_solution, smt_solution, assertion_constraints, constraints):
+    assertions = [constraints[assertion_constraint] for assertion_constraint in assertion_constraints]
     # simplify assertion - get sub-expression which is already satisfied
-    simpl_assertion = find_satisfied_subexpression(assertion, smt_solution)
+    simpl_assertions = [find_satisfied_subexpression(assertion, smt_solution) for assertion in assertions]
     #print "simplified assert is " , simpl_assertion
-    print "assertion is sat? " , smt_solution.evaluate(simpl_assertion)
+    print "assertions are sat? " , [smt_solution.evaluate(simpl_assertion) for simpl_assertion in simpl_assertions]
     return [(-(x + 1)) for x in sat_solution]
 
 

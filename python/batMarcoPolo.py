@@ -68,7 +68,7 @@ class batMarcoPolo:
             return [(-(x + 1)) for x in seed]
         elif self.config['blockrepair']=="slicing":
             print "slicing"
-            return slice_program(seed, self.subs.s.model(), self.subs.assertion_constraint, self.subs.constraints)
+            return slice_program(seed, self.subs.s.model(), self.subs.assertion_constraints, self.subs.constraints)
         elif self.config['blockrepair']=="generalization":
             print "generalization"
             return [(-(x + 1)) for x in seed]
