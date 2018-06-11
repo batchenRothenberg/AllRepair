@@ -2,7 +2,7 @@ try:
     import queue
 except ImportError:
     import Queue as queue
-
+from batSlicing import *
 
 class batMarcoPolo:
     def __init__(self, csolver, msolver, stats, config):
@@ -39,7 +39,6 @@ class batMarcoPolo:
 
             if res:  # subset is sat
                 with self.stats.time('block'):
-                    m = self.subs.s.model()
                     # print "aaaaa" , m
                     # print "prb:" , m["main::1::prb!0@1#2"]
                     # print "traversing model..."
@@ -49,12 +48,8 @@ class batMarcoPolo:
                     #	print c
                     yield ("S", seed)
                     if self.config['smus']:
-                        #print "seed is: ", [x for x in seed]
-                        #bad_path_cons= self.subs.get_bad_path(seed)
-                        #print "bad path is: ", [x for x in bad_path_cons]
-                        #self.map.block_bad_repair(bad_path_cons)
-                        #self.map.block_up(seed)
-                        self.block_bad_repair(seed)
+                        clause = self.block_bad_repair(seed)
+                        self.map.solver.add_clause(clause)
                     else:
                         self.map.block_up(
                             seed)  # block_up/down have the same effect- block only seed (since we are looking at fixed size subsets)
@@ -68,15 +63,15 @@ class batMarcoPolo:
                         self.map.block_up(seed) #block_up/down have the same effect- block only seed (since we are looking at fixed size subsets)
 
     #bat
-    def block_bad_repair(self, bad_path):
-        # print "adding clause: ", [(-(x+1)) for x in bad_path]
-        self.map.add_clause( [(-(x+1)) for x in bad_path] )
+    def block_bad_repair(self, seed):
         if self.config['blockrepair']=="basic":
-            pass
+            return [(-(x + 1)) for x in seed]
         elif self.config['blockrepair']=="slicing":
             print "slicing"
+            return slice_program(seed, self.subs.s.model(), self.subs.assertion_constraint, self.subs.constraints)
         elif self.config['blockrepair']=="generalization":
             print "generalization"
+            return [(-(x + 1)) for x in seed]
 
     def record_delta(self, name, oldlen, newlen, up):
         if up:

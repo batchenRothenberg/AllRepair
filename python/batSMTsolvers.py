@@ -43,6 +43,7 @@ class Z3SubsetSolver:
     s = None
     varcache = {}
     idcache = {}
+    assertion_constraint = 49 #TODO: Implenment assignment to this variable
 
     def __init__(self, filename):
         self.read_constraints(filename)
