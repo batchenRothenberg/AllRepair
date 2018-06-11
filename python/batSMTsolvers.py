@@ -6,6 +6,7 @@ from functools import reduce
 from z3 import *
 
 
+
 def dimacs_var(i):
     if i not in dimacs_var.cache:
         if i > 0:
@@ -43,7 +44,7 @@ class Z3SubsetSolver:
     s = None
     varcache = {}
     idcache = {}
-    assertion_constraint = 49 #TODO: Implenment assignment to this variable
+    assertion_constraint = 49  # TODO: Implenment assignment to this variable
 
     def __init__(self, filename):
         self.read_constraints(filename)
@@ -53,8 +54,7 @@ class Z3SubsetSolver:
             i = i + 1
         # print(self.soft_constraints)
         # print(self.hard_constraints)
-        print
-        "total cons:", len(self.constraints), "total hard+soft:", len(self.soft_constraints) + len(
+        print "total cons:", len(self.constraints), "total hard+soft:", len(self.soft_constraints) + len(
             self.hard_constraints)
         # print(self.sizes)
         # print(self.n)
@@ -62,8 +62,7 @@ class Z3SubsetSolver:
         # print [cons.arg(i) for i in range(cons.num_args())]
         # print cons.arg(0).children()
         self.mutants = reduce(lambda x, y: x * y, self.sizes)
-        print
-        "Total number of mutated programs:", self.mutants
+        print "Total number of mutated programs:", self.mutants
         self.make_solver()
 
     def read_constraints(self, filename):
@@ -73,8 +72,7 @@ class Z3SubsetSolver:
         self.constraints = self.read_smt2(filename)
         self.read_group_smt2(filename)
         if (len(self.soft_constraints) == 0):
-            print
-            "All constraints belong to group number {0}. For repair, add alternatives under a positive group number."
+            print "All constraints belong to group number {0}. For repair, add alternatives under a positive group number."
             exit(0)
         self.soft_constraints = sorted(self.soft_constraints)
         self.sizes = [y for (x, y) in sorted(Counter(x for (x, y) in self.soft_constraints).items())]
@@ -118,7 +116,7 @@ class Z3SubsetSolver:
                     # self.soft_constraints[res[0]].append(cons_i)
                     self.soft_constraints.append((int(res[0]), cons_i))
                 cons_i = cons_i + 1
-        # else:
+            # else:
         # print "empty line:",line
         f.close()
 
@@ -212,13 +210,11 @@ class Z3SubsetSolver:
             if cons_i not in self.hard_constraints:
                 res.add(cons_i + 1)  # +1 bacuse cons_i is zero based
             for d_var in dep_vars:
-                print
-                str(d_var), important_vars_list
+                print str(d_var), important_vars_list
                 if d_var not in important_vars_list:
                     important_vars_queue.append(d_var)
                     important_vars_list.append(d_var)
-            print
-            important_vars_queue
+            print important_vars_queue
         return res
 
     # bat
