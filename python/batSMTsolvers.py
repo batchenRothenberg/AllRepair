@@ -44,7 +44,11 @@ class Z3SubsetSolver:
     s = None
     varcache = {}
     idcache = {}
-    assertion_constraint = 49  # TODO: Implenment assignment to this variable
+    file_encoding = "igsmt2"  # TODO: delete once gsmt2 implementation is fixed in CBMC
+    assert_and_assume_constraints = []  # TODO: Implenment assignment to this variable
+    # var is mapped to the index of its assigning constraint, if exists
+    assignment_map = {} # bat
+
 
     def __init__(self, filename):
         self.read_constraints(filename)
@@ -106,18 +110,34 @@ class Z3SubsetSolver:
         f = open(filename)  # already checked before that file exists
         cons_i = 0
         for line in f.readlines():
-            p = re.compile('; *\{([0-9]*)\}')
+            if self.file_encoding == "gsmt2":
+                p = re.compile('; *\{([0-9]*)\}')
+            else: # self.file_encoding == "igsmt2"
+                p = re.compile(';Allrepair *\{([0-9,a-z]*)\}')
             res = p.findall(line)
             if res != []:
-                # print(res[0] +" "+ str(cons_i))
-                if res[0] == '0':
+                # add constraint to hard/soft constraints
+                if res[0] == '0' or res[0] == 'assume' or res[0] == 'assert':
                     self.hard_constraints.append(cons_i)
                 else:
-                    # self.soft_constraints[res[0]].append(cons_i)
                     self.soft_constraints.append((int(res[0]), cons_i))
+                # if assert or assume - add to assert_and_assume list. Otherwise - it's an assignment, add to map.
+                if res[0] == 'assume' or res[0] == 'assert':
+                    self.assert_and_assume_constraints.append(cons_i)
+                else:
+                    cons = self.constraints[cons_i]
+                    if is_and(cons): # compund constraint due to loop unwinding
+                        assigns = cons.children()
+                    else:
+                        assigns = [cons]
+                    for ass in assigns:
+                        assert is_eq(ass)
+                        assert ass.num_args() > 1
+                        assert is_const(ass.arg(0))
+                        self.assignment_map[ass.arg(0).decl()] = cons_i
                 cons_i = cons_i + 1
-            # else:
-        # print "empty line:",line
+        print self.assert_and_assume_constraints
+        print self.assignment_map
         f.close()
 
     def get_original_index(self, group):
