@@ -10,7 +10,7 @@ import CNFsolvers
 import batmapsolvers
 import batutils
 from batMarcoPolo import batMarcoPolo
-
+from batRepairPrinter import *
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -268,8 +268,9 @@ def main():
                 for group, cons_i in relevant_soft_cons:
                     orig_soft_i, orig_cons_i = csolver.get_original_index(group)
                     if orig_cons_i != cons_i:  # original not chosen for group
-                        print("Group " + str(group) + ": Replace " + str(csolver.constraints[orig_cons_i]) + " with " +
-                              str(csolver.constraints[cons_i]))
+                        orig_cons = csolver.constraints[orig_cons_i]
+                        cons  =  csolver.constraints[cons_i]
+                        print ("Group" + str(group) + ": Replace " + pretty_print_repair_expression(orig_cons) + " with " + pretty_print_repair_expression(cons))
 
             if remaining:
                 remaining -= 1
