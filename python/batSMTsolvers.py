@@ -134,7 +134,8 @@ class Z3SubsetSolver:
                         assert is_eq(ass)
                         assert ass.num_args() > 1
                         assert is_const(ass.arg(0))
-                        self.assignment_map[ass.arg(0).decl()] = cons_i
+                        if ass.arg(0).__str__() not in self.assignment_map:
+                            self.assignment_map[ass.arg(0).__str__()] = cons_i
                 cons_i = cons_i + 1
         print self.assert_and_assume_constraints
         print self.assignment_map
