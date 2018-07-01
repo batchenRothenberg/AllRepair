@@ -126,7 +126,7 @@ class Z3SubsetSolver:
                     self.assert_and_assume_constraints.append(cons_i)
                 else:
                     cons = self.constraints[cons_i]
-                    if is_and(cons): # compund constraint due to loop unwinding
+                    if is_and(cons): # compound constraint due to loop unwinding
                         assigns = cons.children()
                     else:
                         assigns = [cons]
