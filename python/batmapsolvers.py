@@ -122,7 +122,7 @@ class MapSolver:
         # print "adding clause: ", [(-(x+1)) for x in bad_path]
         self.solver.add_clause( [(-(x+1)) for x in bad_path] )
         if config['blockrepair']=="basic":
-            print "basic"
+            pass
         elif config['blockrepair']=="slicing":
             print "slicing"
         elif config['blockrepair']=="generalization":
