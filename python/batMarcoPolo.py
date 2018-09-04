@@ -49,6 +49,7 @@ class batMarcoPolo:
                     yield ("S", seed)
                     if self.config['smus']:
                         clause = self.block_bad_repair(seed)
+                        print "blocking: ", clause
                         self.map.solver.add_clause(clause)
                     else:
                         self.map.block_up(
