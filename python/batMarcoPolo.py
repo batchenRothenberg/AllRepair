@@ -12,10 +12,10 @@ class batMarcoPolo:
         self.stats = stats
         self.config = config
         self.bias_high = self.config['bias'] == 'MUSes'  # used frequently
-        self.n = self.map.n   # number of constraints
+        self.n = self.map.n  # number of constraints
         self.got_top = False  # track whether we've explored the complete set (top of the lattice)
         self.hard_constraints = []  # store hard clauses to be passed to shrink()
-        self.i = 1 #bat
+        self.i = 1  # bat
 
     def enumerate_basic(self):
         '''Basic MUS/MCS enumeration, as a simple reference/example.'''
@@ -25,43 +25,48 @@ class batMarcoPolo:
                 if seed is None:
                     return
             if self.config['verbose']:
-                print "- Program" ,self.i, "/" , self.subs.mutants
-                print("Initial seed: %s" % " ".join([str(x+1) for x in seed]))
-                print "Constraints of original code lines: ",self.map.original_vars
-                self.i = self.i+1
-                print len(list(set([x+1 for x in seed]) - set(self.map.original_vars))) , "mutations"
+                print
+                ("- Program", str(self.i), "/", str(self.subs.mutants))
+                print("Initial seed: %s" % " ".join([str(x + 1) for x in seed]))
+                print
+                ("Constraints of original code lines: " + self.map.original_vars)
+                self.i = self.i + 1
+                print
+                (len(list(set([x + 1 for x in seed]) - set(self.map.original_vars))), "mutations")
 
             with self.stats.time('check'):
                 res = self.subs.check_subset(seed)
 
-            if res: #subset is sat
+            if res:  # subset is sat
                 with self.stats.time('block'):
                     m = self.subs.s.model()
-                    #print "aaaaa" , m
-                    #print "prb:" , m["main::1::prb!0@1#2"]
-                    #print "traversing model..."
-                    #for d in m.decls():
-                        #	print "%s = %s" % (d.name(), m[d])
-                    #for c in self.subs.s.assertions():
-                        #	print c
+                    # print "aaaaa" , m
+                    # print "prb:" , m["main::1::prb!0@1#2"]
+                    # print "traversing model..."
+                    # for d in m.decls():
+                    #	print "%s = %s" % (d.name(), m[d])
+                    # for c in self.subs.s.assertions():
+                    #	print c
                     yield ("S", seed)
                     if self.config['smus']:
-                        #print "seed is: ", [x for x in seed]
-                        #bad_path_cons= self.subs.get_bad_path(seed)
-                        #print "bad path is: ", [x for x in bad_path_cons]
-                        #self.map.block_bad_repair(bad_path_cons)
-                        #self.map.block_up(seed)
-                        self.map.block_bad_repair(seed,self.config)
+                        # print "seed is: ", [x for x in seed]
+                        # bad_path_cons= self.subs.get_bad_path(seed)
+                        # print "bad path is: ", [x for x in bad_path_cons]
+                        # self.map.block_bad_repair(bad_path_cons)
+                        # self.map.block_up(seed)
+                        self.map.block_bad_repair(seed, self.config)
                     else:
-                        self.map.block_up(seed) #block_up/down have the same effect- block only seed (since we are looking at fixed size subsets)
-            else:   #subset is unsat
+                        self.map.block_up(
+                            seed)  # block_up/down have the same effect- block only seed (since we are looking at fixed size subsets)
+            else:  # subset is unsat
                 with self.stats.time('block'):
                     yield ("U", seed)
                     if self.config['smus']:
                         self.map.block_good_repair(seed)
-                        #print "block good repair"
+                        # print "block good repair"
                     else:
-                        self.map.block_up(seed) #block_up/down have the same effect- block only seed (since we are looking at fixed size subsets)
+                        self.map.block_up(
+                            seed)  # block_up/down have the same effect- block only seed (since we are looking at fixed size subsets)
 
     def record_delta(self, name, oldlen, newlen, up):
         if up:
@@ -76,7 +81,7 @@ class batMarcoPolo:
         for seed, known_max in self.seeds:
 
             if self.config['verbose']:
-                print("- Initial seed: %s" % " ".join([str(x+1) for x in seed]))
+                print("- Initial seed: %s" % " ".join([str(x + 1) for x in seed]))
 
             if self.config['maximize'] == 'always':
                 assert not known_max
@@ -86,7 +91,7 @@ class batMarcoPolo:
                     self.record_delta('max', oldlen, len(seed), self.bias_high)
 
                 if self.config['verbose']:
-                    print("- Maximized to: %s" % " ".join([str(x+1) for x in seed]))
+                    print("- Maximized to: %s" % " ".join([str(x + 1) for x in seed]))
 
             with self.stats.time('check'):
                 # subset check may improve upon seed w/ unsat_core or sat_subset
@@ -100,7 +105,7 @@ class batMarcoPolo:
                 if known_max:
                     print("- Seed is known to be optimal.")
                 else:
-                    print("- Seed improved by check: %s" % " ".join([str(x+1) for x in seed]))
+                    print("- Seed improved by check: %s" % " ".join([str(x + 1) for x in seed]))
 
             # -m half: Only maximize if we're SAT and seeking MUSes or UNSAT and seeking MCSes
             if self.config['maximize'] == 'half' and (seed_is_sat == self.bias_high):
@@ -113,7 +118,7 @@ class batMarcoPolo:
                     known_max = True
 
                 if self.config['verbose']:
-                    print("- Half-maximization w/in map, new seed: %s" % " ".join([str(x+1) for x in seed]))
+                    print("- Half-maximization w/in map, new seed: %s" % " ".join([str(x + 1) for x in seed]))
 
                 if len(seed) != oldlen:
                     # only need to re-check if maximization produced a different seed
@@ -131,7 +136,7 @@ class batMarcoPolo:
                         if known_max:
                             print("- Seed is known to be optimal.")
                         else:
-                            print("- Half-max check: Seed improved by check: %s" % " ".join([str(x+1) for x in seed]))
+                            print("- Half-max check: Seed improved by check: %s" % " ".join([str(x + 1) for x in seed]))
                 else:  # no re-check needed
                     if self.config['verbose']:
                         print("- Seed is known to be optimal.")
@@ -166,7 +171,7 @@ class batMarcoPolo:
                             if newseed:
                                 self.seeds.add_seed(newseed, False)
                                 if self.config['verbose']:
-                                    print("- New seed found above MSS: %s" % " ".join([(x+1) for x in seed]))
+                                    print("- New seed found above MSS: %s" % " ".join([(x + 1) for x in seed]))
 
             else:  # seed is not SAT
                 self.got_top = True  # any unsat set covers the top of the lattice
@@ -177,7 +182,7 @@ class batMarcoPolo:
                         # This might change after every blocking clause,
                         # but we only need to check right before we're going to use them.
                         implies = self.map.solver.implies()
-                        self.hard_constraints = [x-1 for x in implies if x > 0]
+                        self.hard_constraints = [x - 1 for x in implies if x > 0]
 
                     with self.stats.time('shrink'):
                         oldlen = len(seed)

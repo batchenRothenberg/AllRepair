@@ -1,17 +1,17 @@
 """Utility class(es) for marco_py"""
+import time
 from collections import Counter, defaultdict
 
 # Three options for measuring time: choose one.
 # TODO: Consider using time.process_time() (only in 3.3, though)
+_get_time = time.time  # wall-time
 
-import time
-_get_time = time.time   # wall-time
 
 # time.clock() is not portable - behaves differently per OS
-#_get_time = time.clock   # user-time
+# _get_time = time.clock   # user-time
 
-#import os
-#_get_time = lambda: sum(os.times()[:4])  # combined user/sys time for this process and its children
+# import os
+# _get_time = lambda: sum(os.times()[:4])  # combined user/sys time for this process and its children
 
 
 class Statistics:
@@ -21,7 +21,7 @@ class Statistics:
         self._counts = Counter()
         self._stats = defaultdict(list)
         self._category = None
-	self.size = 0 #bat
+        self.size = 0  # bat
 
     # Usage:
     #  s = Statistics()

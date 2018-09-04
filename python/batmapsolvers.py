@@ -3,7 +3,8 @@ from pyminisolvers import minisolvers
 
 class MapSolver:
     """The base class for any MapSolver, implementing common utility functions."""
-    def __init__(self, sizes, bias=True, dump=None): #bat
+
+    def __init__(self, sizes, bias=True, dump=None):  # bat
         """Common initialization.
 
         Args:
@@ -13,7 +14,7 @@ class MapSolver:
                   None is no bias.
         """
         self.n = sum(sizes)
-	self.sizes = sizes #bat
+        self.sizes = sizes  # bat
         self.bias = bias
         self.all_n = set(range(self.n))  # used in complement fairly frequently #bat
         self.dump = dump
@@ -25,7 +26,7 @@ class MapSolver:
             True if seed is unexplored (i.e., its corresponding assignment is a model)
         """
         out = self.complement(seed)
-        return self.solver.solve([(i+1) for i in seed] + [-(i+1) for i in out])
+        return self.solver.solve([(i + 1) for i in seed] + [-(i + 1) for i in out])
 
     def find_above(self, seed):
         """Look for and return any unexplored point including the given seed.
@@ -35,7 +36,7 @@ class MapSolver:
         Returns:
             Any unexplored strict superset of seed, if one exists.
         """
-        superset_exists = self.solver.solve( (i+1) for i in seed )
+        superset_exists = self.solver.solve((i + 1) for i in seed)
         if superset_exists:
             return self.get_seed()
         else:
@@ -50,15 +51,15 @@ class MapSolver:
         return self.solver.get_model_trues(start=0, end=self.n)
 
         # slower:
-        #model = self.solver.get_model()
-        #return [i for i in range(self.n) if model[i]]
+        # model = self.solver.get_model()
+        # return [i for i in range(self.n) if model[i]]
 
         # slowest:
-        #seed = []
-        #for i in range(self.n):
+        # seed = []
+        # for i in range(self.n):
         #    if self.solver.model_value(i+1):
         #        seed.add(i)
-        #return seed
+        # return seed
 
     def maximize_seed(self, seed, direction):
         """Maximize a given seed within the current set of constraints.
@@ -73,15 +74,15 @@ class MapSolver:
             if direction:
                 # search for a solution w/ all of the current seed plus at
                 # least one from the current complement.
-                self.solver.add_clause([-x] + [i+1 for i in comp])  # temporary clause
+                self.solver.add_clause([-x] + [i + 1 for i in comp])  # temporary clause
                 # activate the temporary clause and all seed clauses
-                havenew = self.solver.solve([x] + [i+1 for i in seed])
+                havenew = self.solver.solve([x] + [i + 1 for i in seed])
             else:
                 # search for a solution w/ none of current complement and at
                 # least one from the current seed removed.
-                self.solver.add_clause([-x] + [-(i+1) for i in seed])  # temporary clause
+                self.solver.add_clause([-x] + [-(i + 1) for i in seed])  # temporary clause
                 # activate the temporary clause and deactivate complement clauses
-                havenew = self.solver.solve([x] + [-(i+1) for i in comp])
+                havenew = self.solver.solve([x] + [-(i + 1) for i in comp])
             self.solver.add_clause([-x])  # remove the temporary clause
 
             if havenew:
@@ -102,55 +103,60 @@ class MapSolver:
     def block_down(self, frompoint):
         """Block down from a given set."""
         comp = self.complement(frompoint)
-        clause = [(i+1) for i in comp]
+        clause = [(i + 1) for i in comp]
         self.add_clause(clause)
 
     def block_up(self, frompoint):
         """Block up from a given set."""
-        clause = [-(i+1) for i in frompoint]
+        clause = [-(i + 1) for i in frompoint]
         self.add_clause(clause)
 
-    #bat
-    def block_good_repair(self, seed): 
-	#print "seed: " + str(seed)
-	#print "original: " + str([self.original_vars])
-	#self.solver.add_clause( [(x) for x in self.original_vars if x-1 not in seed] ) #bad because it blocks *all* changes to changed lines, instead of the specific changes made.
-	self.solver.add_clause( [(-(x+1)) for x in seed if x+1 not in self.original_vars] )
+    # bat
+    def block_good_repair(self, seed):
+        # print "seed: " + str(seed)
+        # print "original: " + str([self.original_vars])
+        # self.solver.add_clause( [(x) for x in self.original_vars if x-1 not in seed] ) #bad because it blocks *all* changes to changed lines, instead of the specific changes made.
+        self.solver.add_clause([(-(x + 1)) for x in seed if x + 1 not in self.original_vars])
 
-    #bat
+    # bat
     def block_bad_repair(self, bad_path, config):
         # print "adding clause: ", [(-(x+1)) for x in bad_path]
-        self.solver.add_clause( [(-(x+1)) for x in bad_path] )
-        if config['blockrepair']=="basic":
+        self.solver.add_clause([(-(x + 1)) for x in bad_path])
+        if config['blockrepair'] == "basic":
             pass
-        elif config['blockrepair']=="slicing":
-            print "slicing"
-        elif config['blockrepair']=="generalization":
-            print "generalization"
+        elif config['blockrepair'] == "slicing":
+            print
+            "slicing"
+        elif config['blockrepair'] == "generalization":
+            print
+            "generalization"
+
 
 class MinicardMapSolver(MapSolver):
-    def __init__(self, sizes, bias=True, limit=None):   #bat # bias=True is a high/inclusion/MUS bias; False is a low/exclusion/MSS bias.
-        MapSolver.__init__(self,sizes,bias)
-	
-	self.m = len(sizes) #num of groups- used frequently
-	self.n = sum(sizes) #num of total cons - used frequently
-        self.k = self.m-1  # initial lower bound on # of unfixed lines (True variables of original cons.)
-	self.limit = limit #bat
+    def __init__(self, sizes, bias=True,
+                 limit=None):  # bat # bias=True is a high/inclusion/MUS bias; False is a low/exclusion/MSS bias.
+        MapSolver.__init__(self, sizes, bias)
+
+        self.m = len(sizes)  # num of groups- used frequently
+        self.n = sum(sizes)  # num of total cons - used frequently
+        self.k = self.m - 1  # initial lower bound on # of unfixed lines (True variables of original cons.)
+        self.limit = limit  # bat
 
         self.solver = minisolvers.MinicardSolver()
-        #while self.solver.nvars() < self.n:
-         #   self.solver.new_var(self.bias)
-	self.original_vars = []
-	start = 1
-	for size in sizes:
-		self.original_vars.append(start)
-		self.solver.new_var(True) #original variable
-		self.solver.new_vars(size-1, False) #repair variables
-		self.solver.add_atmost(range(start,start+size),1) #at most one cons from each group 
-		self.solver.add_clause(range(start,start+size)) #at least one cons from each group => only legal programs are considered
-		start = start + size
-	#print self.sizes
-	#print self.original_vars
+        # while self.solver.nvars() < self.n:
+        #   self.solver.new_var(self.bias)
+        self.original_vars = []
+        start = 1
+        for size in sizes:
+            self.original_vars.append(start)
+            self.solver.new_var(True)  # original variable
+            self.solver.new_vars(size - 1, False)  # repair variables
+            self.solver.add_atmost(range(start, start + size), 1)  # at most one cons from each group
+            self.solver.add_clause(
+                range(start, start + size))  # at least one cons from each group => only legal programs are considered
+            start = start + size
+        # print self.sizes
+        # print self.original_vars
 
         # add "bound-setting" variables
         for i in range(self.m):
@@ -166,14 +172,15 @@ class MinicardMapSolver(MapSolver):
         #       for AtLeast 1: assume(-x)
         # and to make AtLeast into an AtMost:
         #   AtLeast([lits], k) ==> AtMost([-lits], #lits-k)
-        #if self.bias:
-        self.solver.add_atmost([-(x) for x in self.original_vars] + [-(self.n+x+1) for x in range(self.m)], self.m)
-        #else:
+        # if self.bias:
+        self.solver.add_atmost([-(x) for x in self.original_vars] + [-(self.n + x + 1) for x in range(self.m)], self.m)
+        # else:
         #   self.solver.add_atmost([(x+1) for x in range(self.n * 2)], self.n)
 
     def solve_with_bound(self, k):
         # same assumptions work both for high bias / atleast and for low bias / atmost
-        return self.solver.solve( [-(self.n+x+1) for x in range(k)] + [(self.n+k+x+1) for x in range(self.m-k)] )
+        return self.solver.solve(
+            [-(self.n + x + 1) for x in range(k)] + [(self.n + k + x + 1) for x in range(self.m - k)])
 
     def next_seed(self, stats):
         '''
@@ -182,18 +189,19 @@ class MinicardMapSolver(MapSolver):
         if self.solve_with_bound(self.k):
             return self.get_seed()
 
-        #if self.bias:
+        # if self.bias:
         if not self.solve_with_bound(0):
             # no more models
-	    stats.size = self.m-self.k #record max reviewed size
+            stats.size = self.m - self.k  # record max reviewed size
             return None
         # move to the next bound
-	stats.size = self.m-self.k #record max reviewed size
+        stats.size = self.m - self.k  # record max reviewed size
         self.k -= 1
-	if self.limit is not None and self.m-self.k>self.limit:
-		print "Program size limit reached"
-		exit(0)
-        #else:
+        if self.limit is not None and self.m - self.k > self.limit:
+            print
+            "Program size limit reached"
+            exit(0)
+        # else:
         #   if not self.solve_with_bound(self.n):
         #        # no more models
         #        return None
@@ -201,13 +209,14 @@ class MinicardMapSolver(MapSolver):
         #    self.k += 1
 
         while not self.solve_with_bound(self.k):
-            #if self.bias:
-	    stats.size = self.m-self.k #record max reviewed size
+            # if self.bias:
+            stats.size = self.m - self.k  # record max reviewed size
             self.k -= 1
-	    if self.limit is not None and self.m-self.k>self.limit:
-		print "Program size limit reached"
-		exit(0)
-            #else:
+            if self.limit is not None and self.m - self.k > self.limit:
+                print
+                "Program size limit reached"
+                exit(0)
+            # else:
             #    self.k += 1
 
         assert 0 <= self.k <= self.n
@@ -215,33 +224,34 @@ class MinicardMapSolver(MapSolver):
         return self.get_seed()
 
     def block_above_size(self, size):
-        self.solver.add_atmost( [(x+1) for x in range(self.n)], size)
+        self.solver.add_atmost([(x + 1) for x in range(self.n)], size)
         self.k = min(size, self.k)
 
     def block_below_size(self, size):
-        self.solver.add_atmost( [-(x+1) for x in range(self.n)], self.n-size)
+        self.solver.add_atmost([-(x + 1) for x in range(self.n)], self.n - size)
         self.k = min(size, self.k)
 
 
 class MinisatMapSolver(MapSolver):
-    def __init__(self, sizes, bias=True, dump=None):   # bias=True is a high/inclusion/MUS bias; False is a low/exclusion/MSS bias; None is no bias.
+    def __init__(self, sizes, bias=True,
+                 dump=None):  # bias=True is a high/inclusion/MUS bias; False is a low/exclusion/MSS bias; None is no bias.
         MapSolver.__init__(self, sizes, bias, dump)
 
-        self.solver = minisolvers.MinicardSolver() #bat minicard instead of minisat
-        #while self.solver.nvars() < self.n:
+        self.solver = minisolvers.MinicardSolver()  # bat minicard instead of minisat
+        # while self.solver.nvars() < self.n:
         #    self.solver.new_var(self.bias)
 
-	#bat
-	start = 1
-	for size in sizes:
-		self.solver.new_var(True)
-		self.solver.new_vars(size-1, False)
-		#print(range(start,start+size))
-		self.solver.add_atmost(range(start,start+size),1)
-		self.solver.add_clause(range(start,start+size))
-		start = start + size
+        # bat
+        start = 1
+        for size in sizes:
+            self.solver.new_var(True)
+            self.solver.new_vars(size - 1, False)
+            # print(range(start,start+size))
+            self.solver.add_atmost(range(start, start + size), 1)
+            self.solver.add_clause(range(start, start + size))
+            start = start + size
 
-        #if self.bias is None:
+        # if self.bias is None:
         #    self.solver.set_rnd_pol(True)
 
     def next_seed(self):

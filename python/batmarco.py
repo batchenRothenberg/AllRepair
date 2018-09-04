@@ -6,9 +6,9 @@ import signal
 import sys
 import threading
 
-import batutils
-import batmapsolvers
 import CNFsolvers
+import batmapsolvers
+import batutils
 from batMarcoPolo import batMarcoPolo
 
 
@@ -28,9 +28,9 @@ def parse_args():
     parser.add_argument('-T', '--timeout', type=int, default=None,
                         help="limit the runtime to TIMEOUT seconds")
     parser.add_argument('-l', '--limit', type=int, default=None,
-                        help="limit number of mutated programs to check") #bat
+                        help="limit number of mutated programs to check")  # bat
     parser.add_argument('-k', '--size', type=int, default=None,
-                        help="limit size of mutated programs to check") #bat
+                        help="limit size of mutated programs to check")  # bat
     type_group = parser.add_mutually_exclusive_group()
     type_group.add_argument('--cnf', action='store_true',
                             help="assume input is in DIMACS CNF or Group CNF format (autodetected if filename is *.[g]cnf or *.[g]cnf.gz).")
@@ -38,11 +38,13 @@ def parse_args():
                             help="assume input is in SMT2 format (autodetected if filename is *.smt2).")
     parser.add_argument('-b', '--bias', type=str, choices=['MUSes', 'MCSes'], default='MUSes',
                         help="bias the search toward MUSes or MCSes early in the execution [default: MUSes] -- all will be enumerated eventually; this just uses heuristics to find more of one or the other early in the enumeration.")
-    parser.add_argument('-r', '--blockrepair', type=str, choices=['basic', 'slicing', 'generalization'], default='basic',
+    parser.add_argument('-r', '--blockrepair', type=str, choices=['basic', 'slicing', 'generalization'],
+                        default='basic',
                         help="control the algorithm used for blocking a bad repair. 'basic': block the one bad program, 'slicing': block all programs where the dynamic slice of the violated assertion hasn't changed, 'generalization': use the error generalization algorithm. ")
 
     # Experimental / Research arguments
-    exp_group = parser.add_argument_group('Experimental / research options', "These can typically be ignored; the defaults will give the best performance.")
+    exp_group = parser.add_argument_group('Experimental / research options',
+                                          "These can typically be ignored; the defaults will give the best performance.")
     exp_group.add_argument('--mssguided', action='store_true',
                            help="check for unexplored subsets in immediate supersets of any MSS found")
     exp_group.add_argument('--ignore-implies', action='store_true',
@@ -55,7 +57,8 @@ def parse_args():
                            help="use Minisat in place of MUSer2 for CNF (NOTE: much slower and usually not worth doing!)")
 
     # Max/min-models arguments
-    max_group_outer = parser.add_argument_group('  Maximal/minimal models options', "By default, the Map solver will efficiently produce maximal/minimal models itself by giving each variable a default polarity.  These options override that (--nomax, -m) or extend it (-M, --smus) in various ways.")
+    max_group_outer = parser.add_argument_group('  Maximal/minimal models options',
+                                                "By default, the Map solver will efficiently produce maximal/minimal models itself by giving each variable a default polarity.  These options override that (--nomax, -m) or extend it (-M, --smus) in various ways.")
     max_group = max_group_outer.add_mutually_exclusive_group()
     max_group.add_argument('--nomax', action='store_true',
                            help="perform no model maximization whatsoever (applies either shrink() or grow() to all seeds)")
@@ -80,7 +83,7 @@ def parse_args():
 
 
 def at_exit(stats):
-    sys.stderr.write("Max inspected size: %d\n" % (stats.size) ) #bat
+    sys.stderr.write("Max inspected size: %d\n" % (stats.size))  # bat
 
     # print stats
     times = stats.get_times()
@@ -117,7 +120,7 @@ def setup_execution(args, stats):
         # at_exit will fire here
 
     signal.signal(signal.SIGTERM, handler)  # external termination
-    signal.signal(signal.SIGINT, handler)   # ctl-c keyboard interrupt
+    signal.signal(signal.SIGINT, handler)  # ctl-c keyboard interrupt
 
     # register a timeout alarm, if needed
     if args.timeout:
@@ -133,23 +136,27 @@ def setup_solvers(args):
     infile = args.infile
 
     # create appropriate constraint solver
-    if args.cnf or infile.name.endswith('.cnf') or infile.name.endswith('.cnf.gz') or infile.name.endswith('.gcnf') or infile.name.endswith('.gcnf.gz'):
+    if args.cnf or infile.name.endswith('.cnf') or infile.name.endswith('.cnf.gz') or infile.name.endswith(
+            '.gcnf') or infile.name.endswith('.gcnf.gz'):
         if args.force_minisat:
             try:
                 csolver = CNFsolvers.MinisatSubsetSolver(infile)
             except OSError as e:
-                sys.stderr.write("[31;1mERROR:[m Unable to load pyminisolvers library.\n[33mRun 'make -C pyminisolvers' to compile the library.[m\n\n")
+                sys.stderr.write(
+                    "[31;1mERROR:[m Unable to load pyminisolvers library.\n[33mRun 'make -C pyminisolvers' to compile the library.[m\n\n")
                 sys.stderr.write(str(e) + "\n")
                 sys.exit(1)
         else:
             try:
                 csolver = CNFsolvers.MUSerSubsetSolver(infile)
             except CNFsolvers.MUSerException as e:
-                sys.stderr.write("[31;1mERROR:[m Unable to use MUSer2 for MUS extraction.\n[33mUse --force-minisat to use Minisat instead[m (NOTE: it will be much slower.)\n\n")
+                sys.stderr.write(
+                    "[31;1mERROR:[m Unable to use MUSer2 for MUS extraction.\n[33mUse --force-minisat to use Minisat instead[m (NOTE: it will be much slower.)\n\n")
                 sys.stderr.write(str(e) + "\n")
                 sys.exit(1)
             except OSError as e:
-                sys.stderr.write("[31;1mERROR:[m Unable to load pyminisolvers library.\n[33mRun 'make -C pyminisolvers' to compile the library.[m\n\n")
+                sys.stderr.write(
+                    "[31;1mERROR:[m Unable to load pyminisolvers library.\n[33mRun 'make -C pyminisolvers' to compile the library.[m\n\n")
                 sys.stderr.write(str(e) + "\n")
                 sys.exit(1)
         infile.close()
@@ -157,7 +164,8 @@ def setup_solvers(args):
         try:
             from batSMTsolvers import Z3SubsetSolver
         except ImportError as e:
-            sys.stderr.write("ERROR: Unable to import z3 module:  %s\n\nPlease install Z3 from https://z3.codeplex.com/\n" % str(e))
+            sys.stderr.write(
+                "ERROR: Unable to import z3 module:  %s\n\nPlease install Z3 from https://z3.codeplex.com/\n" % str(e))
             sys.exit(1)
         # z3 has to be given a filename, not a file object, so close infile and just pass its name
         infile.close()
@@ -176,14 +184,15 @@ def setup_solvers(args):
         varbias = (args.bias == 'MUSes')  # High bias (True) for MUSes, low (False) for MCSes
 
     try:
-        #if args.MAX or args.smus:
+        # if args.MAX or args.smus:
         #   # msolver = mapsolvers.MinicardMapSolver(n=csolver.n, bias=varbias)
-        msolver = batmapsolvers.MinicardMapSolver(sizes=csolver.sizes, bias=varbias, limit=args.size) #bat
-        #else:
+        msolver = batmapsolvers.MinicardMapSolver(sizes=csolver.sizes, bias=varbias, limit=args.size)  # bat
+        # else:
         #   # msolver = mapsolvers.MinisatMapSolver(sizes=csolver.sizes, bias=varbias, dump=args.dump_map)
         #    msolver = batmapsolvers.MinisatMapSolver(sizes=csolver.sizes, bias=varbias, dump=args.dump_map) #bat
     except OSError as e:
-        sys.stderr.write("[31;1mERROR:[m Unable to load pyminisolvers library.\n[33mRun 'make -C pyminisolvers' to compile the library.[m\n\n")
+        sys.stderr.write(
+            "[31;1mERROR:[m Unable to load pyminisolvers library.\n[33mRun 'make -C pyminisolvers' to compile the library.[m\n\n")
         sys.stderr.write(str(e) + "\n")
         sys.exit(1)
 
@@ -208,8 +217,8 @@ def setup_config(args):
     config['mssguided'] = args.mssguided
     config['block_both'] = args.block_both
     config['verbose'] = args.verbose > 1
-    config['limit'] = args.limit #bat
-    config['size'] = args.size #bat
+    config['limit'] = args.limit  # bat
+    config['size'] = args.size  # bat
     config['blockrepair'] = args.blockrepair  # bat
 
     return config
@@ -234,43 +243,45 @@ def main():
     # ref: https://thisismiller.github.io/blog/CPython-Signal-Handling/
     def enumerate():
         remaining = args.limit
-	
-	possible_solutions=0
+
+        possible_solutions = 0
         for result in mp.enumerate_basic():
-            #output = result[0]
-            #if args.alltimes:
+            # output = result[0]
+            # if args.alltimes:
             #    output = "%s %0.3f" % (output, stats.current_time())
-            #if args.verbose:
+            # if args.verbose:
             #    output = "%s %s" % (output, " ".join([str(x + 1) for x in result[1]]))
-	
-            #print(output) 
-	    
-	    #bat
-	    
-	    if result[0]=="U":
-		possible_solutions = possible_solutions+1
-		print("-----------------------------------------------------------")
-		print("Possible solution:")
-            	if args.alltimes:
-			print "Elapsed time: %0.3f" % (stats.current_time())
-		#group,cons_i = csolver.soft_constraints[x]
-		#print([(x,csolver.constraints[cons_i]) for x in result[1]])
-		relevant_soft_cons = [csolver.soft_constraints[i] for i in result[1]]
-		for group,cons_i in relevant_soft_cons:
-			orig_soft_i,orig_cons_i = csolver.get_original_index(group)
-			if orig_cons_i!=cons_i: #original not chosen for group
-				print "Group",str(group),": Replcae",csolver.constraints[orig_cons_i],"with",csolver.constraints[cons_i]
-	    
+
+            # print(output)
+
+            # bat
+
+            if result[0] == "U":
+                possible_solutions = possible_solutions + 1
+                print("-----------------------------------------------------------")
+                print("Possible solution:")
+                if args.alltimes:
+                    print("Elapsed time: %0.3f" % (stats.current_time()))
+                # group,cons_i = csolver.soft_constraints[x]
+                # print([(x,csolver.constraints[cons_i]) for x in result[1]])
+                relevant_soft_cons = [csolver.soft_constraints[i] for i in result[1]]
+                for group, cons_i in relevant_soft_cons:
+                    orig_soft_i, orig_cons_i = csolver.get_original_index(group)
+                    if orig_cons_i != cons_i:  # original not chosen for group
+                        print("Group " + str(group) + ": Replace " + str(csolver.constraints[orig_cons_i]) + " with " +
+                              str(csolver.constraints[cons_i]))
+
             if remaining:
                 remaining -= 1
                 if remaining == 0:
                     sys.stderr.write("Number of programs limit reached.\n")
                     sys.exit(0)
-	if possible_solutions==0:
-		print "No solutions found using the given alternatives"
+        if possible_solutions == 0:
+            print
+            ("No solutions found using the given alternatives")
 
     enumthread = threading.Thread(target=enumerate)
-    enumthread.daemon = True       # so thread is killed when main thread exits (e.g. in signal handler)
+    enumthread.daemon = True  # so thread is killed when main thread exits (e.g. in signal handler)
     enumthread.start()
     enumthread.join(float("inf"))  # timeout required for signal handler to work; set to infinity
 
