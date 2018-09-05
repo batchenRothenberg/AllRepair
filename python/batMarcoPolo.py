@@ -49,7 +49,7 @@ class batMarcoPolo:
                     yield ("S", seed)
                     if self.config['smus']:
                         clause = self.block_bad_repair(seed)
-                        print "blocking: ", clause
+                        print("blocking: ", clause)
                         self.map.solver.add_clause(clause)
                     else:
                         self.map.block_up(
@@ -68,10 +68,10 @@ class batMarcoPolo:
         if self.config['blockrepair']=="basic":
             return [(-(x + 1)) for x in seed]
         elif self.config['blockrepair']=="slicing":
-            print "slicing"
+            print("slicing")
             return slice_program(seed, self.subs.s.model(), self.subs.assert_and_assume_constraints, self.subs.constraints, self.subs.assignment_map, self.subs.soft_constraints)
         elif self.config['blockrepair']=="generalization":
-            print "generalization"
+            print("generalization")
             return [(-(x + 1)) for x in seed]
 
     def record_delta(self, name, oldlen, newlen, up):
