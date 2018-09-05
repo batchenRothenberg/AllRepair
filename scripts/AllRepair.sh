@@ -102,7 +102,7 @@ marco(){
 		if [[ ! -d repair_out ]]; then
 			mkdir repair_out
 		fi
-		../python/batmarco.py ${out_name_no_extension}.gsmt2 ${TIMEOUT+"-T"} $TIMEOUT ${SIZELIMIT+"-k"} $SIZELIMIT ${PROGRAMLIMIT+"-l"} $PROGRAMLIMIT ${BLOCK+"--blockrepair"} $BLOCK--smt -v -s -a --smus &> repair_out/${out_name_no_extension}.rout
+		../python/batmarco.py ${out_name_no_extension}.gsmt2 ${TIMEOUT+"-T"} $TIMEOUT ${SIZELIMIT+"-k"} $SIZELIMIT ${PROGRAMLIMIT+"-l"} $PROGRAMLIMIT ${BLOCK+"--blockrepair"} $BLOCK --smt -v -s -a --smus &> repair_out/${out_name_no_extension}.rout
 	else
 		../python/batmarco.py ${out_name_no_extension}.gsmt2 ${TIMEOUT+"-T"} $TIMEOUT ${SIZELIMIT+"-k"} $SIZELIMIT ${PROGRAMLIMIT+"-l"} $PROGRAMLIMIT ${BLOCK+"--blockrepair"} $BLOCK --smt -v -s -a --smus
 	fi
