@@ -229,7 +229,7 @@ void smt2_convt::define_object_size(
     convert_expr(ptr);
     out << ") (_ bv" << number << " " << BV_ADDR_BITS << "))" <<
       "(= " << id << " (_ bv" << object_size.to_ulong() << " " <<
-      size_width << ")))) ; {0} \n"; //bat added {0}
+      size_width << ")))) ;AllRepair {0} \n"; //bat added {0}
   }
 }
 
@@ -4518,7 +4518,7 @@ void smt2_convt::set_to(const exprt &expr, bool value, int group)
         out << "(assert (= |" << smt2_identifier << "| ";
         convert_expr(equal_expr.rhs());
         out << " ))";
-        out << " ; {" << group <<"}";
+        out << " ;AllRepair {" << group <<"}";
         out << "\n";
         return; // done
       }
@@ -4545,7 +4545,11 @@ void smt2_convt::set_to(const exprt &expr, bool value, int group)
     convert_expr(expr);
 
   out << ")";
-  out << " ; {" << group <<"}"; //bat
+  if (group == 0) {
+	  out << " ;AllRepair {demand}"; //bat
+  } else {
+  	  out << " ;AllRepair {" << group <<"}"; //bat
+  }
   out << "\n"; // assert
 
   return;

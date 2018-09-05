@@ -169,7 +169,7 @@ def setup_solvers(args):
             sys.exit(1)
         # z3 has to be given a filename, not a file object, so close infile and just pass its name
         infile.close()
-        csolver = Z3SubsetSolver(infile.name)
+        csolver = Z3SubsetSolver(infile.name,args.blockrepair)
     else:
         sys.stderr.write(
             "Cannot determine filetype (cnf or smt) of input: %s\n"

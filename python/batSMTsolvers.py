@@ -44,13 +44,13 @@ class Z3SubsetSolver:
     s = None
     varcache = {}
     idcache = {}
-    file_encoding = "igsmt2"  # TODO: delete once gsmt2 implementation is fixed in CBMC
-    assert_and_assume_constraints = []  # TODO: Implenment assignment to this variable
+    assert_and_assume_constraints = []
     # var is mapped to the index of its assigning constraint, if exists
     assignment_map = {} # bat
 
 
-    def __init__(self, filename):
+    def __init__(self, filename, blocking_method):
+        self.blocking_method = blocking_method
         self.read_constraints(filename)
         i = 0
         for c in self.constraints:
@@ -111,32 +111,30 @@ class Z3SubsetSolver:
         f = open(filename)  # already checked before that file exists
         cons_i = 0
         for line in f.readlines():
-            if self.file_encoding == "gsmt2":
-                p = re.compile('; *\{([0-9]*)\}')
-            else: # self.file_encoding == "igsmt2"
-                p = re.compile(';AllRepair *\{([0-9,a-z]*)\}')
+            p = re.compile(';AllRepair *\{([0-9,a-z]*)\}')
             res = p.findall(line)
             if res != []:
                 # add constraint to hard/soft constraints
-                if res[0] == '0' or res[0] == 'assume' or res[0] == 'assert':
+                if res[0] == '0' or res[0] == 'demand':
                     self.hard_constraints.append(cons_i)
                 else:
                     self.soft_constraints.append((int(res[0]), cons_i))
                 # if assert or assume - add to assert_and_assume list. Otherwise - it's an assignment, add to map.
-                if res[0] == 'assume' or res[0] == 'assert':
-                    self.assert_and_assume_constraints.append(cons_i)
-                else:
-                    cons = self.constraints[cons_i]
-                    if is_and(cons): # compound constraint due to loop unwinding
-                        assigns = cons.children()
+                if self.blocking_method != "basic":
+                    if res[0] == 'demand':
+                        self.assert_and_assume_constraints.append(cons_i)
                     else:
-                        assigns = [cons]
-                    for ass in assigns:
-                        assert is_eq(ass)
-                        assert ass.num_args() > 1
-                        assert is_const(ass.arg(0))
-                        if ass.arg(0).__str__() not in self.assignment_map:
-                            self.assignment_map[ass.arg(0).__str__()] = cons_i
+                        cons = self.constraints[cons_i]
+                        if is_and(cons): # compound constraint due to loop unwinding
+                            assigns = cons.children()
+                        else:
+                            assigns = [cons]
+                        for ass in assigns:
+                            assert is_eq(ass)
+                            assert ass.num_args() > 1
+                            assert is_const(ass.arg(0))
+                            if ass.arg(0).__str__() not in self.assignment_map:
+                                self.assignment_map[ass.arg(0).__str__()] = cons_i
                 cons_i = cons_i + 1
         print(self.assert_and_assume_constraints)
         print(self.assignment_map)
