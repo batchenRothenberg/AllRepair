@@ -114,7 +114,7 @@ class Z3SubsetSolver:
             if self.file_encoding == "gsmt2":
                 p = re.compile('; *\{([0-9]*)\}')
             else: # self.file_encoding == "igsmt2"
-                p = re.compile(';Allrepair *\{([0-9,a-z]*)\}')
+                p = re.compile(';AllRepair *\{([0-9,a-z]*)\}')
             res = p.findall(line)
             if res != []:
                 # add constraint to hard/soft constraints
