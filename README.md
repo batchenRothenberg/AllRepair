@@ -29,17 +29,17 @@ https://link.springer.com/chapter/10.1007%2F978-3-319-48989-6_36
 
 To run AllRepair, go to directory scripts and run the AllRepair.sh script using the following command:
 
-./AllRepair.sh [FileName] [Options]
+                              ./AllRepair.sh [FileName] [Options]
 
 For example, running 
 
-./AllRepair.sh Examples/ex1.c -m 1 -b 5 -s 1
+                              ./AllRepair.sh Examples/ex1.c -m 1 -b 5 -s 1
 
 Will return all ways to reapir program ex1.c (from folder Examples) using mutation level 1, with the unwinding bound set to 5 and the maximum repair size is 1 (only one mutation at a time).
 
 To see the complete list of options and their meaning, run:
 
-./AllRepair.sh -h
+                              ./AllRepair.sh -h
 
 ##########################################################################################
 
@@ -47,7 +47,7 @@ To see the complete list of options and their meaning, run:
 
 To run AllRepair on the TCAS benchmark under the same conditions as in the FM16 paper (link above), go to directory scripts and run the RunTcas.sh script using the following command:
 
-./RunTcas.sh
+                              ./RunTcas.sh
 
 This will run AllRepair on all 41 versions of the TCAS benchmark using the same parameters as we used in the paper (unwinding bound of 5 and at most 2 mutations at once).
 The script will create a folder named "repair_out" under scripts, in which you can find a file with the repair results for each of the TCAS versions.
