@@ -9,9 +9,19 @@ https://link.springer.com/chapter/10.1007%2F978-3-319-48989-6_36
 
 ##########################################################################################
 
-### Installation:
+### Building instructions (currently available only for Linux Debian-like distrubutions):
 
-TODO: Add instructions....
+1. Install all pre-requists using:
+
+          sudo apt-get install g++ gcc flex bison make git libwww-perl patch libz-dev python-z3
+
+2. Download AllRepair source code using:
+
+          git clone https://github.com/batchenRothenberg/AllRepair.git
+
+3. Build the translation and mutation units (altered CBMC) by running "make" in the AllRepair/src directory.
+
+4. Build the repair unit (altered MARCO), by running "make" in the AllRepair/python/pyminisolvers directory.
 
 ##########################################################################################
 
