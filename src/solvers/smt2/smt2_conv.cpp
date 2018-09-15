@@ -4647,7 +4647,7 @@ void smt2_convt::find_symbols(const exprt &expr)
         convert_expr(from_integer(i, array_type.size().type()));
         out << ") "; // select
         convert_expr(expr.operands()[i]);
-        out << "))" << " ; {0} \n"; // =, assert (bat added ;{0})
+        out << "))" << " ;AllRepair {0} \n"; // =, assert (bat added ;{0}) //bat
       }
 
       defined_expressions[expr]=id;
@@ -4673,7 +4673,7 @@ void smt2_convt::find_symbols(const exprt &expr)
         convert_expr(from_integer(i, array_type.size().type()));
         out << ") "; // select
         convert_expr(tmp.operands()[i]);
-        out << "))" << " ; {0} \n"; // =, assert (bat added ;{0})
+        out << "))" << " ;AllRepair {0} \n"; // =, assert (bat added ;{0}) //bat
       }
 
       defined_expressions[expr]=id;
