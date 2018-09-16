@@ -41,6 +41,8 @@ def parse_args():
     parser.add_argument('-r', '--blockrepair', type=str, choices=['basic', 'slicing', 'generalization'],
                         default='basic',
                         help="control the algorithm used for blocking a bad repair. 'basic': block the one bad program, 'slicing': block all programs where the dynamic slice of the violated assertion hasn't changed, 'generalization': use the error generalization algorithm. ")
+    parser.add_argument('-n', '--numrepairs', type=int, default=None,
+                        help="stop after finding k possible repairs")
 
     # Experimental / Research arguments
     exp_group = parser.add_argument_group('Experimental / research options',
@@ -220,6 +222,7 @@ def setup_config(args):
     config['limit'] = args.limit  # bat
     config['size'] = args.size  # bat
     config['blockrepair'] = args.blockrepair  # bat
+    config['numrepairs'] = args.numrepairs  # bat
 
     return config
 
@@ -272,6 +275,10 @@ def main():
                         cons  =  csolver.constraints[cons_i]
                         print ("Group" + str(group) + ": Replace " + pretty_print_repair_expression(orig_cons) + " with " + pretty_print_repair_expression(cons))
 
+			if possible_solutions == args.numrepairs:
+				sys.stderr.write("Number of repairs limit reached.\n")
+                sys.exit(0)
+                
             if remaining:
                 remaining -= 1
                 if remaining == 0:
