@@ -50,9 +50,12 @@ To run AllRepair on the TCAS benchmark under the same conditions as in the FM16 
                               ./RunTcas.sh
 
 This will run AllRepair on all 41 versions of the TCAS benchmark using the same parameters as we used in the paper (unwinding bound of 5 and at most 2 mutations at once).
+The repair process will stop once the first repair suggestion is found.
 The script will create a folder named "repair_out" under scripts, in which you can find a file with the repair results for each of the TCAS versions.
+If a repair was found, it will be described under the "possible solution" title (with "Elapsed time" being the time it took to find that repair, excluding program translation time). 
 To run with mutation level 2 instead of 1 edit the script and replace "-m 1" with "-m 2".
-Other parameters can be modified similarily.
+To see more repair suggestions per program, delete the "-r 1" option.
+Other options can be modified similarily.
 
 **Warning: if you run the script twice, output files will be overwritten**
 
