@@ -12,6 +12,7 @@ import batutils
 from batMarcoPolo import batMarcoPolo
 from batRepairPrinter import *
 
+
 def parse_args():
     parser = argparse.ArgumentParser()
 
@@ -171,7 +172,7 @@ def setup_solvers(args):
             sys.exit(1)
         # z3 has to be given a filename, not a file object, so close infile and just pass its name
         infile.close()
-        csolver = Z3SubsetSolver(infile.name,args.blockrepair)
+        csolver = Z3SubsetSolver(infile.name, args.blockrepair)
     else:
         sys.stderr.write(
             "Cannot determine filetype (cnf or smt) of input: %s\n"
@@ -272,18 +273,20 @@ def main():
                     orig_soft_i, orig_cons_i = csolver.get_original_index(group)
                     if orig_cons_i != cons_i:  # original not chosen for group
                         orig_cons = csolver.constraints[orig_cons_i]
-                        cons  =  csolver.constraints[cons_i]
-                        print ("Group" + str(group) + ": Replace " + pretty_print_repair_expression(orig_cons) + " with " + pretty_print_repair_expression(cons))
+                        cons = csolver.constraints[cons_i]
+                        print("Group" + str(group) + ": Replace " + pretty_print_repair_expression(
+                            orig_cons) + " with " + pretty_print_repair_expression(cons))
 
-			if possible_solutions == args.numrepairs:
-				sys.stderr.write("Number of repairs limit reached.\n")
-                sys.exit(0)
-                
+                        if possible_solutions == args.numrepairs:
+                            sys.stderr.write("Number of repairs limit reached.\n")
+                            sys.exit(0)
+
             if remaining:
                 remaining -= 1
                 if remaining == 0:
                     sys.stderr.write("Number of programs limit reached.\n")
                     sys.exit(0)
+
         if possible_solutions == 0:
             print
             ("No solutions found using the given alternatives")
