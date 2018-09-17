@@ -1,5 +1,6 @@
 """Utility class(es) for marco_py"""
 import time
+from abc import ABCMeta, abstractmethod
 from collections import Counter, defaultdict
 
 # Three options for measuring time: choose one.
@@ -73,3 +74,28 @@ class Statistics:
 
     def get_stats(self):
         return self._stats
+
+
+class Graph(ABCMeta):
+
+    @abstractmethod
+    def get_children(self, v):
+        pass
+
+    def _postorder_aux(self, v, do_something, visited):
+        visited.append(v)
+        for c in self.get_children(v):
+            if c not in visited:
+                self._postorder_aux(c, do_something, visited)
+        do_something(v)
+
+    def postorder(self, v, do_something):
+        """
+        Applies do_something to every node in the subgraph of v,
+        with the guarantee that every node will be processed after all of its children.
+        :param v:
+        :param do_something:
+        :return:
+        """
+        self._postorder_aux(v, do_something, [])
+
