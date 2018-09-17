@@ -11,6 +11,8 @@ import batmapsolvers
 import batutils
 from batMarcoPolo import batMarcoPolo
 from batRepairPrinter import *
+from batMultiProgram import batMultiProgram
+from batSMTsolvers import Z3SubsetSolver
 
 
 def parse_args():
@@ -172,7 +174,7 @@ def setup_solvers(args):
             sys.exit(1)
         # z3 has to be given a filename, not a file object, so close infile and just pass its name
         infile.close()
-        csolver = Z3SubsetSolver(infile.name, args.blockrepair)
+        # csolver = Z3SubsetSolver(infile.name, args.blockrepair)
     else:
         sys.stderr.write(
             "Cannot determine filetype (cnf or smt) of input: %s\n"
@@ -186,20 +188,7 @@ def setup_solvers(args):
     else:
         varbias = (args.bias == 'MUSes')  # High bias (True) for MUSes, low (False) for MCSes
 
-    try:
-        # if args.MAX or args.smus:
-        #   # msolver = mapsolvers.MinicardMapSolver(n=csolver.n, bias=varbias)
-        msolver = batmapsolvers.MinicardMapSolver(sizes=csolver.sizes, bias=varbias, limit=args.size)  # bat
-        # else:
-        #   # msolver = mapsolvers.MinisatMapSolver(sizes=csolver.sizes, bias=varbias, dump=args.dump_map)
-        #    msolver = batmapsolvers.MinisatMapSolver(sizes=csolver.sizes, bias=varbias, dump=args.dump_map) #bat
-    except OSError as e:
-        sys.stderr.write(
-            "[31;1mERROR:[m Unable to load pyminisolvers library.\n[33mRun 'make -C pyminisolvers' to compile the library.[m\n\n")
-        sys.stderr.write(str(e) + "\n")
-        sys.exit(1)
-
-    return (csolver, msolver)
+    return varbias
 
 
 def setup_config(args):
@@ -234,9 +223,18 @@ def main():
     with stats.time('setup'):
         args = parse_args()
         setup_execution(args, stats)
-        csolver, msolver = setup_solvers(args)
+        varbias = setup_solvers(args)
+        multiprog = batMultiProgram(args.infile.name, args.blockrepair)
+        csolver = Z3SubsetSolver(multiprog.constraints, multiprog.hard_constraints, multiprog.soft_constraints)
+        try:
+            msolver = batmapsolvers.MinicardMapSolver(sizes=multiprog.sizes, bias=varbias, limit=args.size)
+        except OSError as e:
+            sys.stderr.write(
+                "ERROR: Unable to load pyminisolvers library.\n Run 'make -C pyminisolvers' to compile the library.\n\n")
+            sys.stderr.write(str(e) + "\n")
+            sys.exit(1)
         config = setup_config(args)
-        mp = batMarcoPolo(csolver, msolver, stats, config)
+        mp = batMarcoPolo(csolver, msolver, stats, config, multiprog)
 
     # useful for timing just the parsing / setup
     if args.limit == 0:
@@ -268,12 +266,12 @@ def main():
                     print("Elapsed time: %0.3f" % (stats.current_time()))
                 # group,cons_i = csolver.soft_constraints[x]
                 # print([(x,csolver.constraints[cons_i]) for x in result[1]])
-                relevant_soft_cons = [csolver.soft_constraints[i] for i in result[1]]
+                relevant_soft_cons = [multiprog.soft_constraints[i] for i in result[1]]
                 for group, cons_i in relevant_soft_cons:
-                    orig_soft_i, orig_cons_i = csolver.get_original_index(group)
+                    orig_soft_i, orig_cons_i = multiprog.get_original_index(group)
                     if orig_cons_i != cons_i:  # original not chosen for group
-                        orig_cons = csolver.constraints[orig_cons_i]
-                        cons = csolver.constraints[cons_i]
+                        orig_cons = multiprog.constraints[orig_cons_i]
+                        cons = multiprog.constraints[cons_i]
                         print("Group" + str(group) + ": Replace " + pretty_print_repair_expression(
                             orig_cons) + " with " + pretty_print_repair_expression(cons))
 
@@ -288,8 +286,7 @@ def main():
                     sys.exit(0)
 
         if possible_solutions == 0:
-            print
-            ("No solutions found using the given alternatives")
+            print("No solutions found using the given alternatives")
 
     enumthread = threading.Thread(target=enumerate)
     enumthread.daemon = True  # so thread is killed when main thread exits (e.g. in signal handler)

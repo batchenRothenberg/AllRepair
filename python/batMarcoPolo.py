@@ -5,12 +5,13 @@ except ImportError:
 from batSlicing import *
 
 class batMarcoPolo:
-    def __init__(self, csolver, msolver, stats, config):
+    def __init__(self, csolver, msolver, stats, config, multi_program):
         self.subs = csolver
         self.map = msolver
         self.seeds = SeedManager(msolver, stats, config)
         self.stats = stats
         self.config = config
+        self.multi_program = multi_program
         self.bias_high = self.config['bias'] == 'MUSes'  # used frequently
         self.n = self.map.n  # number of constraints
         self.got_top = False  # track whether we've explored the complete set (top of the lattice)

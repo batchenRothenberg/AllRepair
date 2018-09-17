@@ -1,10 +1,5 @@
-import re
-from collections import Counter
 from collections import deque
-from functools import reduce
-
 from z3 import *
-
 
 
 def dimacs_var(i):
@@ -33,115 +28,30 @@ def read_dimacs(filename):
 class Z3SubsetSolver:
     c_prefix = "!marco"  # to differentiate our vars from instance vars
 
-    constraints = []
-    # soft_constraints = defaultdict(list) #bat
-    soft_constraints = []  # bat
-    hard_constraints = []  # bat
-    sizes = []  # bat
     assigned_to = []  # bat
     mutants = 0  # bat
     n = 0
     s = None
     varcache = {}
     idcache = {}
-    assert_and_assume_constraints = []
-    # var is mapped to the index of its assigning constraint, if exists
-    assignment_map = {} # bat
 
+    def __init__(self, constraints, hard_constraints, soft_constraints):
+        self.make_solver(constraints, hard_constraints, soft_constraints)
 
-    def __init__(self, filename, blocking_method):
-        self.blocking_method = blocking_method
-        self.read_constraints(filename)
-        i = 0
-        for c in self.constraints:
-            # print i,c
-            i = i + 1
-        # print(self.soft_constraints)
-        # print(self.hard_constraints)
-        print("total cons:", len(self.constraints), "total hard+soft:", len(self.soft_constraints) + len(
-            self.hard_constraints))
-        # print(self.sizes)
-        # print(self.n)
-        # cons = self.constraints[0]
-        # print [cons.arg(i) for i in range(cons.num_args())]
-        # print cons.arg(0).children()
-        self.mutants = reduce(lambda x, y: x * y, self.sizes)
-        print("Total number of mutated programs:", self.mutants)
-        self.make_solver()
-
-    def read_constraints(self, filename):
-        # if filename.endswith('.cnf'):
-        #    self.constraints = read_dimacs(filename)
-        # else:
-        self.constraints = self.read_smt2(filename)
-        self.read_group_smt2(filename)
-        if (len(self.soft_constraints) == 0):
-            print(
-                "All constraints belong to group number {0}. For repair, add alternatives under a positive group number.")
-            exit(0)
-        self.soft_constraints = sorted(self.soft_constraints)
-        self.sizes = [y for (x, y) in sorted(Counter(x for (x, y) in self.soft_constraints).items())]
-        # self.n = sum(self.sizes)
-        self.n = len(self.soft_constraints)
-
-    def make_solver(self):
+    def make_solver(self, constraints, hard_constraints, soft_constraints):
         self.s = Solver()
-        for i in self.hard_constraints:
-            if i < len(self.constraints):
-                self.s.add(self.constraints[i])
-            # print "adding" , i, self.constraints[i]
+        for i in hard_constraints:
+            if i < len(constraints):
+                self.s.add(constraints[i])
             else:
                 print("hard cons. with index " + str(i) + " is out of range for constraints array")
-        for idx, (group, cons_i) in enumerate(self.soft_constraints):
+        for idx, (group, cons_i) in enumerate(soft_constraints):
             v = self.c_var(idx)
-            if cons_i < len(self.constraints):
-                self.s.add(Implies(v, self.constraints[cons_i]))
+            if cons_i < len(constraints):
+                self.s.add(Implies(v, constraints[cons_i]))
             else:
                 print("soft cons. from group " + str(group) + " with index " + str(
                     cons_i) + "is out of range for constraints array")
-
-    def read_smt2(self, filename):
-        formula = parse_smt2_file(filename)
-        if is_and(formula):
-            return formula.children()
-        else:
-            return [formula]
-
-    def read_group_smt2(self, filename):
-        f = open(filename)  # already checked before that file exists
-        cons_i = 0
-        for line in f.readlines():
-            p = re.compile(';AllRepair *\{([0-9,a-z]*)\}')
-            res = p.findall(line)
-            if res != []:
-                # add constraint to hard/soft constraints
-                if res[0] == '0' or res[0] == 'demand':
-                    self.hard_constraints.append(cons_i)
-                else:
-                    self.soft_constraints.append((int(res[0]), cons_i))
-                # if assert or assume - add to assert_and_assume list. Otherwise - it's an assignment, add to map.
-                if self.blocking_method != "basic":
-                    if res[0] == 'demand':
-                        self.assert_and_assume_constraints.append(cons_i)
-                    else:
-                        cons = self.constraints[cons_i]
-                        if is_and(cons): # compound constraint due to loop unwinding
-                            assigns = cons.children()
-                        else:
-                            assigns = [cons]
-                        for ass in assigns:
-                            assert is_eq(ass)
-                            assert ass.num_args() > 1
-                            assert is_const(ass.arg(0))
-                            if ass.arg(0).__str__() not in self.assignment_map:
-                                self.assignment_map[ass.arg(0).__str__()] = cons_i
-                cons_i = cons_i + 1
-        print(self.assert_and_assume_constraints)
-        print(self.assignment_map)
-        f.close()
-
-    def get_original_index(self, group):
-        return next((idx, cons_i) for idx, (g, cons_i) in enumerate(self.soft_constraints) if g == group)
 
     @staticmethod
     def get_id(x):
