@@ -218,31 +218,3 @@ class Z3SubsetSolver:
 
         return current
 
-    # bat
-    def get_bad_path(self, seed):
-        var_a = Int('a')
-        important_vars_queue = deque([str(var_a.decl())])
-        important_vars_list = [str(var_a.decl())]
-        res = set()
-        while len(important_vars_queue) != 0:
-            var = important_vars_queue.popleft()
-            cons_i, dep_vars = self.get_dependent(var, seed)
-            if cons_i not in self.hard_constraints:
-                res.add(cons_i + 1)  # +1 bacuse cons_i is zero based
-            for d_var in dep_vars:
-                print(str(d_var), important_vars_list)
-                if d_var not in important_vars_list:
-                    important_vars_queue.append(d_var)
-                    important_vars_list.append(d_var)
-            print(important_vars_queue)
-        return res
-
-    # bat
-    def get_dependent(self, var, seed):
-        # assign_cons_list = self.assignment_list[var] #given the variable we have a list of constraints assigning to it
-        # active_assign_cons_list = [c in assign_cons_list if c+1 in seed] #cons which are currently active according to seed
-        # assert len(active_assign_cons_list) <= 1 #can't assign more than once in an SSA program. can be 0 if var is input
-        # cons_i = len(active_assign_cons_list)==0 ? -1 : active_assign_cons_list[0]
-        # variables = get_variables_from_expr(self.constraints[cons_i]) #get dependent variables from expr where cond is evaluated according to last given model
-        # return 0, [str(var_a.decl())]
-        return 0, "good"
