@@ -24,15 +24,15 @@ class batMarcoPolo:
                 seed = self.map.next_seed(self.stats)
                 if seed is None:
                     return
-            if self.config['verbose']:
-                print
-                ("- Program", str(self.i), "/", str(self.subs.mutants))
-                print("Initial seed: %s" % " ".join([str(x + 1) for x in seed]))
-                print
-                ("Constraints of original code lines: " + self.map.original_vars)
-                self.i = self.i + 1
-                print
-                (len(list(set([x + 1 for x in seed]) - set(self.map.original_vars))), "mutations")
+                if self.config['verbose']:
+                    print
+                    ("- Program", str(self.i), "/", str(self.subs.mutants))
+                    print("Initial seed: %s" % " ".join([str(x + 1) for x in seed]))
+                    print
+                    ("Constraints of original code lines: " + self.map.original_vars)
+                    self.i = self.i + 1
+                    print
+                    (len(list(set([x + 1 for x in seed]) - set(self.map.original_vars))), "mutations")
 
             with self.stats.time('check'):
                 res = self.subs.check_subset(seed)
