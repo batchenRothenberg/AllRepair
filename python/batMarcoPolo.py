@@ -24,6 +24,7 @@ class batMarcoPolo:
                 seed = self.map.next_seed(self.stats)
                 if seed is None:
                     return
+                self.multi_program.sat_seed = seed
                 if self.config['verbose']:
                     print
                     ("- Program", str(self.i), "/", str(self.subs.mutants))
@@ -47,6 +48,7 @@ class batMarcoPolo:
                     # for c in self.subs.s.assertions():
                     #	print c
                     yield ("S", seed)
+                    self.multi_program.smt_model = self.subs.s.model
                     if self.config['smus']:
                         clause = self.block_bad_repair(seed)
                         # print("blocking: ", clause)

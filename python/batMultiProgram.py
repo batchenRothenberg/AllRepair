@@ -14,6 +14,9 @@ class batMultiProgram:
     assignment_map = {}
     sizes = []
     n = 0
+    sat_seed = None     # Determines the chosen program
+    smt_model = None    # Determines the chosen path within the program, leading to a bug.
+
 
     def __init__(self, filename, blocking_method):
         self.blocking_method = blocking_method
@@ -76,5 +79,6 @@ class batMultiProgram:
 
     def get_original_index(self, group):
         return next((idx, cons_i) for idx, (g, cons_i) in enumerate(self.soft_constraints) if g == group)
+
 
 
