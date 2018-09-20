@@ -1,4 +1,3 @@
-from cookielib import _debug
 from z3 import *
 #from z3util import get_vars
 
@@ -10,8 +9,8 @@ def slice_program(sat_solution, smt_solution, assert_and_assume_constraints, con
     # simplify assertion or assumption - get sub-expression which is already satisfied
     simpl_demands = [find_satisfied_subexpression(demand, smt_solution) for demand in demands]
     if _debug_slicing:
-        print "simpl_demands " , simpl_demands
-        print [smt_solution.evaluate(simpl_demand) for simpl_demand in simpl_demands]
+        print("simpl_demands ", simpl_demands)
+        print ([smt_solution.evaluate(simpl_demand) for simpl_demand in simpl_demands])
     # START SLICING
     relevant_constraints = set(assert_and_assume_constraints)
     if _simplification_flag:
@@ -45,14 +44,14 @@ def slice_program(sat_solution, smt_solution, assert_and_assume_constraints, con
                 # Add variables of relevant branch only
                 if is_true(smt_solution.evaluate(guard)):
                     if _debug_slicing:
-                        print guard, " is true"
+                        print(guard, " is true")
                     if _simplification_flag:
                         new_vars.extend(get_impacting_vars(rhs.arg(1),smt_solution))
                     else:
                         new_vars.extend(get_vars(rhs.arg(1),smt_solution))
                 else:
                     if _debug_slicing:
-                        print guard, " is false"
+                        print(guard, " is false")
                     if _simplification_flag:
                         new_vars.extend(get_impacting_vars(rhs.arg(2),smt_solution))
                     else:
@@ -68,8 +67,8 @@ def slice_program(sat_solution, smt_solution, assert_and_assume_constraints, con
                     relevant_vars.append(new_var.__str__())
                     unproccesed_vars_stack.append(new_var.__str__())
     if _debug_slicing:
-        print "relevant_cons: ", relevant_constraints
-        print "relevant variables: ", relevant_vars
+        print("relevant_cons: ", relevant_constraints)
+        print("relevant variables: ", relevant_vars)
     return get_blocking_clause_from_constraints(soft_constraints,relevant_constraints,sat_solution)
 
 
@@ -85,8 +84,8 @@ def get_blocking_clause_from_constraints(soft_constraints, relevant_constraints,
             index = index + 1
         actual_indices.append(index)
     if _debug_slicing:
-        print "sat solution: ", sat_solution
-        print "actual indices: ", actual_indices
+        print("sat solution: ", sat_solution)
+        print("actual indices: ", actual_indices)
     assert set(actual_indices) <= set(sat_solution)
     return [(-(x + 1)) for x in actual_indices]
 
@@ -102,10 +101,10 @@ def find_satisfied_subexpression(expr, smt_solution):
     while is_or(expr):
         #print "expr is or"
         for conjunct in expr.children():
-            print smt_solution.evaluate(conjunct)
+            print(smt_solution.evaluate(conjunct))
             if is_true(smt_solution.evaluate(conjunct)):
                 expr = conjunct
-                print "breaking"
+                print("breaking")
                 break
     return expr
 

@@ -54,9 +54,10 @@ class Solver(object):
         dirname = os.path.dirname(os.path.abspath(__file__))
         libfile = dirname + '/' + libfilename
         if not os.path.exists(libfile):
-            raise IOError("Specified library file not found.  Did you run 'make' to build the solver libraries?\nFile not found: %s" % libfile)
+            raise IOError(
+                "Specified library file not found.  Did you run 'make' to build the solver libraries?\nFile not found: %s" % libfile)
 
-        self.lib = ctypes.cdll.LoadLibrary(dirname+'/'+libfilename)
+        self.lib = ctypes.cdll.LoadLibrary(dirname + '/' + libfilename)
 
         l = self.lib
 
@@ -102,7 +103,7 @@ class Solver(object):
         addr, size = a.buffer_info()
         return ctypes.cast(addr, ctypes.POINTER(c_int)), size
 
-    def new_vars(self, n, polarity=None, dvar=True): #bat
+    def new_vars(self, n, polarity=None, dvar=True):  # bat
         """Create n new variables in the solver.
 
         Args:
@@ -119,8 +120,8 @@ class Solver(object):
         Returns:
             The new variable's index (0-based counting).
         """
-	for i in range(n):
-		self.new_var(polarity,dvar)
+        for i in range(n):
+            self.new_var(polarity, dvar)
 
     def new_var(self, polarity=None, dvar=True):
         """Create a new variable in the solver.
@@ -222,7 +223,7 @@ class Solver(object):
         """
         if end == -1:
             end = self.nvars()
-        a = array.array('i', [-1] * (end-start))
+        a = array.array('i', [-1] * (end - start))
         a_ptr, size = self._to_intptr(a)
         self.lib.fillModel(self.s, a_ptr, start, end)
         return a
@@ -240,7 +241,7 @@ class Solver(object):
             """
         if end == -1:
             end = self.nvars()
-        a = array.array('i', [-1] * (end-start))
+        a = array.array('i', [-1] * (end - start))
         a_ptr, size = self._to_intptr(a)
         count = self.lib.getModelTrues(self.s, a_ptr, start, end)
         # reduce the array down to just the valid indexes
@@ -291,7 +292,7 @@ class SubsetMixin(object):
         """
         if self._origvars is None:
             raise Exception("SubsetSolver.set_varcounts() must be called before .add_clause_instrumented()")
-        instrumented_clause = [-(self._origvars+1+index)] + lits
+        instrumented_clause = [-(self._origvars + 1 + index)] + lits
         self.add_clause(instrumented_clause)
 
     def solve_subset(self, subset):
@@ -309,7 +310,7 @@ class SubsetMixin(object):
         if self._origvars is None:
             raise Exception("SubsetSolver.set_varcounts() must be called before .solve_subset()")
         # convert clause indices to clause-selector variable indices
-        a = array.array('i', (i+self._origvars+1 for i in subset))
+        a = array.array('i', (i + self._origvars + 1 for i in subset))
         a_ptr, size = self._to_intptr(a)
         return self.lib.solve_assumptions(self.s, size, a_ptr)
 
@@ -329,7 +330,7 @@ class SubsetMixin(object):
         contain additional soft clauses not in the subset that was given to
         ``solve_subset()``, if they were also satisfied by the model found.
         """
-        return self.get_model_trues(start=self._origvars, end=self._origvars+self._relvars)
+        return self.get_model_trues(start=self._origvars, end=self._origvars + self._relvars)
 
 
 class MinisatSolver(Solver):
@@ -375,6 +376,7 @@ class MinisatSolver(Solver):
     >>> S.solve()
     False
     """
+
     def __init__(self):
         super(MinisatSolver, self).__init__("libminisat.so")
 
@@ -418,6 +420,7 @@ class MinicardSolver(Solver):
     >>> S.solve()
     False
     """
+
     def __init__(self):
         super(MinicardSolver, self).__init__("libminicard.so")
 
