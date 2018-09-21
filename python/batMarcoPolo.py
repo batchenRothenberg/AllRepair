@@ -45,7 +45,7 @@ class batMarcoPolo:
                     # for c in self.subs.s.assertions():
                     #	print c
                     yield ("S", seed)
-                    self.multi_program.smt_model = self.subs.s.model
+                    self.multi_program.smt_model = self.subs.s.model()
                     if self.config['smus']:
                         clause = self.block_bad_repair(seed)
                         # print("blocking: ", clause)
