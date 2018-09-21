@@ -2,9 +2,9 @@ from collections import Counter
 from functools import reduce
 from z3 import *
 import re
+from batutils import Graph, get_vars_as_string
 
-
-class batMultiProgram:
+class batMultiProgram(Graph):
 
     constraints = []
     soft_constraints = []
@@ -80,5 +80,35 @@ class batMultiProgram:
     def get_original_index(self, group):
         return next((idx, cons_i) for idx, (g, cons_i) in enumerate(self.soft_constraints) if g == group)
 
+    def get_children(self, variable_str):
+        cons = self.get_simplified_assigning_constraint(variable_str)
+        if cons is None:
+            return []
+        else:
+            assert is_eq(cons)
+            rhs = cons.arg(1)
+            if rhs.decl().__str__() == "If":  # phi-function assignment
+                guard = rhs.arg(0)
+                if is_true(self.smt_model.evaluate(guard)):
+                    return [str(guard),str(rhs.arg(1))]
+                else:
+                    return [str(guard),str(rhs.arg(2))]
+            else: # standard assignment
+                return get_vars_as_string(rhs)
 
+    def get_simplified_assigning_constraint(self, v):
+        if v in self.assignment_map.keys():
+            cons = self.constraints[self.assignment_map[v]]
+            if is_and(cons): # cons is the result of loop/function unwinding. Find the relevant assignment
+                for child in cons.children():
+                    assert is_eq(child)
+                    if str(child.arg(0).decl()) == v:
+                        return child
+            else: # cons is an assignment (phi-function, condition or standard assignment)
+                assert is_eq(cons)
+                return cons
+        else: # variable is an input variable.
+            return None
 
+    def get_root_variables(self):
+        return get_vars_as_string(And([self.constraints[i] for i in self.demand_constraints]))

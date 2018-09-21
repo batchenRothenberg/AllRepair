@@ -71,7 +71,12 @@ class batMarcoPolo:
             return slice_program(seed, self.subs.s.model(), self.multi_program.demand_constraints, self.multi_program.constraints, self.multi_program.assignment_map, self.multi_program.soft_constraints)
         elif self.config['blockrepair']=="generalization":
             print("generalization")
+            roots = self.multi_program.get_root_variables()
+            self.multi_program.postorder(roots, self.print_aux)
             return [(-(x + 1)) for x in seed]
+
+    def print_aux(self, v):
+        print(v)
 
     def record_delta(self, name, oldlen, newlen, up):
         if up:
