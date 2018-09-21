@@ -1,0 +1,3 @@
+[submodule "python/InGeneer"]
+	path = python/InGeneer
+	url = https://github.com/batchenRothenberg/InGeneer.git
