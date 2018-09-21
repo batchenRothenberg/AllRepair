@@ -9,7 +9,7 @@ class batMultiProgram:
     constraints = []
     soft_constraints = []
     hard_constraints = []
-    assert_and_assume_constraints = []
+    demand_constraints = []
     # var is mapped to the index of its assigning constraint, if exists
     assignment_map = {}
     sizes = []
@@ -59,7 +59,7 @@ class batMultiProgram:
                 # if assert or assume - add to assert_and_assume list. Otherwise - it's an assignment, add to map.
                 if self.blocking_method != "basic":
                     if res[0] == 'demand':
-                        self.assert_and_assume_constraints.append(cons_i)
+                        self.demand_constraints.append(cons_i)
                     else:
                         cons = self.constraints[cons_i]
                         if is_and(cons): # compound constraint due to loop unwinding
@@ -73,7 +73,7 @@ class batMultiProgram:
                             if ass.arg(0).__str__() not in self.assignment_map:
                                 self.assignment_map[ass.arg(0).__str__()] = cons_i
                 cons_i = cons_i + 1
-        print(self.assert_and_assume_constraints)
+        print(self.demand_constraints)
         print(self.assignment_map)
         f.close()
 
