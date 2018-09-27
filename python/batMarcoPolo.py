@@ -72,7 +72,9 @@ class batMarcoPolo:
         elif self.config['blockrepair']=="generalization":
             print("generalization")
             roots = self.multi_program.get_root_variables()
-            self.multi_program.postorder(roots, self.print_aux)
+            var_list = []
+            self.multi_program.postorder(roots, var_list.append)
+            print(var_list)
             return [(-(x + 1)) for x in seed]
 
     def print_aux(self, v):
