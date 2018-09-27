@@ -47,6 +47,7 @@ class batMultiProgram(Graph):
     def read_group_smt2(self, filename):
         f = open(filename)  # already checked before that file exists
         cons_i = 0
+        soft_i = 0
         for line in f.readlines():
             p = re.compile(';AllRepair *\{([0-9,a-z]*)\}')
             res = p.findall(line)
@@ -56,6 +57,7 @@ class batMultiProgram(Graph):
                     self.hard_constraints.append(cons_i)
                 else:
                     self.soft_constraints.append((int(res[0]), cons_i))
+                    soft_i = soft_i + 1
                 # if assert or assume - add to assert_and_assume list. Otherwise - it's an assignment, add to map.
                 if self.blocking_method != "basic":
                     if res[0] == 'demand':
@@ -71,7 +73,10 @@ class batMultiProgram(Graph):
                             assert ass.num_args() > 1
                             assert is_const(ass.arg(0))
                             if ass.arg(0).__str__() not in self.assignment_map:
-                                self.assignment_map[ass.arg(0).__str__()] = cons_i
+                                if res[0] == '0': # phi-function
+                                    self.assignment_map[ass.arg(0).__str__()] = ('H', cons_i)
+                                else: # soft constraint
+                                    self.assignment_map[ass.arg(0).__str__()] = ('S', soft_i-1) # soft_i was already increased
                 cons_i = cons_i + 1
         print(self.demand_constraints)
         print(self.assignment_map)
@@ -81,7 +86,7 @@ class batMultiProgram(Graph):
         return next((idx, cons_i) for idx, (g, cons_i) in enumerate(self.soft_constraints) if g == group)
 
     def get_children(self, variable_str):
-        cons = self.get_simplified_assigning_constraint(variable_str)
+        cons = self.get_unwound_assigning_cons_from_var(variable_str)
         if cons is None:
             return []
         else:
@@ -96,17 +101,27 @@ class batMultiProgram(Graph):
             else: # standard assignment
                 return get_vars_as_string(rhs)
 
-    def get_simplified_assigning_constraint(self, v):
+    @staticmethod
+    def unwind_cons(cons, v):
+        if is_and(cons):  # cons is the result of loop/function unwinding. Find the assignment to v in it.
+            for child in cons.children():
+                assert is_eq(child)
+                if str(child.arg(0).decl()) == v:
+                    return child
+        else:  # cons is an assignment (phi-function, condition or standard assignment)
+            assert is_eq(cons)
+            return cons
+
+    def get_unwound_assigning_cons_from_var(self, v):
         if v in self.assignment_map.keys():
-            cons = self.constraints[self.assignment_map[v]]
-            if is_and(cons): # cons is the result of loop/function unwinding. Find the relevant assignment
-                for child in cons.children():
-                    assert is_eq(child)
-                    if str(child.arg(0).decl()) == v:
-                        return child
-            else: # cons is an assignment (phi-function, condition or standard assignment)
-                assert is_eq(cons)
-                return cons
+            type, index = self.assignment_map[v]
+            if type == 'H':
+                cons = self.constraints[index]
+            else:
+                assert (type == 'S')
+                group_num, cons_index = self.soft_constraints[index]
+                cons = self.constraints[cons_index]
+            return batMultiProgram.unwind_cons(cons, v)
         else: # variable is an input variable.
             return None
 
