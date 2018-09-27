@@ -74,7 +74,8 @@ class batMarcoPolo:
             roots = self.multi_program.get_root_variables()
             var_list = []
             self.multi_program.postorder(roots, var_list.append)
-            print(var_list)
+            mt = self.multi_program.get_multitrace_from_var_list(var_list)
+            print(mt)
             return [(-(x + 1)) for x in seed]
 
     def print_aux(self, v):

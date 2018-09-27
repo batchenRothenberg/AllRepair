@@ -125,5 +125,48 @@ class batMultiProgram(Graph):
         else: # variable is an input variable.
             return None
 
+    def get_dependency_transitions_from_var(self, v):
+        res = None
+        if v in self.assignment_map.keys():
+            sort, index = self.assignment_map[v]
+            if sort == 'H':
+                cons = self.constraints[index]
+                t = DependencyTransition(None, batMultiProgram.unwind_cons(cons, v))
+                res = [t]
+            else:
+                assert (sort == 'S')
+                group_num, cons_index_of_original = self.soft_constraints[index]
+                original_cons = self.constraints[cons_index_of_original]
+                t = DependencyTransition(index, batMultiProgram.unwind_cons(original_cons, v))
+                res = [t]
+                while index + 1 < len(self.soft_constraints):
+                    index = index + 1
+                    next_group_num, next_cons_index = self.soft_constraints[index]
+                    if next_group_num == group_num:
+                        cons = self.constraints[next_cons_index]
+                        t = DependencyTransition(index, batMultiProgram.unwind_cons(cons, v))
+                        res.append(t)
+                    else:
+                        break
+        return res
+
+    def get_multitrace_from_var_list(self, var_list):
+        return [y for y in (self.get_dependency_transitions_from_var(v) for v in var_list) if y]
+
     def get_root_variables(self):
         return get_vars_as_string(And([self.constraints[i] for i in self.demand_constraints]))
+
+
+class DependencyTransition:
+
+    def __init__(self, literal, expr):
+        self.literal = literal
+        self.expr = expr
+
+    def __str__(self):
+        return "(" + str(self.literal) + ": " + str(self.expr) + ") "
+
+    def __repr__(self):
+        return str(self)
+
+
