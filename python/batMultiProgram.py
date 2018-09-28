@@ -3,7 +3,7 @@ from functools import reduce
 from z3 import *
 import re
 
-from InGeneer.stmt import Stmt
+from InGeneer import stmt
 from batutils import Graph, get_vars_as_string
 
 class batMultiProgram(Graph):
@@ -159,22 +159,11 @@ class batMultiProgram(Graph):
         return get_vars_as_string(And([self.constraints[i] for i in self.demand_constraints]))
 
 
-class DependencyTransition(Stmt):
+class DependencyTransition(stmt.AssignmentStmt):
 
     def __init__(self, literal, expr):
         self.literal = literal
-        super().__init__(expr)
+        super(DependencyTransition, self).__init__(expr)
 
     def __str__(self):
-        return "(" + str(self.literal) + ": " + str(self.expr) + ") "
-
-    def __repr__(self):
-        return str(self)
-
-    def is_assignment(self):
-        return True
-
-    def is_condition(self):
-        return False
-
-
+        return "(" + str(self.literal) + ": " + super(DependencyTransition, self).__str__() + ") "
