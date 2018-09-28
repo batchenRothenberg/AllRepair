@@ -1,3 +1,6 @@
+from InGeneer import generalizer
+from InGeneer import precise_domain
+
 try:
     import queue
 except ImportError:
@@ -75,7 +78,8 @@ class batMarcoPolo:
             var_list = []
             self.multi_program.postorder(roots, var_list.append)
             mt = self.multi_program.get_multitrace_from_var_list(var_list)
-            print(mt)
+            wp_generalizer = generalizer.Generalizer(precise_domain.PreciseDomain())
+            wp_generalizer.generalize_trace(mt,print_annotation=True)
             return [(-(x + 1)) for x in seed]
 
     def print_aux(self, v):
