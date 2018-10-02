@@ -79,7 +79,8 @@ class batMarcoPolo:
             self.multi_program.postorder(roots, var_list.append)
             mt = self.multi_program.get_multitrace_from_var_list(var_list)
             wp_generalizer = generalizer.Generalizer(precise_domain.PreciseDomain())
-            wp_generalizer.generalize_trace(mt,print_annotation=True)
+            good_stmts_set = wp_generalizer.generalize_trace(mt)
+            print(good_stmts_set)
             return [(-(x + 1)) for x in seed]
 
     def print_aux(self, v):
