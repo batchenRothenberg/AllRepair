@@ -158,6 +158,9 @@ class batMultiProgram(Graph):
     def get_root_variables(self):
         return get_vars_as_string(And([self.constraints[i] for i in self.demand_constraints]))
 
+    def get_initial_formula_from_demands(self):
+        return And([self.constraints[i] for i in self.demand_constraints])
+
 
 class DependencyTransition(stmt.AssignmentStmt):
 
