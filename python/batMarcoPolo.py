@@ -83,7 +83,7 @@ class batMarcoPolo:
             good_stmts_set = wp_generalizer.generalize_trace(mt, initial_formula)
             literals = [st.literal for st in good_stmts_set if st.literal is not None]
             print(literals)
-            return [(-(x + 1)) for x in seed]
+            return [(x + 1) for x in literals]
 
     @staticmethod
     def index0(list):
