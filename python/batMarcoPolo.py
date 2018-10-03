@@ -76,13 +76,19 @@ class batMarcoPolo:
             print("generalization")
             roots = self.multi_program.get_root_variables()
             var_list = []
-            self.multi_program.postorder(roots, var_list.append)
+            self.multi_program.postorder(roots, batMarcoPolo.index0(var_list))
             mt = self.multi_program.get_multitrace_from_var_list(var_list)
             wp_generalizer = generalizer.Generalizer(precise_domain.PreciseDomain())
             initial_formula = self.multi_program.get_initial_formula_from_demands()
             good_stmts_set = wp_generalizer.generalize_trace(mt, initial_formula)
             print(good_stmts_set)
             return [(-(x + 1)) for x in seed]
+
+    @staticmethod
+    def index0(list):
+        def insert_in_0(v):
+            list.insert(0, v)
+        return insert_in_0
 
     def print_aux(self, v):
         print(v)
