@@ -81,7 +81,8 @@ class batMarcoPolo:
             wp_generalizer = generalizer.Generalizer(precise_domain.PreciseDomain())
             initial_formula = self.multi_program.get_initial_formula_from_demands()
             good_stmts_set = wp_generalizer.generalize_trace(mt, initial_formula)
-            print(good_stmts_set)
+            literals = [st.literal for st in good_stmts_set if st.literal is not None]
+            print(literals)
             return [(-(x + 1)) for x in seed]
 
     @staticmethod
