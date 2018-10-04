@@ -83,7 +83,7 @@ class batMarcoPolo:
             initial_formula = self.multi_program.get_initial_formula_from_demands()
             smt_model = self.multi_program.smt_model
             good_stmts_set = wp_generalizer.generalize_trace(mt, initial_formula, model=smt_model, print_annotation=False)
-            literals = [st.literal for st in good_stmts_set if st.literal is not None]
+            literals = set([st.literal for st in good_stmts_set if st.literal is not None])
             print(literals)
             return [(x + 1) for x in literals]
 
