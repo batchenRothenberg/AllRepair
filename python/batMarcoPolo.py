@@ -78,9 +78,11 @@ class batMarcoPolo:
             var_list = []
             self.multi_program.postorder(roots, batMarcoPolo.index0(var_list))
             mt = self.multi_program.get_multitrace_from_var_list(var_list)
-            wp_generalizer = generalizer.Generalizer(precise_domain.PreciseDomain())
+            domain = precise_domain.PreciseDomain(simplification=True)
+            wp_generalizer = generalizer.Generalizer(domain)
             initial_formula = self.multi_program.get_initial_formula_from_demands()
-            good_stmts_set = wp_generalizer.generalize_trace(mt, initial_formula)
+            smt_model = self.multi_program.smt_model
+            good_stmts_set = wp_generalizer.generalize_trace(mt, initial_formula, model=smt_model, print_annotation=False)
             literals = [st.literal for st in good_stmts_set if st.literal is not None]
             print(literals)
             return [(x + 1) for x in literals]
