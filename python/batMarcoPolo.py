@@ -29,11 +29,11 @@ class batMarcoPolo:
                     return
                 self.multi_program.sat_seed = seed
                 if self.config['verbose']:
-                    print("- Program", str(self.i), "/", str(self.subs.mutants))
+                    print("- Program " + str(self.i) + "/" + str(self.multi_program.mutants))
                     print("Initial seed: %s" % " ".join([str(x + 1) for x in seed]))
-                    print("Constraints of original code lines: " + self.map.original_vars)
+                    print("Constraints of original code lines: " + str(self.map.original_vars))
                     self.i = self.i + 1
-                    print(len(list(set([x + 1 for x in seed]) - set(self.map.original_vars))), "mutations")
+                    print(str(len(list(set([x + 1 for x in seed]) - set(self.map.original_vars)))) + " mutations")
 
             with self.stats.time('check'):
                 res = self.subs.check_subset(seed)
