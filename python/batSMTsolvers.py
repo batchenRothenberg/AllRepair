@@ -29,7 +29,6 @@ class Z3SubsetSolver:
     c_prefix = "!marco"  # to differentiate our vars from instance vars
 
     assigned_to = []  # bat
-    mutants = 0  # bat
     n = 0
     s = None
     varcache = {}

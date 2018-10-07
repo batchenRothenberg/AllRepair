@@ -16,6 +16,7 @@ class batMultiProgram(Graph):
     assignment_map = {}
     sizes = []
     n = 0
+    mutants = 0
     sat_seed = None     # Determines the chosen program
     smt_model = None    # Determines the chosen path within the program, leading to a bug.
 
