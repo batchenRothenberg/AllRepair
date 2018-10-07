@@ -116,7 +116,7 @@ class MapSolver:
         # print "seed: " + str(seed)
         # print "original: " + str([self.original_vars])
         # self.solver.add_clause( [(x) for x in self.original_vars if x-1 not in seed] ) #bad because it blocks *all* changes to changed lines, instead of the specific changes made.
-        self.solver.add_clause([(-(x + 1)) for x in seed if x + 1 not in self.original_vars])
+        return [(-(x + 1)) for x in seed if x + 1 not in self.original_vars]
 
 
 class MinicardMapSolver(MapSolver):

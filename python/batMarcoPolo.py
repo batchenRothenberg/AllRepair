@@ -60,8 +60,9 @@ class batMarcoPolo:
                 with self.stats.time('block'):
                     yield ("U", seed)
                     if self.config['smus']:
-                        self.map.block_good_repair(seed)
+                        clause = self.map.block_good_repair(seed)
                         # print "block good repair"
+                        self.map.solver.add_clause(clause)
                     else:
                         self.map.block_up(seed) #block_up/down have the same effect- block only seed (since we are looking at fixed size subsets)
 
