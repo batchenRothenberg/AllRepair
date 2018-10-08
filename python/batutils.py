@@ -103,6 +103,9 @@ class Graph():
         for r in roots:
             self._postorder_aux(r, do_something, visited)
 
+def is_If(z3_expr):
+    return str(z3_expr.decl()) == "If"
+
 ######################################################################################################
 #   Following functions are copy-pasted from z3util.py latest version on Github,
 #   in order to avoid a dependency on a missing file (common.py)
