@@ -4,7 +4,8 @@ from z3 import *
 import re
 
 from InGeneer import stmt
-from batutils import Graph, get_vars_as_string
+from batutils import Graph, get_vars_as_string, is_If
+
 
 class batMultiProgram(Graph):
 
@@ -129,32 +130,55 @@ class batMultiProgram(Graph):
             return None
 
     def get_dependency_transitions_from_var(self, v):
-        res = None
+        res = None, None
         if v in self.assignment_map.keys():
             sort, index = self.assignment_map[v]
             if sort == 'H':
                 cons = self.constraints[index]
-                t = DependencyTransition(None, batMultiProgram.unwind_cons(cons, v))
-                res = [t]
+                l_1, l_2 = self.get_dependency_transitions_for_hard(cons,v)
+                res = l_1, l_2
             else:
                 assert (sort == 'S')
                 group_num, cons_index_of_original = self.soft_constraints[index]
                 original_cons = self.constraints[cons_index_of_original]
                 t = DependencyTransition(index, batMultiProgram.unwind_cons(original_cons, v))
-                res = [t]
+                l_1 = [t]
                 while index + 1 < len(self.soft_constraints):
                     index = index + 1
                     next_group_num, next_cons_index = self.soft_constraints[index]
                     if next_group_num == group_num:
                         cons = self.constraints[next_cons_index]
                         t = DependencyTransition(index, batMultiProgram.unwind_cons(cons, v))
-                        res.append(t)
+                        l_1.append(t)
                     else:
                         break
+                res = l_1, None
         return res
 
+    def get_dependency_transitions_for_hard(self, cons, v):
+        unwound_cons = batMultiProgram.unwind_cons(cons, v)
+        assert is_eq(unwound_cons)
+        lhs = unwound_cons.arg(0)
+        rhs = unwound_cons.arg(1)
+        if is_If(rhs):
+            guard = rhs.arg(0)
+            true_var = rhs.arg(1)
+            false_var = rhs.arg(2)
+            model_result = self.smt_model.evaluate(guard)
+            if is_true(model_result):
+                return [DependencyTransition(None, guard)], [DependencyTransition(None, lhs == true_var)]
+            else:
+                return [DependencyTransition(None, Not(guard))], [DependencyTransition(None, lhs==false_var)]
+        return [DependencyTransition(None, unwound_cons)], None
+
     def get_multitrace_from_var_list(self, var_list):
-        return [y for y in (self.get_dependency_transitions_from_var(v) for v in var_list) if y]
+        res = []
+        for l_1,l_2 in [self.get_dependency_transitions_from_var(v) for v in var_list]:
+            if l_1:
+                res.append(l_1)
+            if l_2:
+                res.append(l_2)
+        return res
 
     def get_root_variables(self):
         return get_vars_as_string(And([self.constraints[i] for i in self.demand_constraints]))
@@ -163,11 +187,30 @@ class batMultiProgram(Graph):
         return And([self.constraints[i] for i in self.demand_constraints])
 
 
-class DependencyTransition(stmt.AssignmentStmt):
+class DependencyTransition(stmt.Stmt):
+
+    def __repr__(self):
+        return str(self)
+
+    def is_assignment(self):
+        return is_eq(self.expr)
+
+    def is_condition(self):
+        return not self.is_assignment()
 
     def __init__(self, literal, expr):
         self.literal = literal
         super(DependencyTransition, self).__init__(expr)
+        if self.is_assignment():
+            self.lhs = self.expr.arg(0)
+            self.rhs = self.expr.arg(1)
+        else:
+            self.lhs = None
+            self.rhs = None
 
     def __str__(self):
-        return "(" + str(self.literal) + ": " + super(DependencyTransition, self).__str__() + ") "
+        if self.is_assignment():
+            assign_stmt = stmt.AssignmentStmt(self.expr)
+            return "(" + str(self.literal) + ": " + str(assign_stmt) + ") "
+        else:
+            return "(" + str(self.literal) + ": " + str(self.expr) + ") "
