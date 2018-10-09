@@ -142,6 +142,26 @@ class batMultiProgram(Graph):
                 res = l_1, None
         return res
 
+    def append_transition(self, list):
+        #
+        def append_correct_transition_at_0(var):
+            if var in self.assignment_map.keys():
+                transition = self.assignment_map[var]
+                expr = transition.expr
+                assert is_eq(expr)
+                lhs = expr.arg(0)
+                rhs = expr.arg(1)
+                if is_If(rhs):
+                    guard = rhs.arg(0)
+                    evaluation, chosen_var = parse_If(rhs, self.smt_model)
+                    if evaluation:
+                        transition = DependencyTransition(None, And(guard,lhs==chosen_var))
+                    else:
+                        transition = DependencyTransition(None, And(Not(guard),lhs==chosen_var))
+                list.insert(0, transition)
+        #
+        return append_correct_transition_at_0
+
     def get_dependency_transitions_for_hard(self, cons, v):
         unwound_cons = batMultiProgram.unwind_cons(cons, v)
         assert is_eq(unwound_cons)

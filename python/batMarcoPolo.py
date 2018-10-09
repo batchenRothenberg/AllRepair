@@ -72,14 +72,15 @@ class batMarcoPolo:
             return [(-(x + 1)) for x in seed]
         else:
             roots = self.multi_program.get_root_variables()
-            var_list = []
-            self.multi_program.postorder(roots, batMarcoPolo.index0(var_list))
+            trace = []
+            self.multi_program.postorder(roots, self.multi_program.append_transition(trace))
+            print("transition list: "+str(trace))
             if self.config['blockrepair']=="slicing":
                 print("slicing")
                 return slice_program(seed, self.subs.s.model(), self.multi_program.demand_constraints, self.multi_program.constraints, self.multi_program.assignment_map, self.multi_program.soft_constraints)
             elif self.config['blockrepair']=="generalization":
                 print("generalization")
-                mt = self.multi_program.get_multitrace_from_var_list(var_list)
+                mt = self.multi_program.get_multitrace_from_var_list(trace)
                 domain = precise_domain.PreciseDomain(simplification=True)
                 wp_generalizer = generalizer.Generalizer(domain)
                 initial_formula = self.multi_program.get_initial_formula_from_demands()
