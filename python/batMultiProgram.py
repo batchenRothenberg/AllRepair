@@ -189,15 +189,6 @@ class batMultiProgram(Graph):
 
 class DependencyTransition(stmt.Stmt):
 
-    def __repr__(self):
-        return str(self)
-
-    def is_assignment(self):
-        return is_eq(self.expr)
-
-    def is_condition(self):
-        return not self.is_assignment()
-
     def __init__(self, literal, expr):
         self.literal = literal
         super(DependencyTransition, self).__init__(expr)
@@ -214,3 +205,12 @@ class DependencyTransition(stmt.Stmt):
             return "(" + str(self.literal) + ": " + str(assign_stmt) + ") "
         else:
             return "(" + str(self.literal) + ": " + str(self.expr) + ") "
+
+    def __repr__(self):
+        return str(self)
+
+    def is_assignment(self):
+        return is_eq(self.expr)
+
+    def is_condition(self):
+        return not self.is_assignment()
