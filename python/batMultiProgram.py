@@ -4,7 +4,7 @@ from z3 import *
 import re
 
 from InGeneer import stmt
-from batutils import Graph, get_vars_as_string, is_If
+from batutils import Graph, get_vars_as_string, is_If, parse_If
 
 
 class batMultiProgram(Graph):
@@ -99,11 +99,9 @@ class batMultiProgram(Graph):
             assert is_eq(cons)
             rhs = cons.arg(1)
             if is_If(rhs):  # phi-function assignment
+                evaulation, chosen_var = parse_If(rhs, self.smt_model)
                 guard = rhs.arg(0)
-                if is_true(self.smt_model.evaluate(guard)):
-                    return [str(guard),str(rhs.arg(1))]
-                else:
-                    return [str(guard),str(rhs.arg(2))]
+                return [str(guard), str(chosen_var)]
             else: # standard assignment
                 return get_vars_as_string(rhs)
 

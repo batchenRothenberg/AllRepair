@@ -193,6 +193,15 @@ def is_expr_val(v):
     """
     return is_const(v) and v.decl().kind()!=Z3_OP_UNINTERPRETED
 
+def parse_If(if_expr, model):
+    assert is_If(if_expr)
+    guard = if_expr.arg(0)
+    true_expr = if_expr.arg(1)
+    false_expr = if_expr.arg(2)
+    if is_true(model.evaluate(guard)):
+        return True , true_expr
+    else:
+        return False, false_expr
 
 ######################################################################################################
 #   Following functions are copy-pasted from z3util.py latest version on Github,
