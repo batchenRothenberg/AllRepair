@@ -76,11 +76,11 @@ class batMultiProgram(Graph):
                             assert is_eq(ass)
                             assert ass.num_args() > 1
                             assert is_const(ass.arg(0))
-                            if ass.arg(0).__str__() not in self.assignment_map:
-                                if res[0] == '0': # phi-function
-                                    self.assignment_map[ass.arg(0).__str__()] = ('H', cons_i)
+                            if str(ass.arg(0)) not in self.assignment_map:
+                                if res[0] == '0': # phi-function or hard constraint that is not an assert or assume (e.g., cbmc init)
+                                    self.assignment_map[str(ass.arg(0))] = DependencyTransition(None, ass)
                                 else: # soft constraint
-                                    self.assignment_map[ass.arg(0).__str__()] = ('S', soft_i-1) # soft_i was already increased
+                                    self.assignment_map[str(ass.arg(0))] = DependencyTransition(soft_i-1, ass) # soft_i was already increased
                 cons_i = cons_i + 1
         print(self.demand_constraints)
         print(self.assignment_map)
