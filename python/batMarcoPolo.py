@@ -70,23 +70,24 @@ class batMarcoPolo:
     def block_bad_repair(self, seed):
         if self.config['blockrepair']=="basic":
             return [(-(x + 1)) for x in seed]
-        elif self.config['blockrepair']=="slicing":
-            print("slicing")
-            return slice_program(seed, self.subs.s.model(), self.multi_program.demand_constraints, self.multi_program.constraints, self.multi_program.assignment_map, self.multi_program.soft_constraints)
-        elif self.config['blockrepair']=="generalization":
-            print("generalization")
+        else:
             roots = self.multi_program.get_root_variables()
             var_list = []
             self.multi_program.postorder(roots, batMarcoPolo.index0(var_list))
-            mt = self.multi_program.get_multitrace_from_var_list(var_list)
-            domain = precise_domain.PreciseDomain(simplification=True)
-            wp_generalizer = generalizer.Generalizer(domain)
-            initial_formula = self.multi_program.get_initial_formula_from_demands()
-            smt_model = self.multi_program.smt_model
-            good_stmts_set = wp_generalizer.generalize_trace(mt, initial_formula, model=smt_model, print_annotation=False)
-            literals = set([st.literal for st in good_stmts_set if st.literal is not None])
-            print(literals)
-            return [(x + 1) for x in literals]
+            if self.config['blockrepair']=="slicing":
+                print("slicing")
+                return slice_program(seed, self.subs.s.model(), self.multi_program.demand_constraints, self.multi_program.constraints, self.multi_program.assignment_map, self.multi_program.soft_constraints)
+            elif self.config['blockrepair']=="generalization":
+                print("generalization")
+                mt = self.multi_program.get_multitrace_from_var_list(var_list)
+                domain = precise_domain.PreciseDomain(simplification=True)
+                wp_generalizer = generalizer.Generalizer(domain)
+                initial_formula = self.multi_program.get_initial_formula_from_demands()
+                smt_model = self.multi_program.smt_model
+                good_stmts_set = wp_generalizer.generalize_trace(mt, initial_formula, model=smt_model, print_annotation=False)
+                literals = set([st.literal for st in good_stmts_set if st.literal is not None])
+                print(literals)
+                return [(x + 1) for x in literals]
 
     @staticmethod
     def index0(list):
