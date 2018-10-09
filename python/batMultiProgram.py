@@ -118,19 +118,6 @@ class batMultiProgram(Graph):
             assert is_eq(cons)
             return cons
 
-    def get_unwound_assigning_cons_from_var(self, v):
-        if v in self.assignment_map.keys():
-            type, index = self.assignment_map[v]
-            if type == 'H':
-                cons = self.constraints[index]
-            else:
-                assert (type == 'S')
-                group_num, cons_index = self.soft_constraints[index]
-                cons = self.constraints[cons_index]
-            return batMultiProgram.unwind_cons(cons, v)
-        else: # variable is an input variable.
-            return None
-
     def get_dependency_transitions_from_var(self, v):
         res = None, None
         if v in self.assignment_map.keys():
