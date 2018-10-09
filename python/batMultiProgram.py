@@ -178,6 +178,20 @@ class batMultiProgram(Graph):
                 return [DependencyTransition(None, Not(guard))], [DependencyTransition(None, lhs==false_var)]
         return [DependencyTransition(None, unwound_cons)], None
 
+    def get_selected_literals_from_trace(self, trace):
+        res = set()
+        for transition in trace:
+            if transition.literal:
+                selected_literal = self.replace_literal_with_selected_literal(transition.literal)
+                res.add(selected_literal)
+        return res
+
+    def replace_literal_with_selected_literal(self, literal):
+        while literal not in self.sat_seed:
+            literal = literal + 1
+        return literal
+
+
     def get_multitrace_from_var_list(self, var_list):
         res = []
         for l_1,l_2 in [self.get_dependency_transitions_from_var(v) for v in var_list]:

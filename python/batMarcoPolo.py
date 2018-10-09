@@ -74,10 +74,11 @@ class batMarcoPolo:
             roots = self.multi_program.get_root_variables()
             trace = []
             self.multi_program.postorder(roots, self.multi_program.append_transition(trace))
-            print("transition list: "+str(trace))
             if self.config['blockrepair']=="slicing":
                 print("slicing")
-                return slice_program(seed, self.subs.s.model(), self.multi_program.demand_constraints, self.multi_program.constraints, self.multi_program.assignment_map, self.multi_program.soft_constraints)
+                literals = self.multi_program.get_selected_literals_from_trace(trace)
+                print("literals: "+str(literals))
+                return [(-(x + 1)) for x in literals]
             elif self.config['blockrepair']=="generalization":
                 print("generalization")
                 mt = self.multi_program.get_multitrace_from_var_list(trace)
