@@ -5,6 +5,7 @@ import re
 
 from InGeneer import stmt
 from batutils import Graph, get_vars_as_string, is_If, parse_If
+from InGeneer.utils import remove_or
 
 
 class batMultiProgram(Graph):
@@ -150,7 +151,9 @@ class batMultiProgram(Graph):
         return literal
 
     def get_root_variables(self):
-        return get_vars_as_string(And([self.constraints[i] for i in self.demand_constraints]))
+        demands_formula = And([self.constraints[i] for i in self.demand_constraints])
+        demands_formula_no_or = remove_or(demands_formula, self.smt_model)
+        return get_vars_as_string(demands_formula_no_or)
 
     def get_initial_formula_from_demands(self):
         return And([self.constraints[i] for i in self.demand_constraints])
