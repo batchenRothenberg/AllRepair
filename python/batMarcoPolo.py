@@ -68,6 +68,7 @@ class batMarcoPolo:
 
     #bat
     def block_bad_repair(self, seed):
+        print("seed: ", str(seed))
         if self.config['blockrepair']=="basic":
             return [(-(x + 1)) for x in seed]
         else:
@@ -81,7 +82,8 @@ class batMarcoPolo:
                 return [(-(x + 1)) for x in literals]
             elif self.config['blockrepair']=="generalization":
                 print("generalization")
-                mt = self.multi_program.get_multitrace_from_var_list(trace)
+                mt = self.multi_program.get_multitrace_from_trace(trace)
+                print("mt: "+str(mt))
                 domain = precise_domain.PreciseDomain(simplification=True)
                 wp_generalizer = generalizer.Generalizer(domain)
                 initial_formula = self.multi_program.get_initial_formula_from_demands()

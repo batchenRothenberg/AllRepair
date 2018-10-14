@@ -207,6 +207,43 @@ class batMultiProgram(Graph):
     def get_initial_formula_from_demands(self):
         return And([self.constraints[i] for i in self.demand_constraints])
 
+    def get_multitrace_from_trace(self, trace):
+        res = []
+        for transition in trace:
+            if transition.is_phi():
+                t_1, t_2 = self.split_phi_transition(transition)
+                res.append([t_1])
+                res.append([t_2])
+            elif transition.is_soft():
+                l = self.get_all_transitions_of_group(transition)
+                res.append(l)
+            else: # transition is hard (possibly due to CBMC init)
+                res.append([transition])
+        return res
+
+    def split_phi_transition(self, transition):
+        assert transition.is_phi()
+        expr = transition.expr
+        t_1 = DependencyTransition(None,expr.arg(0))
+        t_2 = DependencyTransition(None,expr.arg(1))
+        return t_1, t_2
+
+    def get_all_transitions_of_group(self, transition):
+        soft_index = transition.literal
+        soft_len = len(self.soft_constraints)
+        assert soft_index >= 0 and soft_index < soft_len
+        res = [transition]
+        group_num, cons_index = self.soft_constraints[soft_index]
+        assert transition.is_assignment()
+        assigned_var = transition.expr.arg(0)
+        while soft_index + 1 < soft_len:
+            soft_index += 1
+            new_group_num, new_cons_index = self.soft_constraints[soft_index]
+            if new_group_num == group_num:
+                t = DependencyTransition(soft_index, self.unwind_cons(self.constraints[new_cons_index],str(assigned_var)))
+                res.append(t)
+        return res
+
 
 class DependencyTransition(stmt.Stmt):
 
@@ -235,3 +272,9 @@ class DependencyTransition(stmt.Stmt):
 
     def is_condition(self):
         return not self.is_assignment()
+
+    def is_phi(self):
+        return is_and(self.expr)
+
+    def is_soft(self):
+        return not self.literal is None
