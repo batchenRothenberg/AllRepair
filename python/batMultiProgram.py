@@ -13,7 +13,6 @@ class batMultiProgram(Graph):
     constraints = []
     soft_constraints = []
     hard_constraints = []
-    demand_constraints = []
     # var is mapped to the index of its assigning constraint, if exists
     assignment_map = {}
     sizes = []
@@ -21,7 +20,7 @@ class batMultiProgram(Graph):
     mutants = 0
     sat_seed = None     # Determines the chosen program
     smt_model = None    # Determines the chosen path within the program, leading to a bug.
-
+    demands_formula = None
 
     def __init__(self, filename, blocking_method):
         self.blocking_method = blocking_method
@@ -53,6 +52,7 @@ class batMultiProgram(Graph):
         f = open(filename)  # already checked before that file exists
         cons_i = 0
         soft_i = 0
+        demand_constraints = []
         for line in f.readlines():
             p = re.compile(';AllRepair *\{([0-9,a-z]*)\}')
             res = p.findall(line)
@@ -66,7 +66,7 @@ class batMultiProgram(Graph):
                 # if assert or assume - add to assert_and_assume list. Otherwise - it's an assignment, add to map.
                 if self.blocking_method != "basic":
                     if res[0] == 'demand':
-                        self.demand_constraints.append(cons_i)
+                        demand_constraints.append(cons_i)
                     else:
                         cons = self.constraints[cons_i]
                         if is_and(cons): # compound constraint due to loop unwinding
@@ -83,7 +83,8 @@ class batMultiProgram(Graph):
                                 else: # soft constraint
                                     self.assignment_map[str(ass.arg(0))] = DependencyTransition(soft_i-1, ass) # soft_i was already increased
                 cons_i = cons_i + 1
-        print(self.demand_constraints)
+        print(demand_constraints)
+        self.demands_formula = And([self.constraints[i] for i in demand_constraints])
         print(self.assignment_map)
         f.close()
 
@@ -151,12 +152,11 @@ class batMultiProgram(Graph):
         return literal
 
     def get_root_variables(self):
-        demands_formula = And([self.constraints[i] for i in self.demand_constraints])
-        demands_formula_no_or = remove_or(demands_formula, self.smt_model)
+        demands_formula_no_or = self.get_initial_formula_from_demands()
         return get_vars_as_string(demands_formula_no_or)
 
     def get_initial_formula_from_demands(self):
-        return And([self.constraints[i] for i in self.demand_constraints])
+        return remove_or(self.demands_formula, self.smt_model)
 
     def get_multitrace_from_trace(self, trace):
         res = []
