@@ -76,7 +76,6 @@ class batMultiProgram(Graph):
                         for ass in assigns:
                             assert is_eq(ass)
                             assert ass.num_args() > 1
-                            assert is_const(ass.arg(0))
                             if str(ass.arg(0)) not in self.assignment_map:
                                 if res[0] == '0': # phi-function or hard constraint that is not an assert or assume (e.g., cbmc init)
                                     self.assignment_map[str(ass.arg(0))] = DependencyTransition(None, ass)
