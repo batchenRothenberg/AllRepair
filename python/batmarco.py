@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import StringIO
 
 import argparse
 import atexit
@@ -13,6 +14,7 @@ from batMarcoPolo import batMarcoPolo
 from batRepairPrinter import *
 from batMultiProgram import batMultiProgram
 from batSMTsolvers import Z3SubsetSolver
+import cProfile, pstats, io, re
 
 
 def parse_args():
@@ -216,7 +218,6 @@ def setup_config(args):
 
     return config
 
-
 def main():
     stats = batutils.Statistics()
 
@@ -244,6 +245,9 @@ def main():
     # enumerate results in a separate thread so signal handling works while in C code
     # ref: https://thisismiller.github.io/blog/CPython-Signal-Handling/
     def enumerate():
+        pr = cProfile.Profile()
+        pr.enable()
+
         remaining = args.limit
 
         possible_solutions = 0
@@ -287,6 +291,13 @@ def main():
 
         if possible_solutions == 0:
             print("No solutions found using the given alternatives")
+
+        pr.disable()
+        s = StringIO.StringIO()
+        sortby = 'cumulative'
+        ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
+        ps.print_stats()
+        print s.getvalue()
 
     enumthread = threading.Thread(target=enumerate)
     enumthread.daemon = True  # so thread is killed when main thread exits (e.g. in signal handler)
