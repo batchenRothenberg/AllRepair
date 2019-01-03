@@ -53,6 +53,7 @@ class batMarcoPolo:
                         clause = self.block_bad_repair(seed)
                         # print("blocking: ", clause)
                         self.map.solver.add_clause(clause)
+                        assert not self.map.solver.solve([x+1 for x in seed])
                     else:
                         self.map.block_up(
                             seed)  # block_up/down have the same effect- block only seed (since we are looking at fixed size subsets)
@@ -68,7 +69,7 @@ class batMarcoPolo:
 
     #bat
     def block_bad_repair(self, seed):
-        print("seed: ", str(seed))
+        # print("seed: ", str(seed))
         if self.config['blockrepair']=="basic":
             return [(-(x + 1)) for x in seed]
         else:
@@ -78,19 +79,19 @@ class batMarcoPolo:
             if self.config['blockrepair']=="slicing":
                 print("slicing")
                 literals = self.multi_program.get_selected_literals_from_trace(trace)
-                print("literals: "+str(literals))
+                # print("literals: "+str(literals))
                 return [(-(x + 1)) for x in literals]
             elif self.config['blockrepair']=="generalization":
-                print("generalization")
+                # print("generalization")
                 mt = self.multi_program.get_multitrace_from_trace(trace)
-                print("mt: "+str(mt))
+                # print("mt: "+str(mt))
                 domain = precise_domain.PreciseDomain(simplification=True)
                 wp_generalizer = generalizer.Generalizer(domain)
                 initial_formula = self.multi_program.get_initial_formula_from_demands()
                 smt_model = self.multi_program.smt_model
                 good_stmts_set = wp_generalizer.generalize_trace(mt, initial_formula, model=smt_model, print_annotation=False)
                 literals = set([st.literal for st in good_stmts_set if st.literal is not None])
-                print(literals)
+                # print(literals)
                 return [(x + 1) for x in literals]
 
     @staticmethod
