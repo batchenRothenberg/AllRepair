@@ -229,7 +229,7 @@ void smt2_convt::define_object_size(
     convert_expr(ptr);
     out << ") (_ bv" << number << " " << BV_ADDR_BITS << "))" <<
       "(= " << id << " (_ bv" << object_size.to_ulong() << " " <<
-      size_width << ")))) ;AllRepair {0} \n"; //bat added {0}
+      size_width << ")))) ;AllRepair {0}\n"; //bat added {0}
   }
 }
 
@@ -4450,7 +4450,7 @@ Function: smt2_convt::set_to
 
 \*******************************************************************/
 
-void smt2_convt::set_to(const exprt &expr, bool value, int group)
+void smt2_convt::set_to(const exprt &expr, bool value, int group, const std::string &info)
 {
 	/*
   if(expr.id()==ID_and && value)
@@ -4518,7 +4518,7 @@ void smt2_convt::set_to(const exprt &expr, bool value, int group)
         out << "(assert (= |" << smt2_identifier << "| ";
         convert_expr(equal_expr.rhs());
         out << " ))";
-        out << " ;AllRepair {" << group <<"}";
+        out << " ;AllRepair {" << group <<"}; "<< info;
         out << "\n";
         return; // done
       }
@@ -4546,9 +4546,9 @@ void smt2_convt::set_to(const exprt &expr, bool value, int group)
 
   out << ")";
   if (group == 0) {
-	  out << " ;AllRepair {demand}"; //bat
+	  out << " ;AllRepair {demand}; "<< info; //bat
   } else {
-  	  out << " ;AllRepair {" << group <<"}"; //bat
+  	  out << " ;AllRepair {" << group <<"}; "<< info; //bat
   }
   out << "\n"; // assert
 
@@ -4647,7 +4647,7 @@ void smt2_convt::find_symbols(const exprt &expr)
         convert_expr(from_integer(i, array_type.size().type()));
         out << ") "; // select
         convert_expr(expr.operands()[i]);
-        out << "))" << " ;AllRepair {0} \n"; // =, assert (bat added ;{0}) //bat
+        out << "))" << " ;AllRepair {0};\n"; // =, assert (bat added ;{0}) //bat
       }
 
       defined_expressions[expr]=id;
@@ -4673,7 +4673,7 @@ void smt2_convt::find_symbols(const exprt &expr)
         convert_expr(from_integer(i, array_type.size().type()));
         out << ") "; // select
         convert_expr(tmp.operands()[i]);
-        out << "))" << " ;AllRepair {0} \n"; // =, assert (bat added ;{0}) //bat
+        out << "))" << " ;AllRepair {0}\n"; // =, assert (bat added ;{0}) //bat
       }
 
       defined_expressions[expr]=id;

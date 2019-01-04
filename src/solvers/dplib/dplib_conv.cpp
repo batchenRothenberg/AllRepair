@@ -1103,7 +1103,7 @@ Function: dplib_convt::set_to
 
 \*******************************************************************/
 
-void dplib_convt::set_to(const exprt &expr, bool value, int group)
+void dplib_convt::set_to(const exprt &expr, bool value, int group, const std::string &info)
 {
   if(value && expr.id()==ID_and)
   {

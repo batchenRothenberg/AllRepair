@@ -29,7 +29,7 @@ public:
   virtual ~cvc_convt() { }
 
   // API methods
-  virtual void set_to(const exprt &expr, bool value, int group=-1);
+  virtual void set_to(const exprt &expr, bool value, int group=-1, const std::string &info="");
   virtual literalt convert(const exprt &expr);
   virtual tvt l_get(literalt) const;
   virtual void print_assignment(std::ostream &out) const;

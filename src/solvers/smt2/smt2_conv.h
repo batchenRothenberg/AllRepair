@@ -99,7 +99,7 @@ public:
   // overloading interfaces
   virtual literalt convert(const exprt &expr);
   virtual void set_frozen(literalt a) { /* not needed */ }
-  virtual void set_to(const exprt &expr, bool value, int group=-1); //bat
+  virtual void set_to(const exprt &expr, bool value, int group=-1, const std::string &info=""); //bat
   virtual exprt get(const exprt &expr) const;
   virtual std::string decision_procedure_text() const { return "SMT2"; }
   virtual void print_assignment(std::ostream &out) const;

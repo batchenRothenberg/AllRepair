@@ -76,7 +76,7 @@ public:
   virtual ~prop_conv_solvert() { }
 
   // overloading from decision_proceduret
-  virtual void set_to(const exprt &expr, bool value, int group = -1);
+  virtual void set_to(const exprt &expr, bool value, int group = -1, const std::string &info="");
   virtual decision_proceduret::resultt dec_solve();
   virtual void print_assignment(std::ostream &out) const;
   virtual std::string decision_procedure_text() const

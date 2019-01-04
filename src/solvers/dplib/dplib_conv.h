@@ -34,7 +34,7 @@ protected:
   virtual literalt convert_rest(const exprt &expr);
   virtual void convert_dplib_expr(const exprt &expr);
   virtual void convert_dplib_type(const typet &type);
-  virtual void set_to(const exprt &expr, bool value, int group=-1);
+  virtual void set_to(const exprt &expr, bool value, int group=-1, const std::string &info="");
   virtual void convert_address_of_rec(const exprt &expr);
 
   pointer_logict pointer_logic;

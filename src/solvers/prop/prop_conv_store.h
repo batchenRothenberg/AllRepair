@@ -57,7 +57,7 @@ public:
   }
 
   // overloading
-  virtual void set_to(const exprt &expr, bool value, int group=-1);
+  virtual void set_to(const exprt &expr, bool value, int group=-1, const std::string &info="");
   virtual literalt convert(const exprt &expr);
   
 protected:

@@ -22,7 +22,7 @@ Function: prop_conv_storet::set_to
 
 \*******************************************************************/
 
-void prop_conv_storet::set_to(const exprt &expr, bool value, int group)
+void prop_conv_storet::set_to(const exprt &expr, bool value, int group, const std::string &info)
 {
   constraintt &constraint=constraints.add_constraint();
   constraint.type=constraintt::SET_TO;

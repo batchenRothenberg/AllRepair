@@ -56,7 +56,7 @@ public:
 
   // overloading interfaces
   virtual literalt convert(const exprt &expr);
-  virtual void set_to(const exprt &expr, bool value, int group=-1);
+  virtual void set_to(const exprt &expr, bool value, int group=-1, const std::string &info="");
   virtual exprt get(const exprt &expr) const;
   virtual tvt l_get(literalt) const;
   virtual std::string decision_procedure_text() const { return "SMT1"; }

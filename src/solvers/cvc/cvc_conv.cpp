@@ -1282,7 +1282,7 @@ Function: cvc_convt::set_to
 
 \*******************************************************************/
 
-void cvc_convt::set_to(const exprt &expr, bool value, int group)
+void cvc_convt::set_to(const exprt &expr, bool value, int group, const std::string &info)
 {
   if(value && expr.id()==ID_and)
   {

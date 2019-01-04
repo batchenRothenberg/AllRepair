@@ -30,13 +30,13 @@ public:
 
   // add constraints
   // the expression must be of Boolean type  
-  virtual void set_to(const exprt &expr, bool value, int group=-1)=0;
+  virtual void set_to(const exprt &expr, bool value, int group=-1, const std::string &info="")=0;
   
-  inline void set_to_true(const exprt &expr, int group=-1)
-  { set_to(expr, true, group); }
+  inline void set_to_true(const exprt &expr, int group=-1, const std::string &info="") //bat
+  { set_to(expr, true, group, info); }
    
-  inline void set_to_false(const exprt &expr, int group=-1)
-  { set_to(expr, false, group); }
+  inline void set_to_false(const exprt &expr, int group=-1, const std::string &info="") //bat
+  { set_to(expr, false, group, info); }
   
   // solve the problem
   typedef enum { D_SATISFIABLE, D_UNSATISFIABLE, D_ERROR } resultt;

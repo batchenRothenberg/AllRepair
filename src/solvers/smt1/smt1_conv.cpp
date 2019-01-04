@@ -3145,7 +3145,7 @@ Function: smt1_convt::set_to
 
 \*******************************************************************/
 
-void smt1_convt::set_to(const exprt &expr, bool value, int group)
+void smt1_convt::set_to(const exprt &expr, bool value, int group, const std::string &info)
 {
   if(expr.id()==ID_and && value)
   {

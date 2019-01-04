@@ -661,10 +661,10 @@ void symex_target_equationt::convert(
 }
 
 //bat
-void print_expr_vector(decision_proceduret &decision_procedure, const expr_vectort & l, int gn){
+void print_expr_vector(decision_proceduret &decision_procedure, const expr_vectort & l, int gn, const std::string &info){
 	for ( expr_vectort::const_iterator it2 = l.begin(); it2!= l.end(); it2++){
 		std::cout<<*it2<<std::endl;
-	      decision_procedure.set_to_true(*it2, gn);
+	      decision_procedure.set_to_true(*it2, gn, info);
 	}
 }
 
@@ -693,13 +693,15 @@ void symex_target_equationt::convert_assignments(
   std::cout<<"mutation level: "<<mutation_level<<std::endl;
 
   std::map<std::string, std::vector<expr_vectort>> map;
+  std::map<std::string, std::string> info_map;
   for(SSA_stepst::const_iterator it=SSA_steps.begin();
       it!=SSA_steps.end(); it++)
   {
     if(it->is_assignment() && !it->ignore){
-    	std::cout<< "Function is: "<<id2string(it->source.pc->function)<<std::endl;
+	std::string location_info = it->source.pc->source_location.as_string();
+    	std::cout<< "Expr code location is: "<<location_info<<std::endl;
     	if (it->assignment_type==assignment_typet::PHI || is_no_mut_function(it->source.pc->function,no_mut_functions)){
-            decision_procedure.set_to_true(it->cond_expr, 0);
+            decision_procedure.set_to_true(it->cond_expr, 0, location_info);
     	} else {
     		expr_vectort v;
     		it->cond_expr.apply_mutations(std::back_inserter(v), mutation_level); //bat
@@ -715,8 +717,9 @@ void symex_target_equationt::convert_assignments(
     		} else {
     			map[key] = std::vector<expr_vectort>();
     			map[key].push_back(v);
+			info_map[key] = location_info;
     		}
-    		std::cout<<"succefuly created map"<<std::endl;
+    		std::cout<<"succesfuly created map"<<std::endl;
 
     	}
     }
@@ -727,10 +730,11 @@ void symex_target_equationt::convert_assignments(
   for (std::map<std::string, std::vector<expr_vectort>>::const_iterator it= map.begin() ; it!=map.end() ; it++){
 	  std::cout<<(it->first)<<":"<<std::endl;
 	  std::cout<<(it->second.size())<<std::endl;
+	  std::string location_info = info_map[it->first];
 	  gn = get_group_no();
 	  if (it->second.size()==1){
 		  std::cout<<"starting to print vector"<<std::endl;
-		  print_expr_vector(decision_procedure, it->second[0],gn);
+		  print_expr_vector(decision_procedure, it->second[0],gn, location_info);
 	  } else {
 		  assert(it->second.size()>1);
 		  expr_vectort v;
@@ -742,7 +746,7 @@ void symex_target_equationt::convert_assignments(
 			 v.push_back(ex);
 		  }
 		  std::cout<<"starting to print vector"<<std::endl;
-		  print_expr_vector(decision_procedure, v,gn);
+		  print_expr_vector(decision_procedure, v,gn, location_info);
 	  }
   }
 }
@@ -945,14 +949,15 @@ void symex_target_equationt::convert_assertions(
     for(SSA_stepst::iterator it=SSA_steps.begin();
         it!=SSA_steps.end(); it++)
     {
+      std::string location_info = it->source.pc->source_location.as_string();
       if(it->is_assert())
       {
-        prop_conv.set_to_false(it->cond_expr, 0);
+        prop_conv.set_to_false(it->cond_expr, 0, location_info);
         it->cond_literal=const_literal(false);
         return; // prevent further assumptions!
       }
       else if(it->is_assume())
-        prop_conv.set_to_true(it->cond_expr, 0);
+        prop_conv.set_to_true(it->cond_expr, 0, location_info);
     }
 
     assert(false); // unreachable
