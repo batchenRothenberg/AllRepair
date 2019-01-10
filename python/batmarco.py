@@ -275,7 +275,9 @@ def main():
                     if orig_cons_i != cons_i:  # original not chosen for group
                         orig_cons = multiprog.constraints[orig_cons_i]
                         cons = multiprog.constraints[cons_i]
-                        print("Group" + str(group) + ": Replace " + pretty_print_repair_expression(
+                        info = multiprog.group_info_map[group]
+                        print("In "+ info + ":")
+                        print("Replace " + pretty_print_repair_expression(
                             orig_cons) + " with " + pretty_print_repair_expression(cons))
 
                         if possible_solutions == args.numrepairs:
