@@ -2,6 +2,7 @@
 import cProfile, pstats, io, re
 import StringIO
 import time
+import re
 from abc import ABCMeta, abstractmethod
 from collections import Counter, defaultdict
 from z3 import *
@@ -93,6 +94,11 @@ def stop_profiling(pr):
     ps.print_stats()
     print s.getvalue()
 
+
+def find_regular_expression(re_pattern, str):
+    p = re.compile(re_pattern)  # res will only include patterns matched inside ()
+    res = p.findall(str)
+    return res
 
 class Graph():
     __metaclass__ = ABCMeta

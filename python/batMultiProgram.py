@@ -1,10 +1,9 @@
 from collections import Counter
 from functools import reduce
 from z3 import *
-import re
 
 from InGeneer import stmt
-from batutils import Graph, get_vars_as_string, is_If, parse_If
+from batutils import Graph, get_vars_as_string, is_If, parse_If, find_regular_expression
 from InGeneer.utils import remove_or
 
 
@@ -55,15 +54,14 @@ class batMultiProgram(Graph):
         soft_i = 0
         demand_constraints = []
         for line in f.readlines():
-            p = re.compile(';Group-number *\{([0-9,a-z]*)\}') #res will only include patterns matched inside ()
-            res = p.findall(line)
+            res = find_regular_expression(';Group-number *\{([0-9,a-z]*)\}',line)
             if res:
                 # add constraint to hard/soft constraints
                 if res[0] == '0' or res[0] == 'demand':
                     self.hard_constraints.append(cons_i)
                 else:
                     self.soft_constraints.append((int(res[0]), cons_i))
-                    self.save_location_information(int(res[0]), line)
+                    self.parse_and_save_location_information(int(res[0]), line)
                     soft_i = soft_i + 1
                 # if assert or assume - add to assert_and_assume list. Otherwise - it's an assignment, add to map.
                 if self.blocking_method != "basic":
@@ -89,10 +87,9 @@ class batMultiProgram(Graph):
         print(self.assignment_map)
         f.close()
 
-    def save_location_information(self, groupnum, line):
+    def parse_and_save_location_information(self, groupnum, line):
         if groupnum not in self.group_info_map.keys():
-            p = re.compile('Group-info *\{(.*)\}') #res will only include patterns matched inside ()
-            res = p.findall(line)
+            res = find_regular_expression('Group-info *\{(.*)\}',line)
             if not res:
                 info = "<location unavailable>"
             else:
