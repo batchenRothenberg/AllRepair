@@ -1,4 +1,6 @@
 """Utility class(es) for marco_py"""
+import cProfile, pstats, io, re
+import StringIO
 import time
 from abc import ABCMeta, abstractmethod
 from collections import Counter, defaultdict
@@ -75,6 +77,21 @@ class Statistics:
 
     def get_stats(self):
         return self._stats
+
+
+def start_profiling():
+    pr = cProfile.Profile()
+    pr.enable()
+    return pr
+
+
+def stop_profiling(pr):
+    pr.disable()
+    s = StringIO.StringIO()
+    sortby = 'cumulative'
+    ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
+    ps.print_stats()
+    print s.getvalue()
 
 
 class Graph():
