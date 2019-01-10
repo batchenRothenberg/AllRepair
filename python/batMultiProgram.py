@@ -54,7 +54,7 @@ class batMultiProgram(Graph):
         soft_i = 0
         demand_constraints = []
         for line in f.readlines():
-            p = re.compile(';AllRepair *\{([0-9,a-z]*)\}')
+            p = re.compile(';Group-number *\{([0-9,a-z]*)\}')
             res = p.findall(line)
             if res != []:
                 # add constraint to hard/soft constraints
