@@ -21,6 +21,7 @@ class batMultiProgram(Graph):
     sat_seed = None     # Determines the chosen program
     smt_model = None    # Determines the chosen path within the program, leading to a bug.
     demands_formula = None
+    group_info_map = {} # Maps a positive group number to a string with its file location and line number
 
     def __init__(self, filename, blocking_method):
         self.blocking_method = blocking_method
@@ -54,14 +55,15 @@ class batMultiProgram(Graph):
         soft_i = 0
         demand_constraints = []
         for line in f.readlines():
-            p = re.compile(';Group-number *\{([0-9,a-z]*)\}')
+            p = re.compile(';Group-number *\{([0-9,a-z]*)\}') #res will only include patterns matched inside ()
             res = p.findall(line)
-            if res != []:
+            if res:
                 # add constraint to hard/soft constraints
                 if res[0] == '0' or res[0] == 'demand':
                     self.hard_constraints.append(cons_i)
                 else:
                     self.soft_constraints.append((int(res[0]), cons_i))
+                    self.save_location_information(int(res[0]), line)
                     soft_i = soft_i + 1
                 # if assert or assume - add to assert_and_assume list. Otherwise - it's an assignment, add to map.
                 if self.blocking_method != "basic":
@@ -86,6 +88,16 @@ class batMultiProgram(Graph):
         self.demands_formula = And([self.constraints[i] for i in demand_constraints])
         print(self.assignment_map)
         f.close()
+
+    def save_location_information(self, groupnum, line):
+        if groupnum not in self.group_info_map.keys():
+            p = re.compile('Group-info *\{(.*)\}') #res will only include patterns matched inside ()
+            res = p.findall(line)
+            if not res:
+                info = "<location unavailable>"
+            else:
+                info = res[0]
+            self.group_info_map[groupnum] = info
 
     def get_original_index(self, group):
         return next((idx, cons_i) for idx, (g, cons_i) in enumerate(self.soft_constraints) if g == group)
