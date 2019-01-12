@@ -25,6 +25,10 @@ class RepairFormatter(object, Formatter):
             pretty_name = new_res[0]
         return to_format(pretty_name)
 
+    def pp_bv(self, a):
+        return to_format(a.as_signed_long())
+
+
 
 
 
