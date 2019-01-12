@@ -165,7 +165,7 @@ if [ $BLOCK != "basic" ] && [ $BLOCK != "slicing" ] && [ $BLOCK != "generalizati
 	echo "Wrong method for --block-incorrect ($BLOCK). Method can be either basic, slicing or generalization."
 	exit 1
 fi
-if [ $BLOCK == ""]; then
+if [ $BLOCK == "" ]; then
 	echo "Argument --block-incorrect should be followed by one of the following methods: basic, slicing or generalization."
 	exit 1
 fi
