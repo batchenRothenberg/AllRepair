@@ -95,9 +95,19 @@ def stop_profiling(pr):
     print s.getvalue()
 
 
-def find_regular_expression(re_pattern, str):
+def findall_regular_expression(re_pattern, str):
     p = re.compile(re_pattern)  # res will only include patterns matched inside ()
     res = p.findall(str)
+    return res
+
+def search_regular_expression(re_pattern, str):
+    p = re.compile(re_pattern)  # res will only include patterns matched inside ()
+    res = p.search(str)
+    return res
+
+def match_regular_expression(re_pattern, str):
+    p = re.compile(re_pattern)  # res will only include patterns matched inside ()
+    res = p.match(str)
     return res
 
 class Graph():

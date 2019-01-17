@@ -3,7 +3,7 @@ from functools import reduce
 from z3 import *
 
 from InGeneer import stmt
-from batutils import Graph, get_vars_as_string, is_If, parse_If, find_regular_expression
+from batutils import Graph, get_vars_as_string, is_If, parse_If, findall_regular_expression
 from InGeneer.utils import remove_or
 
 
@@ -54,7 +54,7 @@ class batMultiProgram(Graph):
         soft_i = 0
         demand_constraints = []
         for line in f.readlines():
-            res = find_regular_expression(';Group-number *\{([0-9,a-z]*)\}',line)
+            res = findall_regular_expression(';Group-number *\{([0-9,a-z]*)\}', line)
             if res:
                 # add constraint to hard/soft constraints
                 if res[0] == '0' or res[0] == 'demand':
@@ -89,7 +89,7 @@ class batMultiProgram(Graph):
 
     def parse_and_save_location_information(self, groupnum, line):
         if groupnum not in self.group_info_map.keys():
-            res = find_regular_expression('Group-info *\{(.*)\}',line)
+            res = findall_regular_expression('Group-info *\{(.*)\}', line)
             if not res:
                 info = "<location unavailable>"
             else:
