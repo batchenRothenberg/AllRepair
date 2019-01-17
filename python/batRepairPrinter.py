@@ -1,6 +1,6 @@
 from z3 import *
 from z3printer import *
-from batutils import find_regular_expression
+from batutils import findall_regular_expression, match_regular_expression, search_regular_expression
 
 
 def pretty_print_repair_expression(e):
@@ -10,7 +10,7 @@ def pretty_print_repair_expression(e):
     lhs = e.arg(0)
     rhs = e.arg(1)
     name = lhs.decl().name()
-    is_name_a_guard = find_regular_expression('goto_symex::.*guard', name)
+    is_name_a_guard = findall_regular_expression('goto_symex::.*guard', name)
     if is_name_a_guard:
         # PP()(out, Formatter()(rhs)) # Uncomment to disable pretty printing (e.g., for debugging)
         PP()(out, RepairFormatter()(rhs))  # applying () to a class object calls the __call__ method of the class
@@ -27,12 +27,16 @@ class RepairFormatter(object, Formatter):
 
     def pp_const(self, a):
         name = a.decl().name()
-        res = find_regular_expression('::([^:]*)!',name)
+        res = findall_regular_expression('^.*::(.*)$', name)  # remove scope prefix: 'g::f::x!3@4' to 'x!3@4'
         if res:
-            pretty_name = res[0]
+            name_without_scope = res[0]
         else:
-            new_res = find_regular_expression(':([^:]*)#', name)
-            pretty_name = new_res[0]
+            name_without_scope = name
+        res = match_regular_expression('[^$?!@#]*', name_without_scope)  # remove SSA suffix: 'x!3@4' to 'x'
+        if res:
+            pretty_name = res.group()
+        else:
+            assert False  # should always match the empty string..
         return to_format(pretty_name)
 
     def pp_bv(self, a):
