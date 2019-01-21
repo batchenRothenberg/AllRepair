@@ -703,7 +703,7 @@ template void exprt::apply_mutations<
 //bat
 template<typename OutputIterator>
 void exprt::apply_mutations(OutputIterator it, std::string& mutation_level) const {
-	std::cout << "apply mutations begin" << std::endl;
+	//std::cout << "apply mutations begin" << std::endl;
 	(*it) = *this; //keep the original expr as the first option
 	exprt e = *this; //needed because we can't use apply_mutations_aux directly on (*this) because it's const
 	e.apply_mutations_aux(it, e.op1(), mutation_level); //(*this) is always an assignment and we change its RHS (op1)
@@ -716,10 +716,10 @@ template void exprt::apply_mutations_aux<
 //bat
 template<typename OutputIterator>
 void exprt::apply_mutations_aux(OutputIterator it, exprt& curr, std::string& mutation_level) {
-	std::cout << "apply mutations aux begin. curr is: " << curr << std::endl;
+	//std::cout << "apply mutations aux begin. curr is: " << curr << std::endl;
 
 	if (curr.id() == ID_constant) {
-		std::cout << "constant "<<curr.type().id()<< std::endl;
+		//std::cout << "constant "<<curr.type().id()<< std::endl;
 		if (mutation_level=="2"||mutation_level=="3"){
 			if (curr.type().id() == "signedbv" || curr.type().id() == "unsignedbv" ) {
 				bv_arithmetict cexp(curr);
@@ -752,15 +752,15 @@ void exprt::apply_mutations_aux(OutputIterator it, exprt& curr, std::string& mut
 		return;
 	}
 	if (curr.id() == ID_symbol || curr.id() == ID_nondet_symbol) {
-		std::cout << "curr is an identifier" << std::endl;
+		//std::cout << "curr is an identifier" << std::endl;
 		return;
 	}
 	this->apply_operator_mutations(it, curr, mutation_level);
-	std::cout << "back from apply operator mutations to apply mutation aux"
-			<< std::endl;
+	//std::cout << "back from apply operator mutations to apply mutation aux"
+			//<< std::endl;
 
 	for (unsigned int i = 0; i < curr.operands().size(); i++) {
-		std::cout << "apply mutation aux before recursive call" << std::endl;
+		//std::cout << "apply mutation aux before recursive call" << std::endl;
 		switch (i) {
 		case 0:
 			this->apply_mutations_aux(it, curr.op0(), mutation_level);
@@ -775,8 +775,8 @@ void exprt::apply_mutations_aux(OutputIterator it, exprt& curr, std::string& mut
 			this->apply_mutations_aux(it, curr.op3(), mutation_level);
 			break;
 		}
-		std::cout << "apply mutation aux returned from recursive call"
-				<< std::endl;
+		//std::cout << "apply mutation aux returned from recursive call"
+				//<< std::endl;
 		//std::cout<<"it is: "<< (*it) << std::endl;
 	}
 }
@@ -790,7 +790,7 @@ template void exprt::apply_operator_mutations<
 template<typename OutputIterator>
 void exprt::apply_operator_mutations(OutputIterator it, exprt& curr,
 		std::string& mutation_level) {
-	std::cout<<"apply operator mutations with curr: "<<curr<<std::endl;
+	//std::cout<<"apply operator mutations with curr: "<<curr<<std::endl;
 
 	const dstring& old_op = curr.id();
 	if (old_op == ID_ge) {
@@ -938,13 +938,13 @@ void exprt::save_mutated_expr(OutputIterator it) const {
 }
 
 void copy_expressions(exprt& ex1, const exprt& ex2) {
-	std::cout << " at begin exp1 is: " << ex1 << std::endl;
-	std::cout << " and exp2 is: " << ex2 << std::endl;
+	//std::cout << " at begin exp1 is: " << ex1 << std::endl;
+	//std::cout << " and exp2 is: " << ex2 << std::endl;
 
 	if (ex2.id() == ID_constant || ex2.id() == ID_symbol
 			|| ex2.id() == ID_nondet_symbol) {
 		ex1 = ex2;
-		std::cout << " after copying exp1 is: " << ex1 << std::endl;
+		//std::cout << " after copying exp1 is: " << ex1 << std::endl;
 		return;
 	}
 
@@ -974,7 +974,7 @@ void copy_expressions(exprt& ex1, const exprt& ex2) {
 		}
 		}
 	}
-	std::cout << " after for exp1 is: " << ex1 << std::endl;
+	//std::cout << " after for exp1 is: " << ex1 << std::endl;
 }
 
 template void exprt::replace_operator<
@@ -991,6 +991,6 @@ void exprt::replace_operator(OutputIterator it, dstring new_op) const {
 	mutation.op1().operands() = this->op1().operands();
 	//std::cout<<"mutation op0 type "<<mutation.op0().type()<<std::endl;
 	//std::cout<<"mutation op1 type "<<mutation.op1().type()<<std::endl;
-	std::cout << "Operator mutation " << mutation << std::endl;
+	//std::cout << "Operator mutation " << mutation << std::endl;
 	(*it) = mutation;
 }

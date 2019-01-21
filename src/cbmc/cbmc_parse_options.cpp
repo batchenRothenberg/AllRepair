@@ -692,11 +692,11 @@ int cbmc_parse_optionst::get_goto_program(
     }
     else
     {
-      std::cout<<"lalala: "<<goto_functions.function_map.size()<<std::endl; //bat
+      //std::cout<<"lalala: "<<goto_functions.function_map.size()<<std::endl; //bat
       if(parse()) return 6;
-      std::cout<<"after parse: "<<goto_functions.function_map.size()<<std::endl; //bat
+      //std::cout<<"after parse: "<<goto_functions.function_map.size()<<std::endl; //bat
       if(typecheck()) return 6;
-      std::cout<<"after parse: "<<goto_functions.function_map.size()<<std::endl; //bat
+      //std::cout<<"after parse: "<<goto_functions.function_map.size()<<std::endl; //bat
       int get_modules_ret=get_modules(bmc);
       if(get_modules_ret!=-1) return get_modules_ret;
       if(final()) return 6;

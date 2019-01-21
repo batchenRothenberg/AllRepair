@@ -663,7 +663,7 @@ void symex_target_equationt::convert(
 //bat
 void print_expr_vector(decision_proceduret &decision_procedure, const expr_vectort & l, int gn, const std::string &info){
 	for ( expr_vectort::const_iterator it2 = l.begin(); it2!= l.end(); it2++){
-		std::cout<<*it2<<std::endl;
+		//std::cout<<*it2<<std::endl;
 	      decision_procedure.set_to_true(*it2, gn, info);
 	}
 }
@@ -699,16 +699,16 @@ void symex_target_equationt::convert_assignments(
   {
     if(it->is_assignment() && !it->ignore){
 	std::string location_info = it->source.pc->source_location.as_string();
-    	std::cout<< "Expr code location is: "<<location_info<<std::endl;
+    	//std::cout<< "Expr code location is: "<<location_info<<std::endl;
     	if (it->assignment_type==assignment_typet::PHI || is_no_mut_function(it->source.pc->function,no_mut_functions)){
             decision_procedure.set_to_true(it->cond_expr, 0, location_info);
     	} else {
     		expr_vectort v;
     		it->cond_expr.apply_mutations(std::back_inserter(v), mutation_level); //bat
-    		std::cout<<"printing v"<<std::endl;
-    		for (expr_vectort::iterator itt = v.begin(); itt!= v.end(); itt++){
-        		std::cout<<*itt<<std::endl;
-    		}
+    		//std::cout<<"printing v"<<std::endl;
+    		//for (expr_vectort::iterator itt = v.begin(); itt!= v.end(); itt++){
+        	//	std::cout<<*itt<<std::endl;
+    		//}
 
     		std::string key = std::to_string(it->source.pc->location_number)+";"+it->original_full_lhs.to_string();
     		std::map<std::string, std::vector<expr_vectort>>::iterator it_find= map.find(key);
@@ -719,21 +719,21 @@ void symex_target_equationt::convert_assignments(
     			map[key].push_back(v);
 			info_map[key] = location_info;
     		}
-    		std::cout<<"succesfuly created map"<<std::endl;
+    		//std::cout<<"succesfuly created map"<<std::endl;
 
     	}
     }
   }
-	std::cout<<"for loop ended"<<std::endl;
+	//std::cout<<"for loop ended"<<std::endl;
 
   int gn = -1;
   for (std::map<std::string, std::vector<expr_vectort>>::const_iterator it= map.begin() ; it!=map.end() ; it++){
-	  std::cout<<(it->first)<<":"<<std::endl;
-	  std::cout<<(it->second.size())<<std::endl;
+	  //std::cout<<(it->first)<<":"<<std::endl;
+	  //std::cout<<(it->second.size())<<std::endl;
 	  std::string location_info = info_map[it->first];
 	  gn = get_group_no();
 	  if (it->second.size()==1){
-		  std::cout<<"starting to print vector"<<std::endl;
+		  //std::cout<<"starting to print vector"<<std::endl;
 		  print_expr_vector(decision_procedure, it->second[0],gn, location_info);
 	  } else {
 		  assert(it->second.size()>1);
@@ -745,7 +745,7 @@ void symex_target_equationt::convert_assignments(
 			 }
 			 v.push_back(ex);
 		  }
-		  std::cout<<"starting to print vector"<<std::endl;
+		  //std::cout<<"starting to print vector"<<std::endl;
 		  print_expr_vector(decision_procedure, v,gn, location_info);
 	  }
   }
