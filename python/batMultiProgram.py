@@ -25,8 +25,13 @@ class batMultiProgram(Graph):
     def __init__(self, filename, blocking_method):
         self.blocking_method = blocking_method
         self.read_constraints(filename)
-        print("total cons:", len(self.constraints), "total hard+soft:", len(self.soft_constraints) + len(
-            self.hard_constraints))
+        number_of_constraints = len(self.constraints)
+        number_of_hard_constraints = len(self.hard_constraints)
+        number_of_soft_constraints = len(self.soft_constraints)
+        if number_of_constraints != (number_of_hard_constraints + number_of_soft_constraints):
+            print("Gsmt2 parsing error: Some constraints do not belong to any group.")
+            print("Make sure every constraint ends with a comment of the form ';Group-num {n}'")
+            exit(1)
         self.mutants = reduce(lambda x, y: x * y, self.sizes)
         print("Total number of mutated programs:", self.mutants)
 
