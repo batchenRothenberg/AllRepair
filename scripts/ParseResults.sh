@@ -1,6 +1,7 @@
 #!/bin/bash
 
 results_dir="AllRepairResults"
+separating_string="___________________"
 # Order in column_titles and column_identifying_texts must be the same, and determines column order in output.
 declare -a column_titles=( "file name" "mutated programs" "constraints" )
 declare -a column_identifying_texts=( "Repairing file " "Total number of mutated programs: " "Total number of constraints: " )
@@ -27,18 +28,23 @@ echo "" >> $results_filename
 
 # Parse input stream (from AllRepair) and add to output
 while read line; do
+	if [[ $line == "${separating_string}"* ]]; then
+		# Finished repairing file - print current_row
+		for data in "${current_row[@]}"; do 
+			echo -n "${data}," >> $results_filename
+		done
+		echo "" >> $results_filename
+		# Initialize current_row array
+		unset current_row
+	fi
 	for index in "${!column_identifying_texts[@]}"; do 
 		identifying_string=${column_identifying_texts[$index]}
 		if [[ $line == "$identifying_string"* ]]; then
-			echo "match found"
 			info=${line#"$identifying_string"}
 			current_row[$index]=$info
 		fi
 	done
+	echo $line
 done
 
-for data in "${current_row[@]}"; do 
-	echo -n "${data}," >> $results_filename
-done
-echo "" >> $results_filename
 
