@@ -211,7 +211,6 @@ IFS=$'\n' #split only on new line and not space or tab (allows filenames with sp
 
 #Procces files
 for file in $ALLFILES ; do
-	echo " ____________________________________________________________________________________"
 	echo ""
 	echo "		Repairing file $file"
 	echo ""

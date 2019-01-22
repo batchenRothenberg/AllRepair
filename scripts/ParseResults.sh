@@ -3,8 +3,8 @@
 results_dir="AllRepairResults"
 separating_string="___________________"
 # Order in column_titles and column_identifying_texts must be the same, and determines column order in output.
-declare -a column_titles=( "file name" "mutated programs" "constraints" )
-declare -a column_identifying_texts=( "Repairing file " "Total number of mutated programs: " "Total number of constraints: " )
+declare -a column_titles=( "file name" "hard constraints" "max mutation size" "mutated programs" )
+declare -a column_identifying_texts=( "Repairing file " "Hard constraints (group 0): " "Max mutation size: " "Mutated programs in search space: ")
 declare -a current_row
 
 # Determine output file
@@ -30,9 +30,9 @@ echo "" >> $results_filename
 while read line; do
 	if [[ $line == "${separating_string}"* ]]; then
 		# Finished repairing file - print current_row
-		for data in "${current_row[@]}"; do 
-			echo -n "${data}," >> $results_filename
-		done
+		for i in "${!column_titles[@]}"; do 
+            		echo -n "${current_row[$i]}," >> $results_filename
+        	done
 		echo "" >> $results_filename
 		# Initialize current_row array
 		unset current_row
