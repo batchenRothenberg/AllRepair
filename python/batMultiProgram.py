@@ -33,8 +33,9 @@ class batMultiProgram(Graph):
             print("Make sure every constraint ends with a comment of the form ';Group-num {n}'")
             exit(1)
         self.mutants = reduce(lambda x, y: x * y, self.sizes)
-        print("Total number of constraints: "+str(number_of_constraints))
-        print("Total number of mutated programs: "+str(self.mutants))
+        print("Hard constraints (group 0): "+str(number_of_hard_constraints))
+        print("Max mutation size: "+str(len(self.sizes)))
+        print("Mutated programs in search space: "+str(self.mutants))
 
     def read_constraints(self, filename):
         self.constraints = self.read_smt2(filename)
