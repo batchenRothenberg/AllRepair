@@ -226,7 +226,6 @@ for file in $ALLFILES ; do
 	if [[ $REPAIR -eq 1 ]] && ([[ $cbmc_res -eq 10 ]] || [[ $TRANSLATE -ne 1 ]]); then
 		marco $file
 		marco_res=$?
-		echo "marco res: $marco_res"
 		if [[ $marco_res -ne 0 ]]; then
 			echo "AllRepair: ERROR DURING REPAIR"
 		else		
