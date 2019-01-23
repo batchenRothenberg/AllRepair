@@ -98,6 +98,7 @@ marco(){
 	out_name=`echo $1 | tr "/" "_"`
 	out_name_no_extension="${out_name%.*}"
 
+	echo "AllRepair: TRANSLATION PROCESS TERMINATED SUCCESSFULLY"
 	echo "AllRepair: SEARCHING FOR REPAIR ..."
 	if [[ $REPAIROUT -eq 1 ]]; then
 		if [[ ! -d repair_out ]]; then
@@ -107,6 +108,7 @@ marco(){
 	else
 		../python/batmarco.py ${out_name_no_extension}.gsmt2 ${TIMEOUT+"-T"} $TIMEOUT ${REPAIRLIMIT+"-n"} $REPAIRLIMIT ${SIZELIMIT+"-k"} $SIZELIMIT ${PROGRAMLIMIT+"-l"} $PROGRAMLIMIT ${BLOCK+"--blockrepair"} $BLOCK --smt -v -s -a --smus
 	fi
+	return $?
 }
 
 
@@ -218,11 +220,18 @@ for file in $ALLFILES ; do
 		cbmc $file
 		cbmc_res=$?
 		if [[ $cbmc_res -ne 10 ]]; then
-			echo "AllRepair: ERROR: translation error"
+			echo "AllRepair: ERROR DURING TRANSLATION"
 		fi	
 	fi
 	if [[ $REPAIR -eq 1 ]] && ([[ $cbmc_res -eq 10 ]] || [[ $TRANSLATE -ne 1 ]]); then
 		marco $file
+		marco_res=$?
+		echo "marco res: $marco_res"
+		if [[ $marco_res -ne 0 ]]; then
+			echo "AllRepair: ERROR DURING REPAIR"
+		else		
+			echo "AllRepair: REPAIR PROCESS TERMINATED SUCCESSFULLY"
+		fi
 	fi
 	out_name=`echo $file | tr "/" "_"`
 	out_name_no_extension="${out_name%.*}"
