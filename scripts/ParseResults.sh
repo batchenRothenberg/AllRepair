@@ -2,8 +2,8 @@
 
 results_dir="AllRepairResults"
 separating_string="___________________"
-declare -a column_keys=( "filename" "hard" "soft" "programs" "translation" "repair" "numrepairs")
-declare -A column_titles=( ["filename"]="file name" ["hard"]="hard constraints" ["soft"]="max mutation size" ["programs"]="mutated programs" ["translation"]="translation result" ["repair"]="repair result" ["numrepairs"]="found repairs" )
+declare -a column_keys=( "filename" "hard" "soft" "programs" "translation" "repair" "numrepairs" "timetofirst" )
+declare -A column_titles=( ["filename"]="file name" ["hard"]="hard constraints" ["soft"]="max mutation size" ["programs"]="mutated programs" ["translation"]="translation result" ["repair"]="repair result" ["numrepairs"]="found repairs" ["timetofirst"]="time to first repair [s]" )
 declare -A prefix_strings=( ["filename"]="Repairing file " ["hard"]="Hard constraints (group 0): " ["soft"]="Max mutation size: " ["programs"]="Mutated programs in search space: " )
 declare -A current_row
 
@@ -28,6 +28,7 @@ main() {
 	echo "" >> $results_filename
 
 	# Parse input stream (from AllRepair) and add to output
+	current_row["numrepairs"]=0
 	while read line; do
 		if [[ $line == "${separating_string}"* ]]; then
 			# Finished repairing file - print current_row
@@ -38,12 +39,27 @@ main() {
 			# Initialize current_row array
 			unset current_row
 			declare -A current_row
+			current_row["numrepairs"]=0
 		fi
 		check_prefix_strings "$line"
 		check_translation "$line"
 		check_repair "$line"
+		check_repair_found "$line"
+		check_time_to_first_repair "$line"
 		echo $line
 	done
+}
+
+check_time_to_first_repair () {
+	if [ ${current_row["numrepairs"]} -eq 1 ]; then
+		check_prefix_string_and_save "$1" "Elapsed time: " "timetofirst"
+	fi
+}
+
+check_repair_found () {
+	if [[ $1 == "Possible solution:" ]]; then
+		let current_row["numrepairs"]+=1
+	fi
 }
 
 check_repair () {
