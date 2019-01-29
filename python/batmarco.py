@@ -98,13 +98,12 @@ def at_exit(stats):
 
     # sort categories by total runtime
     categories = sorted(times, key=times.get)
-    maxlen = max(len(x) for x in categories)
     for category in categories:
-        sys.stderr.write("%-*s : %8.3f\n" % (maxlen, category, times[category]))
+        sys.stderr.write("%s : %8.3f\n" % (category, times[category]))
     for category in categories:
         if category in counts:
-            sys.stderr.write("%-*s : %8d\n" % (maxlen + 6, category + ' count', counts[category]))
-            sys.stderr.write("%-*s : %8.5f\n" % (maxlen + 6, category + ' per', times[category] / counts[category]))
+            sys.stderr.write("%s : %d\n" % (category + ' count', counts[category]))
+            sys.stderr.write("%s : %8.5f\n" % (category + ' per', times[category] / counts[category]))
 
     # print min, max, avg of other values recorded
     if other:
