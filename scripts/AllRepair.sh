@@ -98,7 +98,6 @@ marco(){
 	out_name=`echo $1 | tr "/" "_"`
 	out_name_no_extension="${out_name%.*}"
 
-	echo "AllRepair: TRANSLATION PROCESS TERMINATED SUCCESSFULLY"
 	echo "AllRepair: SEARCHING FOR REPAIR ..."
 	if [[ $REPAIROUT -eq 1 ]]; then
 		if [[ ! -d repair_out ]]; then
@@ -217,10 +216,17 @@ for file in $ALLFILES ; do
 	echo "		Repairing file $file"
 	echo ""
 	if [[ $TRANSLATE -eq 1 ]]; then
+		start_time=$(date +%s%3N)
 		cbmc $file
 		cbmc_res=$?
+		end_time=$(date +%s%3N)
+		translation_time=$(( $end_time - $start_time ))
+		# Calculate time diff in ms (bash doesn't do float arithmetic):
+		echo "AllRepair: Translation duration: $(($translation_time/1000)).$(($translation_time%1000))" 
 		if [[ $cbmc_res -ne 10 ]]; then
 			echo "AllRepair: ERROR DURING TRANSLATION"
+		else
+			echo "AllRepair: TRANSLATION PROCESS TERMINATED SUCCESSFULLY"		
 		fi	
 	fi
 	if [[ $REPAIR -eq 1 ]] && ([[ $cbmc_res -eq 10 ]] || [[ $TRANSLATE -ne 1 ]]); then
