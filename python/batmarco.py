@@ -88,6 +88,7 @@ def parse_args():
 
 
 def at_exit(stats):
+    sys.stderr.write("AllRepair STATISTICS:\n")  # bat
     sys.stderr.write("Max inspected size: %d\n" % (stats.size))  # bat
 
     # print stats

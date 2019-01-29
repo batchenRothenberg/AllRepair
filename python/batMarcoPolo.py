@@ -23,7 +23,7 @@ class batMarcoPolo:
     def enumerate_basic(self):
         '''Basic MUS/MCS enumeration, as a simple reference/example.'''
         while True:
-            with self.stats.time('seed'):
+            with self.stats.time('SAT check'):
                 seed = self.map.next_seed(self.stats)
                 if seed is None:
                     return
@@ -35,11 +35,11 @@ class batMarcoPolo:
                     self.i = self.i + 1
                     print(str(len(list(set([x + 1 for x in seed]) - set(self.map.original_vars)))) + " mutations")
 
-            with self.stats.time('check'):
+            with self.stats.time('SMT check'):
                 res = self.subs.check_subset(seed)
 
             if res:  # subset is sat
-                with self.stats.time('block'):
+                with self.stats.time('SAT block'):
                     # print "aaaaa" , m
                     # print "prb:" , m["main::1::prb!0@1#2"]
                     # print "traversing model..."
@@ -58,7 +58,7 @@ class batMarcoPolo:
                         self.map.block_up(
                             seed)  # block_up/down have the same effect- block only seed (since we are looking at fixed size subsets)
             else:  # subset is unsat
-                with self.stats.time('block'):
+                with self.stats.time('SAT block'):
                     yield ("U", seed)
                     if self.config['smus']:
                         clause = self.map.block_good_repair(seed)
