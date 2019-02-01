@@ -4,9 +4,12 @@ from batutils import findall_regular_expression, match_regular_expression, searc
 
 
 def pretty_print_repair_expression(e):
-    assert is_eq(e)
     out = io.StringIO()
+    # If e is a complex constraint due to loop unwinding, take the first conjunct
+    if is_and(e):
+        e = e.arg(0)
     # If e assigns to auxiliary guard - remove assignment
+    assert is_eq(e)
     lhs = e.arg(0)
     rhs = e.arg(1)
     name = lhs.decl().name()
