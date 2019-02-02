@@ -269,7 +269,7 @@ def main():
             if result[0] == "U":
                 possible_solutions = possible_solutions + 1
                 print("-----------------------------------------------------------")
-                print("Possible solution:")
+                print("Possible repair:")
                 if args.alltimes:
                     print("Elapsed time: %0.3f" % (stats.current_time()))
                 # group,cons_i = csolver.soft_constraints[x]
@@ -282,8 +282,9 @@ def main():
                         cons = multiprog.constraints[cons_i]
                         info = multiprog.group_info_map[group]
                         print("In "+ info + ":")
-                        print("Replace " + pretty_print_repair_expression(
-                            orig_cons) + " with " + pretty_print_repair_expression(cons))
+                        print("Replace " + pretty_print_repair_expression(orig_cons))
+                        print(" with " + pretty_print_repair_expression(cons))
+                        print("-----------------------------------------------------------")
 
                         if possible_solutions == args.numrepairs:
                             sys.stderr.write("Number of repairs limit reached.\n")
