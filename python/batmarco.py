@@ -13,6 +13,7 @@ from batMarcoPolo import batMarcoPolo
 from batRepairPrinter import *
 from batMultiProgram import batMultiProgram
 from batSMTsolvers import Z3SubsetSolver
+from batThreading import ExcThread
 
 
 def parse_args():
@@ -119,9 +120,13 @@ def setup_execution(args, stats):
     def handler(signum, frame):
         if signum == signal.SIGALRM:
             sys.stderr.write("Time limit reached.\n")
-        else:
+            sys.exit(2)
+        elif signum == signal.SIGINT:
             sys.stderr.write("Interrupted.\n")
-        sys.exit(128)
+            sys.exit(7)
+        elif signum == signal.SIGTERM:
+            sys.stderr.write("Terminated externally.\n")
+            sys.exit(6)
         # at_exit will fire here
 
     signal.signal(signal.SIGTERM, handler)  # external termination
@@ -238,7 +243,7 @@ def main():
     # useful for timing just the parsing / setup
     if args.limit == 0:
         sys.stderr.write("Number of programs limit reached.\n")
-        sys.exit(0)
+        sys.exit(4)
 
     # enumerate results in a separate thread so signal handling works while in C code
     # ref: https://thisismiller.github.io/blog/CPython-Signal-Handling/
@@ -282,20 +287,21 @@ def main():
 
                         if possible_solutions == args.numrepairs:
                             sys.stderr.write("Number of repairs limit reached.\n")
-                            sys.exit(0)
+                            sys.exit(3)
 
             if remaining:
                 remaining -= 1
                 if remaining == 0:
                     sys.stderr.write("Number of programs limit reached.\n")
-                    sys.exit(0)
+                    sys.exit(4)
 
         if possible_solutions == 0:
             print("No solutions found using the given alternatives")
 
         # batutils.stop_profiling(pr)
 
-    enumthread = threading.Thread(target=enumerate)
+   # enumthread = threading.Thread(target=enumerate)
+    enumthread = ExcThread(target=enumerate)
     enumthread.daemon = True  # so thread is killed when main thread exits (e.g. in signal handler)
     enumthread.start()
     enumthread.join(float("inf"))  # timeout required for signal handler to work; set to infinity

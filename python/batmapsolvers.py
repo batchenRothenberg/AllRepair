@@ -187,7 +187,7 @@ class MinicardMapSolver(MapSolver):
         if self.limit is not None and self.m - self.k > self.limit:
             print
             "Program size limit reached"
-            exit(0)
+            exit(5)
         # else:
         #   if not self.solve_with_bound(self.n):
         #        # no more models
