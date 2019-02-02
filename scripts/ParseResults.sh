@@ -99,10 +99,22 @@ check_repair_found () {
 }
 
 check_repair_result () {
-	if [[ $1 == "AllRepair: REPAIR PROCESS TERMINATED SUCCESSFULLY" ]]; then
-		current_row["repair"]="SUCCESS"
-	elif [[ $1 == "AllRepair: ERROR DURING REPAIR" ]]; then
-		current_row["repair"]="FAILURE"
+	if [[ $1 == "AllRepair: SEARCH SPACE COVERED SUCCESSFULLY" ]]; then
+		current_row["repair"]="FULL COVERAGE"
+	elif [[ $1 == "AllRepair: TIMEOUT" ]]; then
+		current_row["repair"]="TIMEOUT"
+	elif [[ $1 == "AllRepair: REQUESTED NUMBER OF REPAIRS FOUND" ]]; then
+		current_row["repair"]="REPAIR LIMIT"
+	elif [[ $1 == "AllRepair: MAX NUMBER OF MUTATED PROGRAMS INSPECTED" ]]; then
+		current_row["repair"]="PROGRAM LIMIT"
+	elif [[ $1 == "AllRepair: MAX MUTATION SIZE REACHED" ]]; then
+		current_row["repair"]="SIZE LIMIT"
+	elif [[ $1 == "AllRepair: EXTERNALLY TERMINATED" ]]; then
+		current_row["repair"]="TERMINATED"
+	elif [[ $1 == "AllRepair: INTERRUPTED" ]]; then
+		current_row["repair"]="INTERRUPTED"
+	else
+		current_row["repair"]="ERROR"
 	fi
 }
 

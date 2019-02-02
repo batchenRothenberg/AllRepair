@@ -244,10 +244,23 @@ for file in $ALLFILES ; do
 	if [[ $REPAIR -eq 1 ]] && ([[ $cbmc_res -eq 10 ]] || [[ $TRANSLATE -ne 1 ]]); then
 		marco $file
 		marco_res=$?
-		if [[ $marco_res -ne 0 ]]; then
-			echo "AllRepair: ERROR DURING REPAIR"
+		echo "res = $marco_res"
+		if [[ $marco_res -eq 0 ]]; then
+			echo "AllRepair: SEARCH SPACE COVERED SUCCESSFULLY"
+		elif [[ $marco_res -eq 2 ]]; then
+			echo "AllRepair: TIMEOUT"
+		elif [[ $marco_res -eq 3 ]]; then
+			echo "AllRepair: REQUESTED NUMBER OF REPAIRS FOUND"
+		elif [[ $marco_res -eq 4 ]]; then
+			echo "AllRepair: MAX NUMBER OF MUTATED PROGRAMS INSPECTED"
+		elif [[ $marco_res -eq 5 ]]; then
+			echo "AllRepair: MAX MUTATION SIZE REACHED"
+		elif [[ $marco_res -eq 6 ]]; then
+			echo "AllRepair: EXTERNALLY TERMINATED"
+		elif [[ $marco_res -eq 7 ]]; then
+			echo "AllRepair: INTERRUPTED"
 		else		
-			echo "AllRepair: REPAIR PROCESS TERMINATED SUCCESSFULLY"
+			echo "AllRepair: ERROR DURING REPAIR"
 		fi
 	fi
 	out_name=`echo $file | tr "/" "_"`
