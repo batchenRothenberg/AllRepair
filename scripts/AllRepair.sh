@@ -94,7 +94,6 @@ cbmc(){
 
 # function to run MARCO
 marco(){
-	#echo "I am running MARCO on $1"
 	out_name=`echo $1 | tr "/" "_"`
 	out_name_no_extension="${out_name%.*}"
 
@@ -153,9 +152,6 @@ for pass in 1 2; do
     fi
 done
 
-# echo "UNWIND=$UNWIND FUNCTION=$FUNCTION MUTATION=$MUTATION NOMUT=$NOMUT TIME=$TIMEOUT SIZE=$SIZELIMIT REPAIRLIM=$REPAIRLIMIT PROG=$PROGRAMLIMIT BLOCK=$BLOCK"
-# echo "FILES=$FILES"
-# echo "DIRS=$DIRS"
 
 #check parameter integrity
 if [[ $FILES == "" ]] && [[ $DIRS == "" ]]; then
@@ -180,23 +176,39 @@ if [ -n "$*" ]; then
     exit 1
 fi
 
-# Set verbosity
-#if [ "0$VERBOSE" -eq 0 ]; then
-    # Default, quiet
-#    :
-#fi
-#if [ $VERBOSE -eq 1 ]; then
-    # Enable log messages
-#    :
-#fi
-#if [ $VERBOSE -ge 2 ]; then
-    # Enable high verbosity
-#    :
-#fi
-#if [ $VERBOSE -ge 3 ]; then
-    # Enable debug verbosity
-#    :
-#fi
+
+# Print settings
+echo -n "AllRepair: Settings: "
+if [[ ! -z "$UNWIND" ]]; then
+	echo -n "Unwinding bound=$UNWIND "
+fi
+if [[ ! -z "$MUTATION" ]]; then
+	echo -n "Mutation level=$MUTATION "
+fi
+if [[ ! -z "$TIMEOUT" ]]; then
+	echo -n "Timeout=$TIMEOUT "
+fi
+if [[ ! -z "$SIZELIMIT" ]]; then
+	echo -n "Max repair size=$SIZELIMIT "
+fi
+if [[ ! -z "$PROGRAMLIMIT" ]]; then
+	echo -n "Max programs to check=$PROGRAMLIMIT "
+fi
+if [[ ! -z "$REPAIRLIMIT" ]]; then
+	echo -n "Max repairs to find=$REPAIRLIMIT "
+fi
+if [[ ! -z "$FUNCTION" ]]; then
+	echo -n "Function to repair=$FUNCTION "
+fi
+if [[ ! -z "$NOMUT" ]]; then
+	echo -n "Functions to avoid mutating=$NOMUT "
+fi
+echo ""
+# Other settings:
+# echo "BLOCK=$BLOCK"
+# echo "FILES=$FILES"
+# echo "DIRS=$DIRS"
+
 
 # get individual filenames from FILES and DIRS
 if [[ "$DIRS" ]]; then
