@@ -14,7 +14,7 @@ main() {
 		if ! [ -d "$results_dir" ]; then
 			mkdir "$results_dir"
 		fi
-		results_filename="$results_dir/AllRepair_results_"`date +'%d_%m_%Y_%X'`
+		results_filename="$results_dir/AllRepair_results_"`date +'%d_%m_%Y_%X'`".csv"
 	else
 		results_filename="$1"
 	fi
