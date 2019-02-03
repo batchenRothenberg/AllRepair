@@ -74,7 +74,7 @@ main() {
 }
 
 initialize_repair_scope () {
-	if [[ "$1" == "Repairing file "*]]; then
+	if [[ "$1" == "Repairing file "* ]]; then
 		in_repair_scope=0
 	fi
 }
