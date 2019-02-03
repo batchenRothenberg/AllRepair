@@ -57,6 +57,7 @@ main() {
 			declare -A current_row
 			current_row["numrepairs"]=0
 		fi
+		initialize_repair_scope "$line"
 		check_prefix_strings "$line"
 		check_translation_result "$line"
 		check_repair_result "$line"
@@ -70,6 +71,12 @@ main() {
 	# Print end time
 	echo `date +'%d_%m_%Y_%X'` >> $results_filename
 	echo `date +'%d_%m_%Y_%X'` >> $repairs_filename
+}
+
+initialize_repair_scope () {
+	if [[ "$1" == "Repairing file "*]]; then
+		in_repair_scope=0
+	fi
 }
 
 update_repair_scope_and_separate_files () {
