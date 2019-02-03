@@ -185,8 +185,7 @@ class MinicardMapSolver(MapSolver):
         stats.size = self.m - self.k  # record max reviewed size
         self.k -= 1
         if self.limit is not None and self.m - self.k > self.limit:
-            print
-            "Program size limit reached"
+            print("Mutation size limit reached")
             exit(5)
         # else:
         #   if not self.solve_with_bound(self.n):
@@ -200,9 +199,8 @@ class MinicardMapSolver(MapSolver):
             stats.size = self.m - self.k  # record max reviewed size
             self.k -= 1
             if self.limit is not None and self.m - self.k > self.limit:
-                print
-                "Program size limit reached"
-                exit(0)
+                print("Mutation size limit reached")
+                exit(5)
             # else:
             #    self.k += 1
 
