@@ -121,6 +121,8 @@ check_repair_result () {
 		current_row["repair"]="TERMINATED"
 	elif [[ $1 == "AllRepair: INTERRUPTED" ]]; then
 		current_row["repair"]="INTERRUPTED"
+	elif [[ $1 == "AllRepair: ORIGINAL PROGRAM IS CORRECT" ]]; then
+		current_row["repair"]="ORIGINAL CORRECT"
 	else
 		current_row["repair"]="ERROR"
 	fi

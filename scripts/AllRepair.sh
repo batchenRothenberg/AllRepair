@@ -259,6 +259,8 @@ for file in $ALLFILES ; do
 			echo "AllRepair: EXTERNALLY TERMINATED"
 		elif [[ $marco_res -eq 7 ]]; then
 			echo "AllRepair: INTERRUPTED"
+		elif [[ $marco_res -eq 8 ]]; then
+			echo "AllRepair: ORIGINAL PROGRAM IS CORRECT"
 		else		
 			echo "AllRepair: ERROR DURING REPAIR"
 		fi

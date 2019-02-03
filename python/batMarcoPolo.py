@@ -59,6 +59,10 @@ class batMarcoPolo:
                             seed)  # block_up/down have the same effect- block only seed (since we are looking at fixed size subsets)
             else:  # subset is unsat
                 with self.stats.time('SAT block'):
+                    # check if "repair" is in fact the original program
+                    if self.map.k == self.map.m:
+                        print ("Original program is correct. No need for repair.")
+                        exit(8)
                     yield ("U", seed)
                     if self.config['smus']:
                         clause = self.map.block_good_repair(seed)

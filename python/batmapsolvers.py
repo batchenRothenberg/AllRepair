@@ -126,7 +126,7 @@ class MinicardMapSolver(MapSolver):
 
         self.m = len(sizes)  # num of groups- used frequently
         self.n = sum(sizes)  # num of total cons - used frequently
-        self.k = self.m - 1  # initial lower bound on # of unfixed lines (True variables of original cons.)
+        self.k = self.m  # initial lower bound on # of unfixed lines (True variables of original cons.)
         self.limit = limit  # bat
 
         self.solver = minisolvers.MinicardSolver()
