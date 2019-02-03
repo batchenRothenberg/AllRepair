@@ -4,7 +4,7 @@ from z3 import *
 
 from InGeneer import stmt
 from batutils import Graph, get_vars_as_string, is_If, parse_If, findall_regular_expression
-from InGeneer.utils import remove_or
+from InGeneer.formula_strengthener import remove_or
 
 
 class batMultiProgram(Graph):
