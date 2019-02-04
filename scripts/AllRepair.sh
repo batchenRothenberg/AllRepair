@@ -58,6 +58,22 @@ echo "\
 --translation-out; Save the output of the translation phase to a file (seperately for each input file).
 --repair-out; Save the output of the repair phase to a file (seperately for each input file).
 --block-incorrect method; Use 'method' to block programs that were found to be incorrect. 'method' should be either 'basic' (block the found program alone), 'slicing' (block all programs with the same dynamic slice as in the found program) or 'generaliztion' (block all programs found using the error-generalization algorithm). Default: basic.  
+Translation options (from CBMC):
+--bounds-check; enable array bounds checks
+--pointer-check; enable pointer checks
+--memory-leak-check; enable memory leak checks
+--div-by-zero-check; enable division by zero checks
+--signed-overflow-check; enable signed arithmetic over- and underflow checks
+--unsigned-overflow-check; enable arithmetic over- and underflow checks
+--pointer-overflow-check; enable pointer arithmetic over- and underflow checks
+--conversion-check; check whether values can be represented after type cast
+--undefined-shift-check; check shift greater than bit-width
+--float-overflow-check; check floating-point for +/-Inf
+--nan-check; check floating-point for NaN
+--no-built-in-assertions; ignore assertions in built-in library
+--no-assertions; ignore user assertions
+--no-assumptions; ignore user assumptions
+--error-label label; check that label is unreachable
 " | column -t -s ";"
 }
 
@@ -85,9 +101,9 @@ cbmc(){
 		if [[ ! -d translation_out ]]; then
 			mkdir translation_out
 		fi
-		../src/cbmc/cbmc $1 ${FUNCTION+"--function"} $FUNCTION ${UNWIND+"--unwind"} $UNWIND ${MUTATION+"--mutations"} $MUTATION ${NOMUT+"--no-mut"} $NOMUT --z3 --no-unwinding-assertions --no-propagation --error-label ERROR --bounds-check --pointer-check --outfile $out_name_no_extension.gsmt2 &> translation_out/$out_name_no_extension.tout
+		../src/cbmc/cbmc $1 --z3 --no-unwinding-assertions --no-propagation ${FUNCTION+"--function"} $FUNCTION ${UNWIND+"--unwind"} $UNWIND ${MUTATION+"--mutations"} $MUTATION ${NOMUT+"--no-mut"} $NOMUT ${ERRORLABEL+"--error-label"} $ERRORLABEL $ARRAYBOUND $POINTER $MEMORY $DIVBYZERO $SIGNEDOVERFLOW $UNSIGNEDOVERFLOW $POINTEROVERFLOW $CONVERSION $UNDEFINEDSHIFT $FLOATOVERFLOW $NAN $NOBUILTINASSERTIONS $NOASSERTIONS $NOASSUMPTIONS --outfile $out_name_no_extension.gsmt2 &> translation_out/$out_name_no_extension.tout
 	else
-		../src/cbmc/cbmc $1 ${FUNCTION+"--function"} $FUNCTION ${UNWIND+"--unwind"} $UNWIND ${MUTATION+"--mutations"} $MUTATION ${NOMUT+"--no-mut"} $NOMUT --z3 --no-unwinding-assertions --no-propagation --error-label ERROR --bounds-check --pointer-check --outfile $out_name_no_extension.gsmt2	
+		../src/cbmc/cbmc $1 --z3 --no-unwinding-assertions --no-propagation ${FUNCTION+"--function"} $FUNCTION ${UNWIND+"--unwind"} $UNWIND ${MUTATION+"--mutations"} $MUTATION ${NOMUT+"--no-mut"} $NOMUT ${ERRORLABEL+"--error-label"} $ERRORLABEL $ARRAYBOUND $POINTER $MEMORY $DIVBYZERO $SIGNEDOVERFLOW $UNSIGNEDOVERFLOW $POINTEROVERFLOW $CONVERSION $UNDEFINEDSHIFT $FLOATOVERFLOW $NAN $NOBUILTINASSERTIONS $NOASSERTIONS $NOASSUMPTIONS --outfile $out_name_no_extension.gsmt2	
 	fi
 	return $?
 }
@@ -134,6 +150,21 @@ for pass in 1 2; do
 					--translation-out)	TRANSLATIONOUT=1;;
 					--repair-out)		REPAIROUT=1;;
 					--block-incorrect)		BLOCK=$2; shift;;
+					--error-label)		ERRORLABEL=$2; shift;;
+					--bounds-check)		ARRAYBOUND="--bounds-check";;
+					--pointer-check)	POINTER="--pointer-check";;
+					--memory-leak-check)	MEMORY="--memory-leak-check";;
+					--div-by-zero-check)	DIVBYZERO="--div-by-zero-check";;
+					--signed-overflow-check)	SIGNEDOVERFLOW="--signed-overflow-check";;
+					--unsigned-overflow-check)	UNSIGNEDOVERFLOW="--unsigned-overflow-check";;
+					--pointer-overflow-check)	POINTEROVERFLOW="--pointer-overflow-check";;
+					--conversion-check)		CONVERSION="--conversion-check";;
+					--undefined-shift-check)	UNDEFINEDSHIFT="--undefined-shift-check";;
+					--float-overflow-check)		FLOATOVERFLOW="--float-overflow-check";;
+					--nan-check)		NAN="--nan-check";;
+					--no-built-in-assertions)	NOBUILTINASSERTIONS="--no-built-in-assertions";;
+					--no-assertions)		NOASSERTIONS="--no-assertions";;
+					--no-assumptions)		NOASSUMPTIONS="--no-assumptions";;
             		--*)	error $1;;
        				-*)	if [ $pass -eq 1 ]; then ARGS="$ARGS $1";
                                else error $1; fi;;
@@ -199,6 +230,51 @@ if [[ ! -z "$REPAIRLIMIT" ]]; then
 fi
 if [[ ! -z "$FUNCTION" ]]; then
 	echo -n "Function to repair=$FUNCTION "
+fi
+if [[ ! -z "$ERRORLABEL" ]]; then
+	echo -n "--error-label $ERRORLABEL "
+fi
+if [[ ! -z "$ARRAYBOUND" ]]; then
+	echo -n "--bounds-check "
+fi
+if [[ ! -z "$POINTER" ]]; then
+	echo -n "--pointer-check "
+fi
+if [[ ! -z "$MEMORY" ]]; then
+	echo -n "--memory-leak-check "
+fi
+if [[ ! -z "$DIVBYZERO" ]]; then
+	echo -n "--div-by-zero-check "
+fi
+if [[ ! -z "$SIGNEDOVERFLOW" ]]; then
+	echo -n "--signed-overflow-check "
+fi
+if [[ ! -z "$UNSIGNEDOVERFLOW" ]]; then
+	echo -n "--unsigned-overflow-check "
+fi
+if [[ ! -z "$POINTEROVERFLOW" ]]; then
+	echo -n "--pointer-overflow-check "
+fi
+if [[ ! -z "$CONVERSION" ]]; then
+	echo -n "--conversion-check "
+fi
+if [[ ! -z "$UNDEFINEDSHIFT" ]]; then
+	echo -n "--undefined-shift-check "
+fi
+if [[ ! -z "$FLOATOVERFLOW" ]]; then
+	echo -n "--float-overflow-check "
+fi
+if [[ ! -z "$NAN" ]]; then
+	echo -n "--nan-check "
+fi
+if [[ ! -z "$NOBUILTINASSERTIONS" ]]; then
+	echo -n "--no-built-in-assertions "
+fi
+if [[ ! -z "$NOASSERTIONS" ]]; then
+	echo -n "--no-assertions "
+fi
+if [[ ! -z "$NOASSUMPTIONS" ]]; then
+	echo -n "--no-assumptions "
 fi
 if [[ ! -z "$NOMUT" ]]; then
 	echo -n "Functions to avoid mutating=$NOMUT "
