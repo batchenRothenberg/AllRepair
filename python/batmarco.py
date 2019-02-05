@@ -284,11 +284,11 @@ def main():
                         print("In "+ info + ":")
                         print("Replace " + pretty_print_repair_expression(orig_cons))
                         print(" with " + pretty_print_repair_expression(cons))
-                        print("-----------------------------------------------------------")
+                print("-----------------------------------------------------------")
 
-                        if possible_solutions == args.numrepairs:
-                            sys.stderr.write("Number of repairs limit reached.\n")
-                            sys.exit(3)
+                if possible_solutions == args.numrepairs:
+                    sys.stderr.write("Number of repairs limit reached.\n")
+                    sys.exit(3)
 
             if remaining:
                 remaining -= 1
