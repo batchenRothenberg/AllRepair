@@ -763,6 +763,10 @@ bool is_no_mut_function(const irep_idt &function, std::string no_mut_functions){
 				return true;
 		}
 	}
+	// A function begining with "AllRepair_correct_" should not be mutated
+	if (as_string(function).find("AllRepair_correct_") == 0){
+		return true;
+	}
 	return false;
 }
 /*******************************************************************\
