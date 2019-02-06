@@ -19,9 +19,15 @@ https://link.springer.com/chapter/10.1007%2F978-3-319-48989-6_36
 
           git clone https://github.com/batchenRothenberg/AllRepair.git
 
-3. Build the translation and mutation units (altered CBMC) by running "make" in the AllRepair/src directory.
+3. Obtain InGeneer submodule:
+          
+          cd AllRepair
+          git submodule init python/InGeneer
+          git submodule update --remote python/InGeneer
+          
+4. Build the translation and mutation units (altered CBMC) by running "make" in the AllRepair/src directory.
 
-4. Build the repair unit (altered MARCO), by running "make" in the AllRepair/python/pyminisolvers directory.
+5. Build the repair unit (altered MARCO), by running "make" in the AllRepair/python/pyminisolvers directory.
 
 ##########################################################################################
 
