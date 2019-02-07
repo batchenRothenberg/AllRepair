@@ -35,7 +35,7 @@ https://link.springer.com/chapter/10.1007%2F978-3-319-48989-6_36
 
 To run AllRepair, go to directory scripts and run the AllRepair.sh script using the following command:
 
-                              ./AllRepair.sh [FileName] [Options]
+                              ./AllRepair.sh [FileNames] [Options]
 
 For example, running 
 
@@ -46,22 +46,46 @@ Will return all ways to reapir program ex1.c (from folder Examples) using mutati
 To see the complete list of options and their meaning, run:
 
                               ./AllRepair.sh -h
+                              
+Running AllRepair with a direcory name as FileName will result in the individual repair of all .c files in that directory.
 
 ##########################################################################################
 
-### Running the TCAS benchmark:
+### Interpretting the output:
 
-To run AllRepair on the TCAS benchmark under the same conditions as in the FM16 paper (link above), go to directory scripts and run the RunTcas.sh script using the following command:
+Output lines beginning with "AllRepair: " and in capital letters are output lines displayed by the AllRepair script itself.
+These lines should give you an idea of what is going on (translation/repair) and if it is going on succesfully.
+Other lines are redirected output from the translation and the repair units, including more details.
 
-                              ./RunTcas.sh
+Once AllRepair finds a possible repair it displays it like this:
 
-This will run AllRepair on all 41 versions of the TCAS benchmark using the same parameters as we used in the paper (unwinding bound of 5 and at most 2 mutations at once).
-The repair process will stop once the first repair suggestion is found.
-The script will create a folder named "repair_out" under scripts, in which you can find a file with the repair results for each of the TCAS versions.
-If a repair was found, it will be described under the "possible solution" title (with "Elapsed time" being the time it took to find that repair, excluding program translation time). 
-To run with mutation level 2 instead of 1 edit the script and replace "-m 1" with "-m 2".
-To see more repair suggestions per program, delete the "-r 1" option.
-Other options can be modified similarily.
+          \------------------
+          Possible Repair: ...
+          In file... 
+          Replace ..
+          with
+          ...
+          In file... 
+          Replace ..
+          with
+          ...
+          \------------------
+          
+Which represents the patch you need to apply to the original program in order to repair it.
+Note that since mutations are applied for a simplified version of the program, patch instructions sometimes require some translation.
+For example, if your program contains the instruction i++, a repair might tell you to replace i=i+1 with i=i-1, which corresponds to replacing i++ with i--.
 
-**Warning: if you run the script twice, output files will be overwritten**
+The final line of the output should always contain the result of the repair process, from within the following options:
+SEARCH SPACE WAS COVERED SUCCESFULLY - all mutated programs in the search space were examined;
+FAILURE - an exception or an out-of-memory error has occured;
+TIMEOUT - timeout was reached (-t flag);
+REPAIR LIMIT REACHED - tool has found the requiested number of repairs (-r flag);
+PROGRAMS LIMIT REACHED - tool has inspected the requested number of programs (-p flag);
+SIZE LIMIT REACHED - tool has succesfully covered the search space of mutated programs of at most the requested size (-s flag);
+INTERUPTED  - tool was interrupted (e.g., by pressing ctrl+C);
+ORIGINAL PROGRAM IS CORRECT - the program supplied did not contain a bug, or the bug was undetectable using the given specification and unwinding bound.
+
+*Note that AllRepair will not stop once a repair is found, unless you'll tell it to, using the -r flag. So, the expected result in most cases should be to reach some limit (timeout/repair limit/size limit/program limit)*.
+
+
 
