@@ -49,6 +49,11 @@ To see the complete list of options and their meaning, run:
                               
 Running AllRepair with a direcory name as FileName will result in the individual repair of all .c files in that directory.
 
+AllRepair will respect the following annotation in programs:
+__CPROVER_assume(..) - adds an assume statement;
+assert(...) - adds an assertion;
+Functions whose name begins with "AllRepair_correct\_" will not be mutated (alternatively, you may use the --no-mut flag).
+
 ##########################################################################################
 
 ### Interpretting the output:
