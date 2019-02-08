@@ -5,7 +5,7 @@ To reproduce all of our experiments, return to the scripts directory and run (th
     
     ./RunBenchmarks.sh
     
-You will find the results under sccripts/AllRepairResults.
+You will find the results under scripts/AllRepairResults.
 
 To reproduce the results of a single experiment, open the RunBenchmarks script, select individual experiments that you would like to repeat, and run these commands in the terminal from the scripts directory.
 
