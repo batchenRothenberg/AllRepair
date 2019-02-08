@@ -1,0 +1,24 @@
+07_02_2019_08:32:12
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.736
+In file /home/batg/InstrumentedQloseExamples/loops_with_two/Qlose_findC_v6.c line 9 function FindC:
+Replace FindC == 0
+with FindC == 1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 1.398
+In file /home/batg/InstrumentedQloseExamples/loops_with_two/Qlose_findC_v6.c line 5 function FindC:
+Replace Not(k >= i)
+with Not(k < i)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 56.880
+In file /home/batg/InstrumentedQloseExamples/loops_with_two/Qlose_findC_v6.c line 4 function FindC:
+Replace i == 0
+with i == -1
+In file /home/batg/InstrumentedQloseExamples/loops_with_two/Qlose_findC_v6.c line 5 function FindC:
+Replace Not(k >= i)
+with Not(k <= i)
+07_02_2019_08:33:26

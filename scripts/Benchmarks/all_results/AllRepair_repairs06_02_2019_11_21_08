@@ -1,0 +1,59 @@
+06_02_2019_11:21:08
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.037
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v1.c line 5 function FindC:
+Replace Not(i >= k)
+with Not(i > k)
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 12.808
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 5 function multIA:
+Replace 1 + n >= i
+with 1 - n >= i
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.599
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace n + -1 >= i
+with n - -1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace result == result/m
+with result == SRem(result, m)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.671
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace n + -1 >= i
+with n - -1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace result == result/m
+with result == result*m
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.041
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v2.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp - -1
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.048
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n - -1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1 - i
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 9.135
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace Not(i >= n + -1)
+with Not(i > n + -1)
+06_02_2019_11:23:08

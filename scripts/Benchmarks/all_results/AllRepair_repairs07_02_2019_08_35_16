@@ -1,0 +1,66 @@
+07_02_2019_08:35:16
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 2.174
+In file /home/batg/InstrumentedQloseExamples/loops_with_two/Qlose_multIA_v6.c line 5 function multIA:
+Replace i <= 0
+with i >= 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 2.421
+In file /home/batg/InstrumentedQloseExamples/loops_with_two/Qlose_multIA_v6.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 2.519
+In file /home/batg/InstrumentedQloseExamples/loops_with_two/Qlose_multIA_v6.c line 4 function multIA:
+Replace i == 1 + i
+with i == -1 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 2.658
+In file /home/batg/InstrumentedQloseExamples/loops_with_two/Qlose_multIA_v6.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1/i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 2.892
+In file /home/batg/InstrumentedQloseExamples/loops_with_two/Qlose_multIA_v6.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1*i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 3.478
+In file /home/batg/InstrumentedQloseExamples/loops_with_two/Qlose_multIA_v6.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 18.394
+In file /home/batg/InstrumentedQloseExamples/loops_with_two/Qlose_multIA_v6.c line 5 function multIA:
+Replace i <= 0
+with i <= 1
+In file /home/batg/InstrumentedQloseExamples/loops_with_two/Qlose_multIA_v6.c line 4 function multIA:
+Replace i == 1 + i
+with i == SRem(1, i)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 20.984
+In file /home/batg/InstrumentedQloseExamples/loops_with_two/Qlose_multIA_v6.c line 5 function multIA:
+Replace i <= 0
+with i <= 1
+In file /home/batg/InstrumentedQloseExamples/loops_with_two/Qlose_multIA_v6.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1 - i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 34.907
+In file /home/batg/InstrumentedQloseExamples/loops_with_two/Qlose_multIA_v6.c line 4 function multIA:
+Replace i == 0
+with i == 1
+In file /home/batg/InstrumentedQloseExamples/loops_with_two/Qlose_multIA_v6.c line 5 function multIA:
+Replace i <= 0
+with i > 0
+07_02_2019_09:18:12

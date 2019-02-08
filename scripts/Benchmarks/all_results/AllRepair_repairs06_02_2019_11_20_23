@@ -1,0 +1,9 @@
+06_02_2019_11:20:23
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.028
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v1.c line 5 function FindC:
+Replace Not(i >= k)
+with Not(i > k)
+06_02_2019_11:20:52

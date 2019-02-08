@@ -1,0 +1,141 @@
+06_02_2019_11:25:18
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.105
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v1.c line 5 function FindC:
+Replace Not(i >= k)
+with Not(i > k)
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 150.793
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_largestGap3_v5.c line 6 function largestGap:
+Replace i == 1 + i
+with i == 1 - i
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 71.768
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_evalpoly_v1.c line 6 function pow:
+Replace j == 1 + j
+with j == 1 - j
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 528.899
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_evalpoly_v1.c line 25 function evalPoly:
+Replace i == i + -1
+with i == i - -1
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 28.726
+In file /home/batg/InstrumentedQloseExamples/loops/array_sum_v3.c line 5 function sum:
+Replace i == 1 + i
+with i == 1 - i
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 1.743
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v5.c line 6 function iterPower:
+Replace exp == exp + -2
+with exp == exp - -2
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 26.529
+In file /home/batg/InstrumentedQloseExamples/loops/array_sum_v2.c line 5 function sum:
+Replace i == 1 + i
+with i == 1 - i
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 422.344
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_evalpoly_v4.c line 25 function evalPoly:
+Replace i == 1 + i
+with i == 1 - i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 423.546
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_evalpoly_v4.c line 6 function pow:
+Replace j == 1 + j
+with j == 1 - j
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 120.015
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_largestGap3_v1.c line 6 function largestGap:
+Replace i == 1 + i
+with i == 1 - i
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.206
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v2.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp - -1
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 198.622
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_evalpoly_v3.c line 25 function evalPoly:
+Replace i == 1 + i
+with i == 1 - i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 199.819
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_evalpoly_v3.c line 6 function pow:
+Replace j == 1 + j
+with j == 1 - j
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 188.580
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_evalpoly_v5.c line 25 function evalPoly:
+Replace i == 1 + i
+with i == 1 - i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 189.787
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_evalpoly_v5.c line 6 function pow:
+Replace j == 1 + j
+with j == 1 - j
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 29.784
+In file /home/batg/InstrumentedQloseExamples/loops/array_sum_v1.c line 5 function sum:
+Replace i == 1 + i
+with i == 1 - i
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 116.774
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_largestGap3_v3.c line 6 function largestGap:
+Replace i == 1 + i
+with i == 1 - i
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.161
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n - -1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1 - i
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 81.657
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace Not(i >= n + -1)
+with Not(i > n + -1)
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 135.493
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_largestGap3_v2.c line 6 function largestGap:
+Replace i == 1 + i
+with i == 1 - i
+06_02_2019_13:12:21

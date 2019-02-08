@@ -1,0 +1,53 @@
+06_02_2019_14:20:45
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.612
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v1.c line 9 function FindC:
+Replace FindC == 0
+with FindC == 1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.875
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v1.c line 4 function FindC:
+Replace i == 0
+with i == -1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.949
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v1.c line 5 function FindC:
+Replace Not(i >= k)
+with Not(i > k)
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.178
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v1.c line 5 function iterPower:
+Replace exp > 0
+with exp <= 0
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.644
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v2.c line 9 function FindC:
+Replace FindC == 0
+with FindC == 1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 1.726
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v2.c line 4 function FindC:
+Replace i == 1
+with i == 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 1.731
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v2.c line 4 function FindC:
+Replace i == 1
+with i == 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 1.794
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v2.c line 4 function FindC:
+Replace i == 1
+with i == -1
+06_02_2019_14:23:40

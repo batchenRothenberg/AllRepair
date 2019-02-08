@@ -1,0 +1,133 @@
+06_02_2019_14:24:36
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 33.903
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v1.c line 5 function FindC:
+Replace Not(i >= k)
+with Not(i > k)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 501.004
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v1.c line 27 function main:
+Replace s == Concat(2, 0)
+with s == Concat(2, 0) + 1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v1.c line 4 function FindC:
+Replace i == 0
+with i == -1
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 6.930
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 6.958
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 6.985
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1*i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 7.124
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 4 function multIA:
+Replace i == 1 + i
+with i == -1 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 7.300
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1/i
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 63.667
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v4.c line 6 function FindC:
+Replace Not(s[ZeroExt(8, Extract(55, 0, s)) + SignExt(32, i)] == c)
+with Not(Not(s[ZeroExt(8, Extract(55, 0, s)) + SignExt(32, i)] ==
+c))
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 26.031
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 9 function FindC:
+Replace FindC == 1
+with FindC == 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 31.243
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 9 function FindC:
+Replace FindC == 1
+with FindC == 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 48.934
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 4 function FindC:
+Replace i == 1 + i
+with i == 1*i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 55.682
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 4 function FindC:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 60.615
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 4 function FindC:
+Replace i == 1 + i
+with i == 0 + i
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 8.089
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v5.c line 6 function iterPower:
+Replace exp == exp + -2
+with exp == exp + 2
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 16.320
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v2.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp + 1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 16.388
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v2.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp + 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 17.776
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v2.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp - -1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 17.785
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v2.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp + 0
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 61.099
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v2.c line 4 function FindC:
+Replace i == 1
+with i == 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 65.283
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v2.c line 4 function FindC:
+Replace i == 1
+with i == 0
+06_02_2019_18:25:37

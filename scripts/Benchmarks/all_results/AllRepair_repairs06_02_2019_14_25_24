@@ -1,0 +1,1729 @@
+06_02_2019_14:25:24
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 48.137
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v4.c line 5 function iterPower:
+Replace Not(exp == 1)
+with Not(exp == 0)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 48.147
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v4.c line 5 function iterPower:
+Replace Not(exp == 1)
+with Not(Not(exp == 1))
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 48.153
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v4.c line 5 function iterPower:
+Replace Not(exp == 1)
+with Not(exp == 2)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 48.159
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v4.c line 5 function iterPower:
+Replace Not(exp == 1)
+with Not(exp == 0)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 48.830
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v4.c line 5 function iterPower:
+Replace Not(exp == 1)
+with Not(exp == -1)
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v4.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp + 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 48.899
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v4.c line 5 function iterPower:
+Replace Not(exp == 1)
+with Not(exp == -1)
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v4.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp + -2
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 48.903
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v4.c line 5 function iterPower:
+Replace Not(exp == 1)
+with Not(exp == -1)
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v4.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp + 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 48.969
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v4.c line 5 function iterPower:
+Replace Not(exp == 1)
+with Not(exp == -1)
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v4.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == SRem(exp, -1)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 48.981
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v4.c line 5 function iterPower:
+Replace Not(exp == 1)
+with Not(exp == -1)
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v4.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp/-1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 49.012
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v4.c line 5 function iterPower:
+Replace Not(exp == 1)
+with Not(exp == -1)
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v4.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp*-1
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 3.355
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v1.c line 5 function FindC:
+Replace Not(i >= k)
+with Not(i > k)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 33.719
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v1.c line 27 function main:
+Replace s == Concat(2, 0)
+with s == Concat(2, 0) + 1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v1.c line 4 function FindC:
+Replace i == 0
+with i == -1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 55.800
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v1.c line 4 function FindC:
+Replace i == 0
+with i == -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v1.c line 6 function FindC:
+Replace s[ZeroExt(8, Extract(55, 0, s)) + SignExt(32, i)] == c
+with s[ZeroExt(8, Extract(55, 0, s))/SignExt(32, i)] == c
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 57.490
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v1.c line 4 function FindC:
+Replace i == 0
+with i == -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v1.c line 6 function FindC:
+Replace s[ZeroExt(8, Extract(55, 0, s)) + SignExt(32, i)] == c
+with s[ZeroExt(8, Extract(55, 0, s))*SignExt(32, i)] == c
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 58.209
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v1.c line 4 function FindC:
+Replace i == 0
+with i == -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v1.c line 6 function FindC:
+Replace s[ZeroExt(8, Extract(55, 0, s)) + SignExt(32, i)] == c
+with s[SRem(ZeroExt(8, Extract(55, 0, s)), SignExt(32, i))] == c
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.777
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.781
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.785
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1*i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.802
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 4 function multIA:
+Replace i == 1 + i
+with i == -1 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.819
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1/i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 1.000
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 5 function multIA:
+Replace result == result + m
+with result == result*m
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 1.112
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 5 function multIA:
+Replace result == result + m
+with result == SRem(result, m)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 198.850
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 5 function multIA:
+Replace 1 + n >= i
+with 1 - n >= i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 199.017
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 5 function multIA:
+Replace 1 + n >= i
+with -1 + n >= i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 202.918
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 4 function multIA:
+Replace i == 0
+with i == 1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1 - i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 203.216
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 4 function multIA:
+Replace i == 0
+with i == 1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 4 function multIA:
+Replace i == 1 + i
+with i == SRem(1, i)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 203.304
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 4 function multIA:
+Replace i == 0
+with i == -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 5 function multIA:
+Replace 1 + n >= i
+with SRem(1, n) >= i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 203.794
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 4 function multIA:
+Replace i == 0
+with i == 1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 5 function multIA:
+Replace 1 + n >= i
+with 1*n >= i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 203.869
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 4 function multIA:
+Replace i == 0
+with i == 1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 5 function multIA:
+Replace 1 + n >= i
+with 1 + n > i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 203.931
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 4 function multIA:
+Replace i == 0
+with i == 1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 5 function multIA:
+Replace 1 + n >= i
+with 0 + n >= i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 203.993
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 4 function multIA:
+Replace i == 0
+with i == 1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 5 function multIA:
+Replace 1 + n >= i
+with 0 + n >= i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 204.138
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 4 function multIA:
+Replace i == 0
+with i == 1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v3.c line 5 function multIA:
+Replace 1 + n >= i
+with 1/n >= i
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 3.813
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v4.c line 6 function FindC:
+Replace Not(s[ZeroExt(8, Extract(55, 0, s)) + SignExt(32, i)] == c)
+with Not(Not(s[ZeroExt(8, Extract(55, 0, s)) + SignExt(32, i)] ==
+c))
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 40.013
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 0
+with i == -1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 40.088
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n + -2 < i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 40.149
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n + -2 <= i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 40.170
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n + -1 >= i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 42.184
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n - -2 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 42.191
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with SRem(n, -2) >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 42.736
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n + 2 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 42.760
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n/-2 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 42.770
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n + 0 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 42.829
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n - -2 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1/i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 42.840
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with SRem(n, -2) >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1/i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 43.233
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with SRem(n, -2) >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1*i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 43.451
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n + 0 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == -1 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 43.465
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n - -2 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == -1 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 43.491
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n/-2 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == -1 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 43.505
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with SRem(n, -2) >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == -1 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 43.519
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n + 2 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == -1 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 43.664
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with SRem(n, -2) >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 43.670
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n/-2 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 43.676
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n + 2 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 43.682
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n - -2 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 43.704
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n + 0 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 44.020
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n - -2 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1*i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 44.290
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n - -2 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace result == result + m
+with result == result*m
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 44.308
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n + 2 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace result == result + m
+with result == result*m
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 44.327
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n + 0 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace result == result + m
+with result == result*m
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 44.380
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with SRem(n, -2) >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace result == result + m
+with result == result*m
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 44.729
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n + 0 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace result == result + m
+with result == SRem(result, m)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 45.081
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with SRem(n, -2) >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace result == result + m
+with result == SRem(result, m)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 45.131
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n - -2 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace result == result + m
+with result == SRem(result, m)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 45.151
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n + 2 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace result == result + m
+with result == SRem(result, m)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 45.479
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n + 2 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1/i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 45.488
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n/-2 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1/i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 45.523
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n + 2 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1*i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 45.528
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n/-2 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1*i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 45.602
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n + 0 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1/i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 45.609
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n + 0 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1*i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 48.475
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 0
+with i == 1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with n + 0 >= i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 49.749
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 4 function multIA:
+Replace i == 0
+with i == 1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v2.c line 5 function multIA:
+Replace n + -2 >= i
+with SRem(n, -2) >= i
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 1.569
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 9 function FindC:
+Replace FindC == 1
+with FindC == 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 1.907
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 9 function FindC:
+Replace FindC == 1
+with FindC == 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 3.369
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 4 function FindC:
+Replace i == 1 + i
+with i == 1*i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 3.757
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 4 function FindC:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 4.024
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 4 function FindC:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 38.157
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 5 function FindC:
+Replace k >= i
+with k <= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 6 function FindC:
+Replace s[ZeroExt(8, Extract(55, 0, s)) + SignExt(32, i)] == c
+with s[SRem(ZeroExt(8, Extract(55, 0, s)), SignExt(32, i))] == c
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 38.657
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 5 function FindC:
+Replace k >= i
+with k <= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 6 function FindC:
+Replace s[ZeroExt(8, Extract(55, 0, s)) + SignExt(32, i)] == c
+with s[ZeroExt(8, Extract(55, 0, s))*SignExt(32, i)] == c
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 43.389
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 6 function FindC:
+Replace s[ZeroExt(8, Extract(55, 0, s)) + SignExt(32, i)] == c
+with s[ZeroExt(8, Extract(55, 0, s))*SignExt(32, i)] == c
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 4 function FindC:
+Replace i == 1 + i
+with i == 1/i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 43.507
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 6 function FindC:
+Replace s[ZeroExt(8, Extract(55, 0, s)) + SignExt(32, i)] == c
+with s[ZeroExt(8, Extract(55, 0, s))*SignExt(32, i)] == c
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 4 function FindC:
+Replace i == 1 + i
+with i == -1 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 44.583
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 6 function FindC:
+Replace s[ZeroExt(8, Extract(55, 0, s)) + SignExt(32, i)] == c
+with s[SRem(ZeroExt(8, Extract(55, 0, s)), SignExt(32, i))] == c
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 4 function FindC:
+Replace i == 1 + i
+with i == 1/i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 44.755
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 6 function FindC:
+Replace s[ZeroExt(8, Extract(55, 0, s)) + SignExt(32, i)] == c
+with s[SRem(ZeroExt(8, Extract(55, 0, s)), SignExt(32, i))] == c
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 4 function FindC:
+Replace i == 1 + i
+with i == -1 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 54.842
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 4 function FindC:
+Replace i == 0
+with i == -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 6 function FindC:
+Replace s[ZeroExt(8, Extract(55, 0, s)) + SignExt(32, i)] == c
+with s[SRem(ZeroExt(8, Extract(55, 0, s)), SignExt(32, i))] == c
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 56.728
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 4 function FindC:
+Replace i == 0
+with i == -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v3.c line 6 function FindC:
+Replace s[ZeroExt(8, Extract(55, 0, s)) + SignExt(32, i)] == c
+with s[ZeroExt(8, Extract(55, 0, s))*SignExt(32, i)] == c
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 115.294
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace result == result/m
+with result == result + m
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 115.385
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 115.429
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 4 function multIA:
+Replace i == 1 + i
+with i == -1 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 115.473
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 115.482
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1/i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 115.486
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1*i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 116.875
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace n + -1 >= i
+with n + -1 <= i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 120.804
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 4 function multIA:
+Replace i == 0
+with i == 1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace n + -1 >= i
+with n + -1 < i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 121.423
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 4 function multIA:
+Replace i == 0
+with i == -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace n + -1 >= i
+with SRem(n, -1) >= i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 122.432
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace n + -1 >= i
+with n + 1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace result == result/m
+with result == SRem(result, m)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 122.483
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace n + -1 >= i
+with n + 1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace result == result/m
+with result == result*m
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 122.596
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace n + -1 >= i
+with n + 0 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace result == result/m
+with result == SRem(result, m)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 122.935
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace n + -1 >= i
+with n - -1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace result == result/m
+with result == SRem(result, m)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 123.066
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace n + -1 >= i
+with n + 0 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace result == result/m
+with result == SRem(result, m)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 123.114
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace n + -1 >= i
+with n + 0 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace result == result/m
+with result == result*m
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 123.419
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace n + -1 >= i
+with n - -1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace result == result/m
+with result == result*m
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 123.530
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace n + -1 >= i
+with n + 0 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace result == result/m
+with result == result*m
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 123.544
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 4 function multIA:
+Replace i == 0
+with i == -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace result == result/m
+with result == result*m
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 123.627
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 4 function multIA:
+Replace i == 0
+with i == -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v5.c line 5 function multIA:
+Replace result == result/m
+with result == SRem(result, m)
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.194
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v2.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp + 1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.198
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v2.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp + 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.348
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v2.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp - -1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.352
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v2.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp + 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 74.175
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v2.c line 5 function iterPower:
+Replace result == result + base
+with result == result*base
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 74.612
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v2.c line 5 function iterPower:
+Replace exp >= 1
+with exp >= -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v2.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp*-1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 75.005
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v2.c line 5 function iterPower:
+Replace exp >= 1
+with exp <= 1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v2.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == SRem(exp, -1)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 75.129
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v2.c line 5 function iterPower:
+Replace exp >= 1
+with exp >= -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v2.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp/-1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 75.155
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v2.c line 5 function iterPower:
+Replace exp >= 1
+with exp >= 0
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v2.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == SRem(exp, -1)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 75.159
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v2.c line 5 function iterPower:
+Replace exp >= 1
+with exp >= 0
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v2.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == SRem(exp, -1)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 75.183
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v2.c line 5 function iterPower:
+Replace exp >= 1
+with exp >= -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v2.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == SRem(exp, -1)
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 1.321
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v1.c line 5 function iterPower:
+Replace exp > 0
+with exp <= 0
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v1.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp + 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 1.768
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v1.c line 5 function iterPower:
+Replace exp > 0
+with exp <= 0
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v1.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == SRem(exp, -1)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 3.054
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v1.c line 5 function iterPower:
+Replace exp > 0
+with exp <= 0
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v1.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp + 0
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 4.445
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v2.c line 4 function FindC:
+Replace i == 1
+with i == 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 4.831
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v2.c line 4 function FindC:
+Replace i == 1
+with i == 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 58.065
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v2.c line 4 function FindC:
+Replace i == 1
+with i == -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v2.c line 6 function FindC:
+Replace s[ZeroExt(8, Extract(55, 0, s)) + SignExt(32, i)] == c
+with s[ZeroExt(8, Extract(55, 0, s))*SignExt(32, i)] == c
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 58.424
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v2.c line 4 function FindC:
+Replace i == 1
+with i == -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_findC_v2.c line 6 function FindC:
+Replace s[ZeroExt(8, Extract(55, 0, s)) + SignExt(32, i)] == c
+with s[SRem(ZeroExt(8, Extract(55, 0, s)), SignExt(32, i))] == c
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 35.513
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n + 0 >= i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 35.885
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1
+with i == 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 35.943
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1
+with i == 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 36.176
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n + -1 <= i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 36.323
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n + 0 >= i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 36.401
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n + -1 < i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 36.530
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n - -1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1/i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 36.535
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n - -1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1*i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 36.539
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n - -1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 36.549
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n - -1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1 + i
+with i == -1 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 36.559
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n - -1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1 + i
+with i == SRem(1, i)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 36.568
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n - -1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1 - i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 36.588
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n - -1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 38.746
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n + 1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1/i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 38.907
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n + 1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 39.190
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n + 1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1 + i
+with i == -1 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 39.255
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n + 1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 39.266
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n + 1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1 - i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 39.807
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n - -1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace result == result + m
+with result == result*m
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 40.862
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n - -1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace result == result + m
+with result == SRem(result, m)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 40.919
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n + 1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace result == result + m
+with result == SRem(result, m)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 40.946
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n + 1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace result == result + m
+with result == result*m
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 41.248
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n + 1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1 + i
+with i == SRem(1, i)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 41.253
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n + 1 >= i
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1*i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 43.353
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1
+with i == 2
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n - -1 >= i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 43.370
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1
+with i == -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n + -1 > i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 43.421
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1
+with i == -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n + -2 >= i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 43.471
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1
+with i == 2
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n + 1 >= i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 43.540
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1
+with i == -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 43.581
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1
+with i == -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1/i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 43.585
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1
+with i == -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 43.601
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1
+with i == -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1 + i
+with i == -1 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 44.498
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1
+with i == -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace result == result + m
+with result == SRem(result, m)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 44.562
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1
+with i == -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace result == result + m
+with result == result*m
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 44.624
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1
+with i == -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n/-1 >= i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 44.649
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1
+with i == -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with n*-1 >= i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 44.697
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1
+with i == -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 5 function multIA:
+Replace n + -1 >= i
+with SRem(n, -1) >= i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 44.777
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1
+with i == -1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v4.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1*i
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 39.042
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 4 function multIA:
+Replace i == 0
+with i == -1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 39.137
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace Not(i >= n + -1)
+with Not(i < n + -1)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 39.212
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace Not(i >= n + -1)
+with Not(i >= n + 0)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 39.230
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace Not(i >= n + -1)
+with Not(i >= n + 0)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 39.247
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace Not(i >= n + -1)
+with Not(i > n + -1)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 40.989
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace Not(i >= n + -1)
+with Not(i >= n + 1)
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1*i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 41.170
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace Not(i >= n + -1)
+with Not(i >= n - -1)
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1*i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 41.304
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace Not(i >= n + -1)
+with Not(i >= n + 1)
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 4 function multIA:
+Replace i == 1 + i
+with i == -1 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 41.669
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace Not(i >= n + -1)
+with Not(i >= n - -1)
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 4 function multIA:
+Replace i == 1 + i
+with i == -1 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 41.849
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace Not(i >= n + -1)
+with Not(i >= n - -1)
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 41.888
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace Not(i >= n + -1)
+with Not(i >= n + 1)
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 42.286
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace Not(i >= n + -1)
+with Not(i >= n - -1)
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1/i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 42.709
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace Not(i >= n + -1)
+with Not(i >= n + 1)
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace result == result + m
+with result == result*m
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 42.729
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace Not(i >= n + -1)
+with Not(i >= n - -1)
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace result == result + m
+with result == result*m
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 43.686
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace Not(i >= n + -1)
+with Not(i >= n + 1)
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 43.864
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace Not(i >= n + -1)
+with Not(i >= n + 1)
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 4 function multIA:
+Replace i == 1 + i
+with i == 1/i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 44.204
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace Not(i >= n + -1)
+with Not(i >= n - -1)
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace result == result + m
+with result == SRem(result, m)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 44.253
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace Not(i >= n + -1)
+with Not(i >= n + 1)
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace result == result + m
+with result == SRem(result, m)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 44.459
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace Not(i >= n + -1)
+with Not(i >= n - -1)
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 4 function multIA:
+Replace i == 1 + i
+with i == 0 + i
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 46.100
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 4 function multIA:
+Replace i == 0
+with i == 1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace Not(i >= n + -1)
+with Not(i <= n + -1)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 46.117
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 4 function multIA:
+Replace i == 0
+with i == 1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace Not(i >= n + -1)
+with Not(i >= n - -1)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 46.190
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 4 function multIA:
+Replace i == 0
+with i == 1
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_multIA_v1.c line 5 function multIA:
+Replace Not(i >= n + -1)
+with Not(i >= n + 1)
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 50.009
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp >= 1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 51.586
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp < 2
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp + 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 51.617
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp >= -2
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp + 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 51.649
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp <= 2
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp + 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 51.653
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp >= 0
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp + 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 51.752
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp >= 0
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp*-1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 51.785
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp >= -2
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp*-1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 51.793
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp >= -2
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp/-1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 51.830
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp < 2
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp + 1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 51.837
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp >= -2
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp + 1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 51.857
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp >= 0
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp + 1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 52.167
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp <= 2
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp + 1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 52.240
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp >= 0
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == SRem(exp, -1)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 52.636
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp < 2
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == SRem(exp, -1)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 52.644
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp <= 2
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == SRem(exp, -1)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 52.654
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp >= -2
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == SRem(exp, -1)
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 52.662
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp < 2
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp - -1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 52.669
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp >= -2
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp - -1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 52.674
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp >= 0
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp - -1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 52.839
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp >= 0
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp/-1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 52.998
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp <= 2
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp - -1
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 53.048
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp <= 2
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp + 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 53.772
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp >= 0
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp + 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 53.818
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp < 2
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp + 0
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 53.920
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 5 function iterPower:
+Replace exp >= 2
+with exp >= -2
+In file /home/batg/InstrumentedQloseExamples/loops/Qlose_iterPower_v3.c line 6 function iterPower:
+Replace exp == exp + -1
+with exp == exp + 0
+06_02_2019_14:45:40

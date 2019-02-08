@@ -1,0 +1,23 @@
+07_02_2019_02:24:00
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 74.460
+In file /home/batg/InstrumentedQloseExamples/loops_with_two/Qlose_evalpoly_v6.c line 25 function evalPoly:
+Replace i == 1 + i
+with i == 1 - i
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 344.121
+In file /home/batg/InstrumentedQloseExamples/loops_with_two/Qlose_largestGap3_v6.c line 6 function largestGap:
+Replace i == 1 + i
+with i == 1 - i
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 178.769
+In file /home/batg/InstrumentedQloseExamples/loops_with_two/array_sum_v6.c line 5 function sum:
+Replace i == 1 + i
+with i == 1 - i
+07_02_2019_02:52:44

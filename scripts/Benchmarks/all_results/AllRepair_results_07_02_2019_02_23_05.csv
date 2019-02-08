@@ -1,0 +1,10 @@
+07_02_2019_02:23:05,,,,,,,,,,,,,,,,,,,,
+AllRepair: Settings: Unwinding bound=10 Mutation level=1 Timeout=600 Max repair size=2,,,,,,,,,,,,,,,,,,,,
+file name,category,mutation level,bound,hard constraints,max mutation size,mutated programs,translation result,repair result,found repairs,total time to first repair,translation time [s],time to first repair [s],max inspected size,sat check [s],sat block [s],smt check [s],setup [s],total repair time [s],smt check count,SMT check per
+/home/batg/InstrumentedQloseExamples/loops_with_two/Qlose_evalpoly_v6.c,evalPoly,1,10,1281,18,54,SUCCESS,TIMEOUT,1,61.006,0.3,60.706,0,0,0.003,599.824,0.178,600.005,7,85.68913
+/home/batg/InstrumentedQloseExamples/loops_with_two/Qlose_findC_v6.c,findC,1,10,160,17,12,SUCCESS,SIZE LIMIT,0,,0.19,,2,0,0.001,0.2,0.028,0.242,10,0.01997
+/home/batg/InstrumentedQloseExamples/loops_with_two/Qlose_largestGap3_v6.c,largestGap,1,10,184,16,14112,SUCCESS,TIMEOUT,1,103.903,0.185,103.718,1,0.003,0.013,599.95,0.033,600.002,82,7.31646
+/home/batg/InstrumentedQloseExamples/loops_with_two/array_sum_v6.c,array_sum,1,10,91,12,32,SUCCESS,TIMEOUT,1,71.512,0.173,71.339,1,0,0.004,599.974,0.024,600.002,12,49.99783
+/home/batg/InstrumentedQloseExamples/loops_with_two/Qlose_iterPower_v6.c,iterPower,1,10,88,13,6,SUCCESS,FULL COVERAGE,0,,0.179,,2,0,0.001,4.527,0.021,4.724,6,0.7545
+/home/batg/InstrumentedQloseExamples/loops_with_two/Qlose_multIA_v6.c,multIA,1,10,91,14,8,SUCCESS,SIZE LIMIT,0,,0.16,,2,0,0.001,0.123,0.022,0.186,7,0.01758
+07_02_2019_02:53:12,,,,,,,,,,,,,,,,,,,,
