@@ -1,7 +1,7 @@
 # Reproducing AllRepair experiments
 
 Our experiments on the TCAS and QLOSE benchmarks were run by simply running the AllRepair script with the appropriate arguments and passing the output to the ParseResults script.
-To reproduce all of our experiments, run the script in this directory (this make take a while..)
+To reproduce all of our experiments, run the script in this directory (this might take a while..)
     
     ./RunBenchmarks.sh
     
