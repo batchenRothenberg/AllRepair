@@ -108,7 +108,7 @@ If results_file and/or repairs_file are ommited, then the script will automatica
 
 ### Reproducing experiments:
 
-The instrumented TCAS and QLOSE benchmarks can be found under scripts/benchmarks.
+The instrumented TCAS and QLOSE benchmarks can be found under scripts/Benchmarks.
 See README in that folder for further instructions on how to reproduce experiments.
 
 ##########################################################################################
