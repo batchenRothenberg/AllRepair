@@ -1,3 +1,4 @@
+*.gsmt2
 python/pyminisolvers/libminicard.so
 python/pyminisolvers/libminisat.so
 src/ansi-c/ansi_c_lex.yy.cpp
