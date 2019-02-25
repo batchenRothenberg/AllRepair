@@ -35,6 +35,7 @@ class batMarcoPolo:
                     self.i = self.i + 1
                     print(str(len(list(set([x + 1 for x in seed]) - set(self.map.original_vars)))) + " mutations")
 
+            # To print all times add verbose=True
             with self.stats.time('SMT check'):
                 res = self.subs.check_subset(seed)
 

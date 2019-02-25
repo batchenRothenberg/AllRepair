@@ -27,6 +27,7 @@ class Statistics:
         self._stats = defaultdict(list)
         self._category = None
         self.size = 0  # bat
+        self._verbose = False
 
     # Usage:
     #  s = Statistics()
@@ -34,8 +35,9 @@ class Statistics:
     #    # do first thing
     #  with s.time("two")
     #    # do second thing
-    def time(self, category):
+    def time(self, category, verbose=False):
         self._category = category
+        self._verbose = verbose
         return self.Timer(self)
 
     # Context manager class for time() method
@@ -55,7 +57,11 @@ class Statistics:
         self._curr = _get_time()
 
     def end_time(self):
-        self._times[self._category] += _get_time() - self._curr
+        calculated_time = _get_time() - self._curr
+        self._times[self._category] += calculated_time
+        if self._verbose:
+            print("Time in "+str(self._category)+": "+str(calculated_time))
+            self._verbose = False
         self._category = None
 
     def current_time(self):
