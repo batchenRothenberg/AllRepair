@@ -1,0 +1,120 @@
+06_02_2019_10:45:57
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 1.767
+In file instrumented_tcas/tcas_v12.c line 147 function alt_sep_test:
+Replace enabled ==
+If(Or(And(Own_Tracked_Alt_Rate <= 600,
+Cur_Vertical_Sep > 600),
+Not(High_Confidence == 0)),
+1,
+0)
+with enabled ==
+If(And(And(Own_Tracked_Alt_Rate <= 600,
+Cur_Vertical_Sep > 600),
+Not(High_Confidence == 0)),
+1,
+0)
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 1.996
+In file instrumented_tcas/tcas_v9.c line 122 function Non_Crossing_Biased_Descend:
+Replace return_value_Inhibit_Biased_Climb >= Down_Separation
+with return_value_Inhibit_Biased_Climb > Down_Separation
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 1.452
+In file instrumented_tcas/tcas_v32.c line 128 function Non_Crossing_Biased_Descend:
+Replace result ==
+If(And(Own_Tracked_Alt >= Other_Tracked_Alt,
+Not(result == 0)),
+1,
+0)
+with result ==
+If(And(Own_Tracked_Alt > Other_Tracked_Alt,
+Not(result == 0)),
+1,
+0)
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 1.463
+In file instrumented_tcas/tcas_v39.c line 126 function Non_Crossing_Biased_Descend:
+Replace tmp_if_expr == Not(return_value_ALIM >= Up_Separation)
+with tmp_if_expr == Not(return_value_ALIM > Up_Separation)
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 1.544
+In file instrumented_tcas/tcas_v31.c line 105 function Non_Crossing_Biased_Climb:
+Replace result ==
+If(And(Other_Tracked_Alt >= Own_Tracked_Alt,
+Not(result == 0)),
+1,
+0)
+with result ==
+If(And(Other_Tracked_Alt > Own_Tracked_Alt,
+Not(result == 0)),
+1,
+0)
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 0.898
+In file instrumented_tcas/tcas_v1.c line 104 function Non_Crossing_Biased_Climb:
+Replace tmp_if_expr == (return_value_ALIM >= Down_Separation)
+with tmp_if_expr == (return_value_ALIM > Down_Separation)
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 1.024
+In file instrumented_tcas/tcas_v6.c line 133 function Own_Below_Threat:
+Replace Own_Below_Threat ==
+If(Other_Tracked_Alt >= Own_Tracked_Alt, 1, 0)
+with Own_Below_Threat ==
+If(Other_Tracked_Alt > Own_Tracked_Alt, 1, 0)
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 3.688
+In file instrumented_tcas/tcas_v10.c line 134 function Own_Below_Threat:
+Replace Own_Below_Threat ==
+If(Other_Tracked_Alt >= Own_Tracked_Alt, 1, 0)
+with Own_Below_Threat ==
+If(Other_Tracked_Alt > Own_Tracked_Alt, 1, 0)
+In file instrumented_tcas/tcas_v10.c line 140 function Own_Above_Threat:
+Replace Own_Above_Threat ==
+If(Own_Tracked_Alt >= Other_Tracked_Alt, 1, 0)
+with Own_Above_Threat ==
+If(Own_Tracked_Alt > Other_Tracked_Alt, 1, 0)
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 1.607
+In file instrumented_tcas/tcas_v20.c line 104 function Non_Crossing_Biased_Climb:
+Replace return_value_Inhibit_Biased_Climb >= Down_Separation
+with return_value_Inhibit_Biased_Climb > Down_Separation
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 1.458
+In file instrumented_tcas/tcas_v25.c line 126 function Non_Crossing_Biased_Descend:
+Replace tmp_if_expr == Not(return_value_ALIM >= Up_Separation)
+with tmp_if_expr == Not(return_value_ALIM > Up_Separation)
+__________________________________________________________________________
+-----------------------------------------------------------
+Possible repair:
+Elapsed time: 1.387
+In file instrumented_tcas/tcas_v3.c line 149 function alt_sep_test:
+Replace intent_not_known ==
+If(Or(Other_RAC == 0, Not(Two_of_Three_Reports_Valid == 0)),
+1,
+0)
+with intent_not_known ==
+If(And(Other_RAC == 0, Not(Two_of_Three_Reports_Valid == 0)),
+1,
+0)
+06_02_2019_10:49:52

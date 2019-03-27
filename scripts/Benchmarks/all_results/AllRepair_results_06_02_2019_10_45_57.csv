@@ -1,0 +1,45 @@
+06_02_2019_10:45:57,,,,,,,,,,,,,,,,,,,,
+AllRepair: Settings: Unwinding bound=5 Mutation level=1 Timeout=600 Max repair size=2,,,,,,,,,,,,,,,,,,,,
+file name,category,mutation level,bound,hard constraints,max mutation size,mutated programs,translation result,repair result,found repairs,total time to first repair,translation time [s],time to first repair [s],max inspected size,sat check [s],sat block [s],smt check [s],setup [s],total repair time [s],smt check count,SMT check per
+instrumented_tcas/tcas_v1.c,tcas,1,5,368,85,294912,SUCCESS,SIZE LIMIT,1,1.098,0.2,0.898,2,0.012,0.031,4.466,0.053,4.573,204,0.02189
+instrumented_tcas/tcas_v10.c,tcas,1,5,368,85,294912,SUCCESS,SIZE LIMIT,1,3.887,0.199,3.688,2,0.013,0.035,3.843,0.054,3.973,224,0.01716
+instrumented_tcas/tcas_v11.c,tcas,1,5,366,83,294912,SUCCESS,SIZE LIMIT,0,,0.196,,2,0.013,0.031,4.614,0.053,4.724,224,0.0206
+instrumented_tcas/tcas_v12.c,tcas,1,5,368,85,368640,SUCCESS,SIZE LIMIT,1,1.962,0.195,1.767,2,0.013,0.037,4.519,0.052,4.672,225,0.02008
+instrumented_tcas/tcas_v13.c,tcas,1,5,368,85,294912,SUCCESS,SIZE LIMIT,0,,0.2,,2,0.013,0.03,4.032,0.052,4.172,224,0.018
+instrumented_tcas/tcas_v14.c,tcas,1,5,368,85,294912,SUCCESS,SIZE LIMIT,0,,0.194,,2,0.013,0.032,5.389,0.053,5.525,224,0.02406
+instrumented_tcas/tcas_v15.c,tcas,1,5,368,85,221184,SUCCESS,SIZE LIMIT,0,,0.188,,2,0.012,0.029,4.316,0.052,4.422,205,0.02106
+instrumented_tcas/tcas_v16.c,tcas,1,5,368,85,294912,SUCCESS,SIZE LIMIT,0,,0.193,,2,0.013,0.032,5.196,0.053,5.325,224,0.0232
+instrumented_tcas/tcas_v17.c,tcas,1,5,368,85,294912,SUCCESS,SIZE LIMIT,0,,0.193,,2,0.013,0.031,5.719,0.053,5.825,224,0.02553
+instrumented_tcas/tcas_v18.c,tcas,1,5,368,85,294912,SUCCESS,SIZE LIMIT,0,,0.193,,2,0.013,0.03,5.296,0.054,5.426,224,0.02364
+instrumented_tcas/tcas_v19.c,tcas,1,5,368,85,294912,SUCCESS,SIZE LIMIT,0,,0.2,,2,0.013,0.031,6.69,0.054,6.827,224,0.02986
+instrumented_tcas/tcas_v2.c,tcas,1,5,368,85,294912,SUCCESS,SIZE LIMIT,0,,0.212,,2,0.013,0.032,7.204,0.052,7.327,224,0.03216
+instrumented_tcas/tcas_v20.c,tcas,1,5,368,85,294912,SUCCESS,SIZE LIMIT,1,1.793,0.186,1.607,2,0.011,0.03,5.304,0.053,5.425,204,0.026
+instrumented_tcas/tcas_v21.c,tcas,1,5,367,84,442368,SUCCESS,SIZE LIMIT,0,,0.195,,2,0.014,0.035,5.714,0.052,5.824,245,0.02332
+instrumented_tcas/tcas_v22.c,tcas,1,5,367,84,294912,SUCCESS,SIZE LIMIT,0,,0.197,,2,0.013,0.031,6.058,0.052,6.175,224,0.02705
+instrumented_tcas/tcas_v23.c,tcas,1,5,367,84,442368,SUCCESS,SIZE LIMIT,0,,0.197,,2,0.014,0.034,6.26,0.052,6.376,245,0.02555
+instrumented_tcas/tcas_v24.c,tcas,1,5,367,84,294912,SUCCESS,SIZE LIMIT,0,,0.195,,2,0.013,0.032,5.617,0.052,5.724,224,0.02508
+instrumented_tcas/tcas_v25.c,tcas,1,5,368,85,294912,SUCCESS,SIZE LIMIT,1,1.652,0.194,1.458,2,0.012,0.032,5.413,0.053,5.524,204,0.02653
+instrumented_tcas/tcas_v26.c,tcas,1,5,368,85,221184,SUCCESS,SIZE LIMIT,0,,0.201,,2,0.012,0.029,4.239,0.053,4.373,205,0.02068
+instrumented_tcas/tcas_v27.c,tcas,1,5,368,85,221184,SUCCESS,SIZE LIMIT,0,,0.204,,2,0.012,0.029,6.536,0.052,6.676,205,0.03188
+instrumented_tcas/tcas_v28.c,tcas,1,5,368,85,294912,SUCCESS,SIZE LIMIT,0,,0.203,,2,0.013,0.031,4.945,0.052,5.074,224,0.02208
+instrumented_tcas/tcas_v29.c,tcas,1,5,368,85,147456,SUCCESS,SIZE LIMIT,0,,0.196,,2,0.011,0.028,4.698,0.053,4.825,203,0.02314
+instrumented_tcas/tcas_v3.c,tcas,1,5,368,85,294912,SUCCESS,SIZE LIMIT,1,1.59,0.203,1.387,2,0.012,0.033,4.558,0.052,4.673,204,0.02234
+instrumented_tcas/tcas_v30.c,tcas,1,5,368,85,294912,SUCCESS,SIZE LIMIT,0,,0.208,,2,0.013,0.031,6.804,0.053,6.927,224,0.03037
+instrumented_tcas/tcas_v31.c,tcas,1,5,359,82,2654208,SUCCESS,SIZE LIMIT,1,1.749,0.205,1.544,2,0.017,0.044,5.959,0.052,6.125,293,0.02034
+instrumented_tcas/tcas_v32.c,tcas,1,5,359,82,2654208,SUCCESS,SIZE LIMIT,1,1.652,0.2,1.452,2,0.017,0.045,6.105,0.053,6.276,293,0.02084
+instrumented_tcas/tcas_v33.c,tcas,1,5,368,85,294912,SUCCESS,SIZE LIMIT,0,,0.199,,2,0.013,0.031,4.994,0.052,5.123,224,0.02229
+instrumented_tcas/tcas_v34.c,tcas,1,5,368,85,221184,SUCCESS,SIZE LIMIT,0,,0.194,,2,0.012,0.029,5.508,0.053,5.625,205,0.02687
+instrumented_tcas/tcas_v35.c,tcas,1,5,368,85,294912,SUCCESS,SIZE LIMIT,0,,0.194,,2,0.013,0.031,4.903,0.051,5.022,224,0.02189
+instrumented_tcas/tcas_v36.c,tcas,1,5,368,85,294912,SUCCESS,SIZE LIMIT,0,,0.194,,2,0.013,0.032,5.214,0.054,5.326,224,0.02328
+instrumented_tcas/tcas_v37.c,tcas,1,5,368,85,294912,SUCCESS,SIZE LIMIT,0,,0.2,,2,0.013,0.031,5.415,0.052,5.524,224,0.02417
+instrumented_tcas/tcas_v38.c,tcas,1,5,367,85,294912,SUCCESS,ORIGINAL CORRECT,0,,0.203,,0,0,0,0.903,0.052,0.967,1,0.90254
+instrumented_tcas/tcas_v39.c,tcas,1,5,368,85,294912,SUCCESS,SIZE LIMIT,1,1.655,0.192,1.463,2,0.012,0.032,5.369,0.054,5.476,204,0.02632
+instrumented_tcas/tcas_v4.c,tcas,1,5,366,85,294912,SUCCESS,SIZE LIMIT,0,,0.183,,2,0.013,0.032,6.074,0.052,6.174,224,0.02711
+instrumented_tcas/tcas_v40.c,tcas,1,5,348,76,294912,SUCCESS,SIZE LIMIT,0,,0.192,,2,0.012,0.029,3.379,0.049,3.517,224,0.01508
+instrumented_tcas/tcas_v41.c,tcas,1,5,366,84,196608,SUCCESS,SIZE LIMIT,0,,0.2,,2,0.012,0.028,5.666,0.052,5.774,204,0.02777
+instrumented_tcas/tcas_v5.c,tcas,1,5,368,85,221184,SUCCESS,SIZE LIMIT,0,,0.209,,2,0.012,0.029,6.452,0.053,6.576,205,0.03147
+instrumented_tcas/tcas_v6.c,tcas,1,5,368,85,294912,SUCCESS,SIZE LIMIT,1,1.221,0.197,1.024,2,0.011,0.031,3.881,0.052,4.022,204,0.01902
+instrumented_tcas/tcas_v7.c,tcas,1,5,368,85,294912,SUCCESS,SIZE LIMIT,0,,0.2,,2,0.013,0.031,6.484,0.053,6.626,224,0.02894
+instrumented_tcas/tcas_v8.c,tcas,1,5,368,85,294912,SUCCESS,SIZE LIMIT,0,,0.202,,2,0.013,0.031,7.455,0.051,7.576,224,0.03328
+instrumented_tcas/tcas_v9.c,tcas,1,5,368,85,294912,SUCCESS,SIZE LIMIT,1,2.191,0.195,1.996,2,0.012,0.03,6.278,0.052,6.425,204,0.03078
+06_02_2019_10:49:52,,,,,,,,,,,,,,,,,,,,
