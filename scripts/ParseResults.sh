@@ -8,28 +8,33 @@ declare -A prefix_strings=( ["filename"]="Repairing file " ["hard"]="Hard constr
 declare -A current_row
 in_repair_scope=0 # boolean
 
+
 main() {
 	# Determine output directory (default or $1)
 	if ! [ -z "$1" ]; then
 		results_dir=$1	
 	fi
 	
-	# Create output directory and determine filenames
+	# Create output directory
 	if ! [ -d "$results_dir" ]; then
 		mkdir "$results_dir"
 	fi
+
+	# Determine filenames
+	read settings_string # Read settings from first input line to include in file name
+	echo "$settings_string" # output of AllRepair should look the same
+	parse_settings "$settings_string"
 	current_date=`date +'%d_%m_%Y_%X'`
-	results_filename="$results_dir/AllRepair_results_$current_date.csv"
-	repairs_filename="$results_dir/AllRepair_repairs_$current_date"
+	settings_to_filename="${mutation_level:+m${mutation_level}_}${unwinding_bound:+u${unwinding_bound}_}${timeout:+t${timeout}_}${repair_limit:+r${repair_limit}_}${size_limit:+s${size_limit}_}${program_limit:+p${program_limit}_}"
+	results_filename="$results_dir/AllRepair_results_$settings_to_filename$current_date.csv"
+	repairs_filename="$results_dir/AllRepair_repairs_$settings_to_filename$current_date"
 	
-	# Print date and time (overwrites existing content!)
+	# Print date, time and settings (overwrites existing content!)
 	echo "$current_date" > $results_filename
 	echo "$current_date" > $repairs_filename
+	echo "$settings_string" >> $results_filename
+	echo "$settings_string" >> $repairs_filename
 
-	# Read settings from first input line and print them
-	read line
-	echo "$line" >> $results_filename
-	echo "$line" # output of AllRepair should look the same
 
 	# Print title 
 	for key in "${column_keys[@]}"; do 
@@ -66,6 +71,27 @@ main() {
 	# Print end time
 	echo `date +'%d_%m_%Y_%X'` >> $results_filename
 	echo `date +'%d_%m_%Y_%X'` >> $repairs_filename
+}
+
+parse_settings () {
+	if echo "$1" | grep -q ".*Mutation level=.*"; then
+		mutation_level=`echo "$1" | sed 's/.*Mutation level=\([0-9]*\).*/\1/'`
+	fi
+	if echo "$1" | grep -q ".*Unwinding bound=.*"; then
+		unwinding_bound=`echo "$1" | sed 's/.*Unwinding bound=\([0-9]*\).*/\1/'`
+	fi
+	if echo "$1" | grep -q ".*Timeout=.*"; then
+		timeout=`echo "$1" | sed 's/.*Timeout=\([0-9]*\).*/\1/'`
+	fi
+	if echo "$1" | grep -q ".*Max repairs to find=.*"; then
+		repair_limit=`echo "$1" | sed 's/.*Max repairs to find=\([0-9]*\).*/\1/'`
+	fi
+	if echo "$1" | grep -q ".*Max repair size=.*"; then
+		size_limit=`echo "$1" | sed 's/.*Max repair size=\([0-9]*\).*/\1/'`
+	fi
+	if echo "$1" | grep -q ".*Max programs to check=.*"; then
+		program_limit=`echo "$1" | sed 's/.*Max programs to check=\([0-9]*\).*/\1/'`
+	fi
 }
 
 initialize_repair_scope () {
