@@ -9,27 +9,22 @@ declare -A current_row
 in_repair_scope=0 # boolean
 
 main() {
-	# Determine output files: $1 for results table, $2 for list of found repairs
-	if [ -z "$1" ]; then
-		if ! [ -d "$results_dir" ]; then
-			mkdir "$results_dir"
-		fi
-		results_filename="$results_dir/AllRepair_results_"`date +'%d_%m_%Y_%X'`".csv"
-	else
-		results_filename="$1"
+	# Determine output directory (default or $1)
+	if ! [ -z "$1" ]; then
+		results_dir=$1	
 	fi
-	if [ -z "$2" ]; then
-		if ! [ -d "$results_dir" ]; then
-			mkdir "$results_dir"
-		fi
-		repairs_filename="$results_dir/AllRepair_repairs"`date +'%d_%m_%Y_%X'`
-	else
-		repairs_filename="$2"
+	
+	# Create output directory and determine filenames
+	if ! [ -d "$results_dir" ]; then
+		mkdir "$results_dir"
 	fi
-
+	current_date=`date +'%d_%m_%Y_%X'`
+	results_filename="$results_dir/AllRepair_results_$current_date.csv"
+	repairs_filename="$results_dir/AllRepair_repairs_$current_date"
+	
 	# Print date and time (overwrites existing content!)
-	echo `date +'%d_%m_%Y_%X'` > $results_filename
-	echo `date +'%d_%m_%Y_%X'` > $repairs_filename
+	echo "$current_date" > $results_filename
+	echo "$current_date" > $repairs_filename
 
 	# Read settings from first input line and print them
 	read line
