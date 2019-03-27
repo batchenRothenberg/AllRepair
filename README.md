@@ -39,7 +39,7 @@ To run AllRepair, go to directory scripts and run the AllRepair.sh script using 
 
 For example, running 
 
-                              ./AllRepair.sh Examples/ex1.c -m 1 -b 5 -s 1
+                              ./AllRepair.sh Examples/ex1.c -m 1 -u 5 -s 1
 
 Will return all ways to reapir program ex1.c (from folder Examples) using mutation level 1, with the unwinding bound set to 5 and the maximum repair size is 1 (only one mutation at a time).
 
@@ -81,16 +81,17 @@ Note that since mutations are applied for a simplified version of the program, p
 For example, if your program contains the instruction i++, a repair might tell you to replace i=i+1 with i=i-1, which corresponds to replacing i++ with i--.
 
 The final line of the output should always contain the result of the repair process, from within the following options:
-SEARCH SPACE WAS COVERED SUCCESFULLY - all mutated programs in the search space were examined;
-FAILURE - an exception or an out-of-memory error has occured;
+SEARCH SPACE COVERED SUCCESSFULLY - all mutated programs in the search space were examined;
+ERROR DURING REPAIR - an exception or an out-of-memory error has occured;
 TIMEOUT - timeout was reached (-t flag);
-REPAIR LIMIT REACHED - tool has found the requiested number of repairs (-r flag);
-PROGRAMS LIMIT REACHED - tool has inspected the requested number of programs (-p flag);
-SIZE LIMIT REACHED - tool has succesfully covered the search space of mutated programs of at most the requested size (-s flag);
+REQUESTED NUMBER OF REPAIRS FOUND - tool has found the requiested number of repairs (-r flag);
+MAX NUMBER OF MUTATED PROGRAMS INSPECTED - tool has inspected the requested number of programs (-p flag);
+MAX MUTATION SIZE REACHED - tool has succesfully covered the search space of mutated programs of at most the requested size (-s flag);
 INTERUPTED  - tool was interrupted (e.g., by pressing ctrl+C);
+EXTERNALLY TERMINATED - tool was terminated externally;
 ORIGINAL PROGRAM IS CORRECT - the program supplied did not contain a bug, or the bug was undetectable using the given specification and unwinding bound.
 
-*Note that AllRepair will not stop once a repair is found, unless you'll tell it to, using the -r flag. So, the expected result in most cases should be to reach some limit (timeout/repair limit/size limit/program limit).*
+*Note that AllRepair will not stop once a repair is found unless you'll tell it to using the -r flag. So, the expected result in most cases is reaching some limit (timeout/repair limit/size limit/program limit).*
 
 
 ##########################################################################################
