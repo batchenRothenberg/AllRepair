@@ -10,6 +10,8 @@ import CNFsolvers
 import batmapsolvers
 import batutils
 from batMarcoPolo import batMarcoPolo
+from batNonIncrementalSMTsolver import Z3NonIncrementalSubsetSolver
+from batPushPopSMTsolver import Z3PushPopSubsetSolver
 from batRepairPrinter import *
 from batMultiProgram import batMultiProgram
 from batSMTsolvers import Z3SubsetSolver
@@ -45,6 +47,9 @@ def parse_args():
     parser.add_argument('-r', '--blockrepair', type=str, choices=['basic', 'slicing', 'generalization'],
                         default='basic',
                         help="control the algorithm used for blocking a bad repair. 'basic': block the one bad program, 'slicing': block all programs where the dynamic slice of the violated assertion hasn't changed, 'generalization': use the error generalization algorithm. ")
+    parser.add_argument('-i', '--incremental', type=str, choices=['assumptions', 'pushpop', 'none'],
+                        default='assumptions',
+                        help="controls incremental SMT solving: none (non-incremental solver), pushpop (pushing and poping all soft constrinats), or assumptions(guarding soft constraints with assumption literals")
     parser.add_argument('-n', '--numrepairs', type=int, default=None,
                         help="stop after finding k possible repairs")
 
@@ -173,6 +178,8 @@ def setup_solvers(args):
     elif args.smt or infile.name.endswith('.smt2'):
         try:
             from batSMTsolvers import Z3SubsetSolver
+            from batNonIncrementalSMTsolver import Z3NonIncrementalSubsetSolver
+            from batPushPopSMTsolver import Z3PushPopSubsetSolver
         except ImportError as e:
             sys.stderr.write(
                 "ERROR: Unable to import z3 module:  %s\n\nPlease install Z3 from https://z3.codeplex.com/\n" % str(e))
@@ -218,6 +225,7 @@ def setup_config(args):
     config['size'] = args.size  # bat
     config['blockrepair'] = args.blockrepair  # bat
     config['numrepairs'] = args.numrepairs  # bat
+    config['incremental'] = args.incremental #bat
 
     return config
 
@@ -229,7 +237,12 @@ def main():
         setup_execution(args, stats)
         varbias = setup_solvers(args)
         multiprog = batMultiProgram(args.infile.name, args.blockrepair)
-        csolver = Z3SubsetSolver(multiprog.constraints, multiprog.hard_constraints, multiprog.soft_constraints)
+        if args.incremental=="none":
+            csolver = Z3NonIncrementalSubsetSolver(multiprog.constraints, multiprog.hard_constraints)
+        elif args.incremental=="pushpop":
+            csolver = Z3PushPopSubsetSolver(multiprog.constraints, multiprog.hard_constraints)
+        else:
+            csolver = Z3SubsetSolver(multiprog.constraints, multiprog.hard_constraints, multiprog.soft_constraints)
         try:
             msolver = batmapsolvers.MinicardMapSolver(sizes=multiprog.sizes, bias=varbias, limit=args.size)
         except OSError as e:
