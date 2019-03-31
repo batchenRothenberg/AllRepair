@@ -106,11 +106,11 @@ To run the script simply use:
           ./AllRepair.sh [arguments as you please] 2>&1 | ./ParseResults.sh [results_directory]
           
 Output of the script are two files: a csv file with results summarized in a table, and a text file with all found repairs and the elapsed time until each of them was found.
-The files can be found in the supplied results_directory, or, if ommited, in a directory named AllRepairResults created under the current directory.
+The files can be found in the supplied results_directory, or, if ommited, in a directory named AllRepairResults created under the scripts directory.
 If results_directory was supplied but does not exist, the script will create it.
 
-The filename of the results csv file will be AllRepair_results_<settings>_<current_date_and_time>.csv, where <settings> is a srting created automatically from certain settings of the tool (e.g., if running with mutation level 2, unwinding bound 5 and timeout of 50 sec, <settings> wil equal "m2_u5_t50").
-Similarily, the filename of the repair file will be AllRepair_repairs_<settings>_<current_date_and_time>.
+The filename of the results csv file will be AllRepair_results_\<settings\>_<current_date_and_time>.csv, where \<settings\> is a srting created automatically from certain settings of the tool (e.g., if running with mutation level 2, unwinding bound 5 and timeout of 50 sec, \<settings\> wil equal "m2_u5_t50").
+Similarily, the filename of the repair file will be AllRepair_repairs_\<settings\>_<current_date_and_time>.
 
 *Note: do not forget to redirect stderr to stdin using 2>&1, or the script will not be able to parse some of the results.*
 
