@@ -238,9 +238,9 @@ def main():
         varbias = setup_solvers(args)
         multiprog = batMultiProgram(args.infile.name, args.blockrepair)
         if args.incremental=="none":
-            csolver = Z3NonIncrementalSubsetSolver(multiprog.constraints, multiprog.hard_constraints)
+            csolver = Z3NonIncrementalSubsetSolver(multiprog.constraints, multiprog.hard_constraints, multiprog.soft_constraints)
         elif args.incremental=="pushpop":
-            csolver = Z3PushPopSubsetSolver(multiprog.constraints, multiprog.hard_constraints)
+            csolver = Z3PushPopSubsetSolver(multiprog.constraints, multiprog.hard_constraints, multiprog.soft_constraints)
         else:
             csolver = Z3SubsetSolver(multiprog.constraints, multiprog.hard_constraints, multiprog.soft_constraints)
         try:
