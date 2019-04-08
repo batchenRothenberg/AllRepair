@@ -45,7 +45,9 @@ evaluate_file () {
 	read title_string
 	while read line; do
 		echo "$line" | parse_category_and_print
-		echo "$mutation_level,$unwinding_bound,$timeout,$repair_limit,$size_limit,$program_limit,$incremental" >> $output_file
+		if [[ $? -eq 0 ]]; then
+			echo "$mutation_level,$unwinding_bound,$timeout,$repair_limit,$size_limit,$program_limit,$incremental" >> $output_file
+		fi
 	done
 }
 
@@ -53,10 +55,15 @@ parse_category_and_print () {
 	OIFS=$IFS 
 	IFS=, # split only on commas
 	read first rest
-	filename_only=`basename $first`
-	category=${filename_only%_v*}
-	echo -n "$first,$category,$rest" >> $output_file
 	IFS=$OIFS
+	filename_only=`basename $first`
+	if [[ "$filename_only" == *".c" ]]; then
+		category=${filename_only%_v*}
+		echo -n "$first,$category,$rest" >> $output_file
+		return 0
+	else
+		return 1	
+	fi
 }
 
 parse_settings () {
