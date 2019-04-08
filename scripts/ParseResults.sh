@@ -24,7 +24,7 @@ main() {
 	read settings_string # Read settings from first input line to include in file name
 	echo "$settings_string" # output of AllRepair should look the same
 	parse_settings "$settings_string"
-	current_date=`date +'%d_%m_%Y_%X'`
+	current_date=`date +'%d_%m_%Y_%H_%M_%S'`
 	settings_to_filename="${mutation_level:+m${mutation_level}_}${unwinding_bound:+u${unwinding_bound}_}${timeout:+t${timeout}_}${repair_limit:+r${repair_limit}_}${size_limit:+s${size_limit}_}${program_limit:+p${program_limit}_}"
 	results_filename="$results_dir/AllRepair_results_$settings_to_filename$current_date.csv"
 	repairs_filename="$results_dir/AllRepair_repairs_$settings_to_filename$current_date"
@@ -69,8 +69,8 @@ main() {
 	done
 	
 	# Print end time
-	echo `date +'%d_%m_%Y_%X'` >> $results_filename
-	echo `date +'%d_%m_%Y_%X'` >> $repairs_filename
+	echo `date +'%d_%m_%Y_%H_%M_%S'` >> $results_filename
+	echo `date +'%d_%m_%Y_%H_%M_%S'` >> $repairs_filename
 }
 
 parse_settings () {

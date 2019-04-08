@@ -24,7 +24,7 @@ get_output_file () {
 	if ! [ -z "$1" ]; then
 		output_file=$1
 	else	
-		output_file="AllRepair_joined_csv_`date +'%d_%m_%Y_%X'`.csv"
+		output_file="AllRepair_joined_csv_`date +'%d_%m_%Y_%H_%M_%S'`.csv"
 	fi
 }
 
