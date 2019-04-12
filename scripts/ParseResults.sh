@@ -17,7 +17,7 @@ main() {
 	
 	# Create output directory
 	if ! [ -d "$results_dir" ]; then
-		mkdir "$results_dir"
+		mkdir -p "$results_dir"
 	fi
 
 	# Determine filenames
