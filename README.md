@@ -33,7 +33,7 @@ https://link.springer.com/chapter/10.1007%2F978-3-319-48989-6_36
 
 ### Usage:
 
-To run AllRepair, go to directory scripts and run the AllRepair.sh script using the following command:
+To run AllRepair, go to directory AllRepair/scripts and run the AllRepair.sh script using the following command:
 
                               ./AllRepair.sh [FileNames] [Options]
 
