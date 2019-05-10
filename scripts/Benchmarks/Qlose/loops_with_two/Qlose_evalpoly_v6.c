@@ -21,7 +21,7 @@ int evalPoly(int p[], int n, int x){
     int num = 0;
     int i = 1;
     while (i <= n - 1){
-        num += p[i]*AllRepair_correct_pow(x,i) ;
+        num += p[i]*pow(x,i) ;
         i = i + 1;
     }
     return num;
