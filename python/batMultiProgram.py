@@ -154,7 +154,7 @@ class batMultiProgram(Graph):
     def get_selected_literals_from_trace(self, trace):
         res = set()
         for transition in trace:
-            if transition.literal:
+            if transition.literal is not None:
                 selected_literal = self.replace_literal_with_selected_literal(transition.literal)
                 res.add(selected_literal)
         return res
