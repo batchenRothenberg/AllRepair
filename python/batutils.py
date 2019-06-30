@@ -140,7 +140,8 @@ class Graph():
         """
         visited = []
         for r in roots:
-            self._postorder_aux(r, do_something, visited)
+            if r not in visited:
+                self._postorder_aux(r, do_something, visited)
 
 def is_If(z3_expr):
     return str(z3_expr.decl()) == "If"
