@@ -126,6 +126,56 @@ marco(){
 	return $?
 }
 
+# function for running allrepair after all preprocessing
+allrepair(){
+	echo ""
+	echo "		Repairing file $1"
+	echo ""
+	if [[ $TRANSLATE -eq 1 ]]; then
+		start_time=$(date +%s%3N)
+		cbmc $1
+		cbmc_res=$?
+		end_time=$(date +%s%3N)
+		translation_time=$(( $end_time - $start_time ))
+		# Calculate time diff in ms (bash doesn't do float arithmetic):
+		echo "AllRepair: Translation duration: $(($translation_time/1000)).$(($translation_time%1000))" 
+		if [[ $cbmc_res -ne 10 ]]; then
+			echo "AllRepair: ERROR DURING TRANSLATION"
+		else
+			echo "AllRepair: TRANSLATION PROCESS TERMINATED SUCCESSFULLY"		
+		fi	
+	fi
+	if [[ $REPAIR -eq 1 ]] && ([[ $cbmc_res -eq 10 ]] || [[ $TRANSLATE -ne 1 ]]); then
+		marco $file
+		marco_res=$?
+		echo "res = $marco_res"
+		if [[ $marco_res -eq 0 ]]; then
+			echo "AllRepair: SEARCH SPACE COVERED SUCCESSFULLY"
+		elif [[ $marco_res -eq 2 ]]; then
+			echo "AllRepair: TIMEOUT"
+		elif [[ $marco_res -eq 3 ]]; then
+			echo "AllRepair: REQUESTED NUMBER OF REPAIRS FOUND"
+		elif [[ $marco_res -eq 4 ]]; then
+			echo "AllRepair: MAX NUMBER OF MUTATED PROGRAMS INSPECTED"
+		elif [[ $marco_res -eq 5 ]]; then
+			echo "AllRepair: MAX MUTATION SIZE REACHED"
+		elif [[ $marco_res -eq 6 ]]; then
+			echo "AllRepair: EXTERNALLY TERMINATED"
+		elif [[ $marco_res -eq 7 ]]; then
+			echo "AllRepair: INTERRUPTED"
+		elif [[ $marco_res -eq 8 ]]; then
+			echo "AllRepair: ORIGINAL PROGRAM IS CORRECT"
+		else		
+			echo "AllRepair: ERROR DURING REPAIR"
+		fi
+	fi
+	out_name=`echo $file | tr "/" "_"`
+	out_name_no_extension="${out_name%.*}"
+	if  [[ $KEEP -ne 1 ]] && [[ $REPAIR -eq 1 ]] && [[ $TRANSLATE -eq 1 ]] && [[ -f ${out_name_no_extension}.gsmt2 ]]; then
+		rm ${out_name_no_extension}.gsmt2
+	fi
+	echo " ____________________________________________________________________________________"
+}
 
 # There's two passes here. The first pass handles the long options and
 # any short option that is already in canonical form. The second pass
@@ -313,52 +363,6 @@ IFS=$'\n' #split only on new line and not space or tab (allows filenames with sp
 
 #Procces files
 for file in $ALLFILES ; do
-	echo ""
-	echo "		Repairing file $file"
-	echo ""
-	if [[ $TRANSLATE -eq 1 ]]; then
-		start_time=$(date +%s%3N)
-		cbmc $file
-		cbmc_res=$?
-		end_time=$(date +%s%3N)
-		translation_time=$(( $end_time - $start_time ))
-		# Calculate time diff in ms (bash doesn't do float arithmetic):
-		echo "AllRepair: Translation duration: $(($translation_time/1000)).$(($translation_time%1000))" 
-		if [[ $cbmc_res -ne 10 ]]; then
-			echo "AllRepair: ERROR DURING TRANSLATION"
-		else
-			echo "AllRepair: TRANSLATION PROCESS TERMINATED SUCCESSFULLY"		
-		fi	
-	fi
-	if [[ $REPAIR -eq 1 ]] && ([[ $cbmc_res -eq 10 ]] || [[ $TRANSLATE -ne 1 ]]); then
-		marco $file
-		marco_res=$?
-		echo "res = $marco_res"
-		if [[ $marco_res -eq 0 ]]; then
-			echo "AllRepair: SEARCH SPACE COVERED SUCCESSFULLY"
-		elif [[ $marco_res -eq 2 ]]; then
-			echo "AllRepair: TIMEOUT"
-		elif [[ $marco_res -eq 3 ]]; then
-			echo "AllRepair: REQUESTED NUMBER OF REPAIRS FOUND"
-		elif [[ $marco_res -eq 4 ]]; then
-			echo "AllRepair: MAX NUMBER OF MUTATED PROGRAMS INSPECTED"
-		elif [[ $marco_res -eq 5 ]]; then
-			echo "AllRepair: MAX MUTATION SIZE REACHED"
-		elif [[ $marco_res -eq 6 ]]; then
-			echo "AllRepair: EXTERNALLY TERMINATED"
-		elif [[ $marco_res -eq 7 ]]; then
-			echo "AllRepair: INTERRUPTED"
-		elif [[ $marco_res -eq 8 ]]; then
-			echo "AllRepair: ORIGINAL PROGRAM IS CORRECT"
-		else		
-			echo "AllRepair: ERROR DURING REPAIR"
-		fi
-	fi
-	out_name=`echo $file | tr "/" "_"`
-	out_name_no_extension="${out_name%.*}"
-	if  [[ $KEEP -ne 1 ]] && [[ $REPAIR -eq 1 ]] && [[ $TRANSLATE -eq 1 ]] && [[ -f ${out_name_no_extension}.gsmt2 ]]; then
-		rm ${out_name_no_extension}.gsmt2
-	fi
-	echo " ____________________________________________________________________________________"
+	allrepair $file
 done
 IFS="$OIFS" #go back to normal splitting
