@@ -357,6 +357,10 @@ $DIRFILES" #add command-line files
 else
 	ALLFILES="$FILES"
 fi
+if [[ -z "$DIRFILES" ]] && [[ -z "$FILES" ]]; then
+	echo "No c files found in input. Exiting."
+	exit 1
+fi
 
 OIFS="$IFS" #variable content is split according to characters from IFS
 IFS=$'\n' #split only on new line and not space or tab (allows filenames with spaces)
