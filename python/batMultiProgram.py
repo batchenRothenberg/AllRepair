@@ -143,12 +143,8 @@ class batMultiProgram(Graph):
                 lhs = expr.arg(0)
                 rhs = expr.arg(1)
                 if is_If(rhs):
-                    guard = rhs.arg(0)
                     evaluation, chosen_var = parse_If(rhs, self.smt_model)
-                    if evaluation:
-                        transition = DependencyTransition(None, And(guard,lhs==chosen_var))
-                    else:
-                        transition = DependencyTransition(None, And(Not(guard),lhs==chosen_var))
+                    transition = DependencyTransition(None, lhs == chosen_var)
                 list.insert(0, transition)
         #
         return append_correct_transition_at_0
