@@ -4,7 +4,7 @@ from z3 import *
 
 from InGeneer import stmt
 from batutils import Graph, get_vars_as_string, is_If, parse_If, findall_regular_expression
-from InGeneer.formula_strengthener import remove_or
+from InGeneer.formula_strengthener import nnf_simplify_and_remove_or
 
 
 class batMultiProgram(Graph):
@@ -171,7 +171,7 @@ class batMultiProgram(Graph):
         return get_vars_as_string(demands_formula_no_or)
 
     def get_initial_formula_from_demands(self):
-        return remove_or(self.demands_formula, self.smt_model)
+        return nnf_simplify_and_remove_or(self.demands_formula, self.smt_model)
 
     def get_multitrace_from_trace(self, trace):
         res = []
