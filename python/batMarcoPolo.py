@@ -1,5 +1,7 @@
 from InGeneer import generalizer
 from InGeneer import precise_domain
+from InGeneer import interval_domain
+from InGeneer import formula_strengthener
 
 try:
     import queue
@@ -88,13 +90,25 @@ class batMarcoPolo:
                 return [(-(x + 1)) for x in literals]
             elif self.config['blockrepair']=="generalization":
                 # print("generalization")
+                DOMAIN_STR = "intervals"
+                DEBUG = False
                 mt = self.multi_program.get_multitrace_from_trace(trace)
-                # print("mt: "+str(mt))
-                domain = precise_domain.PreciseDomain(simplification=True)
-                wp_generalizer = generalizer.Generalizer(domain)
-                initial_formula = self.multi_program.get_initial_formula_from_demands()
                 smt_model = self.multi_program.smt_model
-                good_stmts_set = wp_generalizer.generalize_trace(mt, initial_formula, model=smt_model, print_annotation=False)
+                # print("mt: "+str(mt))
+                if DOMAIN_STR == "precise_no_simplify":
+                    domain = precise_domain.PreciseDomain(simplification=False)
+                    initial_formula = self.multi_program.get_initial_formula_from_demands()
+                elif DOMAIN_STR == "precise_with_simplify":
+                    domain = precise_domain.PreciseDomain(simplification=True)
+                    initial_formula = self.multi_program.get_initial_formula_from_demands()
+                elif DOMAIN_STR == "intervals":
+                    domain = interval_domain.IntervalDomain(debug=True)
+                    initial_formula = self.multi_program.get_initial_formula_from_demands()
+                    initial_formula = formula_strengthener.strengthen(initial_formula,smt_model)
+                else:
+                    assert False
+                gen = generalizer.Generalizer(domain,debug=DEBUG)
+                good_stmts_set = gen.generalize_trace(mt, initial_formula, model=smt_model, print_annotation=False)
                 literals = set([st.literal for st in good_stmts_set if st.literal is not None])
                 # print(literals)
                 return [(x + 1) for x in literals]
