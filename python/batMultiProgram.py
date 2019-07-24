@@ -4,7 +4,7 @@ from z3 import *
 
 from InGeneer import stmt
 from batutils import Graph, get_vars_as_keys, is_If, parse_If, findall_regular_expression
-from InGeneer.formula_strengthener import nnf_simplify_and_remove_or
+from InGeneer.formula_strengthener import nnf_simplify,remove_or
 
 
 class batMultiProgram(Graph):
@@ -91,7 +91,7 @@ class batMultiProgram(Graph):
                                 else: # soft constraint
                                     self.assignment_map[(ass.arg(0)).get_id()] = DependencyTransition(soft_i-1, ass) # soft_i was already increased
                 cons_i = cons_i + 1
-        self.demands_formula = And([self.constraints[i] for i in demand_constraints])
+        self.demands_formula = And([nnf_simplify(self.constraints[i]) for i in demand_constraints])
         f.close()
 
     def parse_and_save_location_information(self, groupnum, line):
@@ -167,7 +167,7 @@ class batMultiProgram(Graph):
         return get_vars_as_keys(demands_formula_no_or)
 
     def get_initial_formula_from_demands(self):
-        return nnf_simplify_and_remove_or(self.demands_formula, self.smt_model)
+        return remove_or(self.demands_formula, self.smt_model)
 
     def get_multitrace_from_trace(self, trace):
         res = []
