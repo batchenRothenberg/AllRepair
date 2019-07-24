@@ -3,7 +3,7 @@ from functools import reduce
 from z3 import *
 
 from InGeneer import stmt
-from batutils import Graph, get_vars_as_string, is_If, parse_If, findall_regular_expression
+from batutils import Graph, get_vars_as_keys, is_If, parse_If, findall_regular_expression
 from InGeneer.formula_strengthener import nnf_simplify_and_remove_or
 
 
@@ -85,11 +85,11 @@ class batMultiProgram(Graph):
                             assert ass.num_args() > 1
                             # Add to assignment map only if not already in:
                             # makes sure each variable is mapped to its first assignment, i.e., the assignment in the original program
-                            if str(ass.arg(0)) not in self.assignment_map:
+                            if (ass.arg(0)).get_id() not in self.assignment_map:
                                 if res[0] == '0': # phi-function or hard constraint that is not an assert or assume (e.g., cbmc init)
-                                    self.assignment_map[str(ass.arg(0))] = DependencyTransition(None, ass)
+                                    self.assignment_map[(ass.arg(0)).get_id()] = DependencyTransition(None, ass)
                                 else: # soft constraint
-                                    self.assignment_map[str(ass.arg(0))] = DependencyTransition(soft_i-1, ass) # soft_i was already increased
+                                    self.assignment_map[(ass.arg(0)).get_id()] = DependencyTransition(soft_i-1, ass) # soft_i was already increased
                 cons_i = cons_i + 1
         self.demands_formula = And([self.constraints[i] for i in demand_constraints])
         f.close()
@@ -118,16 +118,16 @@ class batMultiProgram(Graph):
             if is_If(rhs):  # phi-function assignment
                 evaulation, chosen_var = parse_If(rhs, self.smt_model)
                 guard = rhs.arg(0)
-                return [str(guard), str(chosen_var)]
+                return [guard.get_id(), chosen_var.get_id()]
             else: # standard assignment
-                return get_vars_as_string(rhs)
+                return get_vars_as_keys(rhs)
 
     @staticmethod
     def unwind_cons(cons, v):
         if is_and(cons):  # cons is the result of loop/function unwinding. Find the assignment to v in it.
             for child in cons.children():
                 assert is_eq(child)
-                if str(child.arg(0).decl()) == v:
+                if child.arg(0).get_id() == v:
                     return child
         else:  # cons is an assignment (phi-function, condition or standard assignment)
             assert is_eq(cons)
@@ -164,7 +164,7 @@ class batMultiProgram(Graph):
 
     def get_root_variables(self):
         demands_formula_no_or = self.get_initial_formula_from_demands()
-        return get_vars_as_string(demands_formula_no_or)
+        return get_vars_as_keys(demands_formula_no_or)
 
     def get_initial_formula_from_demands(self):
         return nnf_simplify_and_remove_or(self.demands_formula, self.smt_model)
@@ -202,7 +202,7 @@ class batMultiProgram(Graph):
             soft_index += 1
             new_group_num, new_cons_index = self.soft_constraints[soft_index]
             if new_group_num == group_num:
-                t = DependencyTransition(soft_index, self.unwind_cons(self.constraints[new_cons_index],str(assigned_var)))
+                t = DependencyTransition(soft_index, self.unwind_cons(self.constraints[new_cons_index],assigned_var.get_id()))
                 res.append(t)
         return res
 

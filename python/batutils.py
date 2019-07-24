@@ -9,6 +9,8 @@ from z3 import *
 
 # Three options for measuring time: choose one.
 # TODO: Consider using time.process_time() (only in 3.3, though)
+from InGeneer.z3_utils import get_id
+
 _get_time = time.time  # wall-time
 
 
@@ -206,8 +208,8 @@ def get_vars(f,rs=[]):
 
         return vset(rs,str)
 
-def get_vars_as_string(f,rs=[]):
-    return [str(v) for v in get_vars(f,rs)]
+def get_vars_as_keys(f, rs=[]):
+    return [v.get_id() for v in get_vars(f,rs)]
 
 def is_expr_val(v):
     """
@@ -295,13 +297,13 @@ def get_vars(f,rs=[]):
         if is_expr_val(f):
             return rs
         else:  #variable
-            return vset(rs + [f],str)
+            return vset(rs + [f],get_id)
 
     else:
         for f_ in f.children():
             rs = get_vars(f_,rs)
 
-        return vset(rs,str)
+        return vset(rs,get_id)
 
 def is_expr_val(v):
     """
