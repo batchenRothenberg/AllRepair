@@ -232,11 +232,13 @@ def setup_config(args):
 def main():
     stats = batutils.Statistics()
 
-    with stats.time('setup'):
+    with stats.time('Setup'):
         args = parse_args()
         setup_execution(args, stats)
         varbias = setup_solvers(args)
+    with stats.time('Parse gsmt2'):
         multiprog = batMultiProgram(args.infile.name, args.blockrepair)
+    with stats.time('Setup'):
         if args.incremental=="none":
             csolver = Z3NonIncrementalSubsetSolver(multiprog.constraints, multiprog.hard_constraints, multiprog.soft_constraints)
         elif args.incremental=="pushpop":
