@@ -107,10 +107,10 @@ class batMultiProgram(Graph):
     def get_original_index(self, group):
         return next((idx, cons_i) for idx, (g, cons_i) in enumerate(self.soft_constraints) if g == group)
 
-    def get_children(self, variable_str):
+    def get_children(self, variable_key):
         cons = None
-        if variable_str in self.assignment_map.keys():
-            cons = self.assignment_map[variable_str].expr
+        if variable_key in self.assignment_map.keys():
+            cons = self.assignment_map[variable_key].expr
         if cons is None:
             return []
         else:
