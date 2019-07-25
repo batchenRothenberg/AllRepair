@@ -81,15 +81,17 @@ class batMarcoPolo:
             return [(-(x + 1)) for x in seed]
         else:
             roots = self.multi_program.get_root_variables()
-            trace = []
-            self.multi_program.postorder(roots, self.multi_program.append_transition(trace))
             if self.config['blockrepair']=="slicing":
                 print("slicing")
-                literals = self.multi_program.get_selected_literals_from_trace(trace)
+                trace_literals = []
+                self.multi_program.postorder(roots, self.multi_program.append_literal(trace_literals))
+                literals = self.multi_program.get_selected_literals_from_list(trace_literals)
                 # print("literals: "+str(literals))
                 return [(-(x + 1)) for x in literals]
             elif self.config['blockrepair']=="generalization":
                 # print("generalization")
+                trace = []
+                self.multi_program.postorder(roots, self.multi_program.append_transition(trace))
                 DOMAIN_STR = "intervals"
                 DEBUG = False
                 mt = self.multi_program.get_multitrace_from_trace(trace)

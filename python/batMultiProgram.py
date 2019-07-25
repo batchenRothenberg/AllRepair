@@ -3,6 +3,7 @@ from functools import reduce
 from z3 import *
 
 from InGeneer import stmt
+from InGeneer.z3_utils import evaluate_phi_function
 from batutils import Graph, get_vars_as_keys, is_If, parse_If, findall_regular_expression
 from InGeneer.formula_strengthener import nnf_simplify,remove_or
 
@@ -85,12 +86,20 @@ class batMultiProgram(Graph):
                             assert ass.num_args() > 1
                             # Add to assignment map only if not already in:
                             # makes sure each variable is mapped to its first assignment, i.e., the assignment in the original program
-                            lhs_key = ass.arg(0).get_id()
+                            lhs = ass.arg(0)
+                            rhs = cons.arg(1)
+                            lhs_key = lhs.get_id()
                             if lhs_key not in self.assignment_map:
                                 if res[0] == '0': # phi-function or hard constraint that is not an assert or assume (e.g., cbmc init)
-                                    self.assignment_map[lhs_key] = DependencyTransition(None, ass)
+                                    if is_If(rhs):  # phi-function assignment
+                                        guard = rhs.arg(0)
+                                        true_var = rhs.arg(1)
+                                        false_var = rhs.arg(2)
+                                        self.assignment_map[lhs_key] = (None, PhiFunction(guard,true_var,false_var))
+                                    else:  # standard assignment
+                                        self.assignment_map[lhs_key] = (None, get_vars_as_keys(rhs))
                                 else: # soft constraint
-                                    self.assignment_map[lhs_key] = DependencyTransition(soft_i-1, ass) # soft_i was already increased
+                                    self.assignment_map[lhs_key] = (soft_i-1, get_vars_as_keys(rhs)) # soft_i was already increased
                 cons_i = cons_i + 1
         self.demands_formula = And([nnf_simplify(self.constraints[i]) for i in demand_constraints])
         f.close()
@@ -108,20 +117,17 @@ class batMultiProgram(Graph):
         return next((idx, cons_i) for idx, (g, cons_i) in enumerate(self.soft_constraints) if g == group)
 
     def get_children(self, variable_key):
-        cons = None
-        if variable_key in self.assignment_map.keys():
-            cons = self.assignment_map[variable_key].expr
-        if cons is None:
-            return []
+        if variable_key in self.assignment_map:
+            literal, object = self.assignment_map[variable_key]
+            if isinstance(object,PhiFunction):
+                chosen_var = evaluate_phi_function(object, self.smt_model)
+                return [object.guard.get_id(), chosen_var.get_id()]
+            elif isinstance(object,list):
+                return object
+            else:
+                return False
         else:
-            assert is_eq(cons)
-            rhs = cons.arg(1)
-            if is_If(rhs):  # phi-function assignment
-                evaulation, chosen_var = parse_If(rhs, self.smt_model)
-                guard = rhs.arg(0)
-                return [guard.get_id(), chosen_var.get_id()]
-            else: # standard assignment
-                return get_vars_as_keys(rhs)
+            return []
 
     @staticmethod
     def unwind_cons(cons, v):
@@ -150,11 +156,20 @@ class batMultiProgram(Graph):
         #
         return append_correct_transition_at_0
 
-    def get_selected_literals_from_trace(self, trace):
+    def append_literal(self, list):
+        #
+        def append_literal_at_0(var):
+            if var in self.assignment_map.keys():
+                literal, object = self.assignment_map[var]
+                list.insert(0, literal)
+        #
+        return append_literal_at_0
+
+    def get_selected_literals_from_list(self, literal_list):
         res = set()
-        for transition in trace:
-            if transition.literal is not None:
-                selected_literal = self.replace_literal_with_selected_literal(transition.literal)
+        for lit in literal_list:
+            if lit is not None:
+                selected_literal = self.replace_literal_with_selected_literal(lit)
                 res.add(selected_literal)
         return res
 
@@ -206,6 +221,13 @@ class batMultiProgram(Graph):
                 t = DependencyTransition(soft_index, self.unwind_cons(self.constraints[new_cons_index],assigned_var.get_id()))
                 res.append(t)
         return res
+
+
+class PhiFunction:
+    def __init__(self, guard, true_var, false_var):
+        self.guard = guard
+        self.true_var = true_var
+        self.false_var = false_var
 
 
 class DependencyTransition(stmt.Stmt):
