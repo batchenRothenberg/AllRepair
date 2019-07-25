@@ -85,11 +85,12 @@ class batMultiProgram(Graph):
                             assert ass.num_args() > 1
                             # Add to assignment map only if not already in:
                             # makes sure each variable is mapped to its first assignment, i.e., the assignment in the original program
-                            if (ass.arg(0)).get_id() not in self.assignment_map:
+                            lhs_key = ass.arg(0).get_id()
+                            if lhs_key not in self.assignment_map:
                                 if res[0] == '0': # phi-function or hard constraint that is not an assert or assume (e.g., cbmc init)
-                                    self.assignment_map[(ass.arg(0)).get_id()] = DependencyTransition(None, ass)
+                                    self.assignment_map[lhs_key] = DependencyTransition(None, ass)
                                 else: # soft constraint
-                                    self.assignment_map[(ass.arg(0)).get_id()] = DependencyTransition(soft_i-1, ass) # soft_i was already increased
+                                    self.assignment_map[lhs_key] = DependencyTransition(soft_i-1, ass) # soft_i was already increased
                 cons_i = cons_i + 1
         self.demands_formula = And([nnf_simplify(self.constraints[i]) for i in demand_constraints])
         f.close()
