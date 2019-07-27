@@ -345,6 +345,9 @@ fi
 if [[ ! -z "$INCREMENTAL" ]]; then
 	echo -n "SMT incremental method=$INCREMENTAL "
 fi
+if [[ ! -z "$BLOCK" ]]; then
+	echo -n "Blocking method=$BLOCK "
+fi
 if [[ ! -z "$GROUPFILES" ]]; then
 	echo -n "Using multiple files mode "
 fi

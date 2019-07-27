@@ -1,7 +1,9 @@
 #!/bin/bash
 
-declare -a column_keys=( "filename" "category" "hard" "soft" "programs" "translation" "repair" "numrepairs" "totaltofirst" "translationtime" "timetofirst" "maxinspected"  "satchecktotal" "satblocktotal" "smttotal" "setuptotal" "total" "smtcount" "smtper" "mutlevel" "bound" "timeout" "replimit" "sizelimit" "proglimit" "incremental" )
-declare -A column_titles=( ["filename"]="file name" ["category"]="category" ["hard"]="hard constraints" ["soft"]="max mutation size" ["programs"]="mutated programs" ["translation"]="translation result" ["repair"]="repair result" ["numrepairs"]="found repairs" ["timetofirst"]="time to first repair [s]" ["maxinspected"]="max inspected size" ["satchecktotal"]="sat check [s]" ["satblocktotal"]="sat block [s]" ["smttotal"]="smt check [s]" ["setuptotal"]="setup [s]" ["smtcount"]="smt check count" ["total"]="total repair time [s]" ["translationtime"]="translation time [s]" ["totaltofirst"]="total time to first repair" ["smtper"]="SMT check per" ["mutlevel"]="mutation level" ["bound"]="unwinding bound" ["timeout"]="timeout" ["replimit"]="repair limit" ["sizelimit"]="size limit" ["proglimit"]="program limit" ["incremental"]="SMT incremental method" )
+#set -x
+
+declare -a column_keys=( "filename" "category" "hard" "soft" "programs" "translation" "repair" "numrepairs" "totaltofirst" "translationtime" "timetofirst" "maxinspected"  "satchecktotal" "satblocktotal" "smttotal" "setuptotal" "total" "smtcount" "smtper" "mutlevel" "bound" "timeout" "replimit" "sizelimit" "proglimit" "incremental" "block" )
+declare -A column_titles=( ["filename"]="file name" ["category"]="category" ["hard"]="hard constraints" ["soft"]="max mutation size" ["programs"]="mutated programs" ["translation"]="translation result" ["repair"]="repair result" ["numrepairs"]="found repairs" ["timetofirst"]="time to first repair [s]" ["maxinspected"]="max inspected size" ["satchecktotal"]="sat check [s]" ["satblocktotal"]="sat block [s]" ["smttotal"]="smt check [s]" ["setuptotal"]="setup [s]" ["smtcount"]="smt check count" ["total"]="total repair time [s]" ["translationtime"]="translation time [s]" ["totaltofirst"]="total time to first repair" ["smtper"]="SMT check per" ["mutlevel"]="mutation level" ["bound"]="unwinding bound" ["timeout"]="timeout" ["replimit"]="repair limit" ["sizelimit"]="size limit" ["proglimit"]="program limit" ["incremental"]="SMT incremental method" ["block"]="blocking method" )
 
 main() {
 	get_input_filenames $1
@@ -41,12 +43,12 @@ evaluate_file () {
 	read date_string
 	read settings_string
 	parse_settings "$settings_string"
-	echo "mutation=$mutation_level unwind=$unwinding_bound timeout=$timeout replim=$repair_limit sizlim=$size_limit proglim=$program_limit incremental=$incremental" 
+	echo "mutation=$mutation_level unwind=$unwinding_bound timeout=$timeout replim=$repair_limit sizlim=$size_limit proglim=$program_limit incremental=$incremental block=$block" 
 	read title_string
 	while read line; do
 		echo "$line" | parse_category_and_print
 		if [[ $? -eq 0 ]]; then
-			echo "$mutation_level,$unwinding_bound,$timeout,$repair_limit,$size_limit,$program_limit,$incremental" >> $output_file
+			echo "$mutation_level,$unwinding_bound,$timeout,$repair_limit,$size_limit,$program_limit,$incremental,$block" >> $output_file
 		fi
 	done
 }
@@ -87,6 +89,9 @@ parse_settings () {
 	fi
 	if echo "$1" | grep -q ".*SMT incremental method=.*"; then
 		incremental=`echo "$1" | sed 's/.*SMT incremental method=\([a-z]*\).*/\1/'`
+	fi
+	if echo "$1" | grep -q ".*Blocking method=.*"; then
+		block=`echo "$1" | sed 's/.*Blocking method=\([a-z]*\).*/\1/'`
 	fi
 }
 
