@@ -254,7 +254,9 @@ void goto_symext::symex_assign_symbol(
   if(symbol.is_auxiliary) assignment_type=symex_targett::HIDDEN;
   
   state.rename(ssa_rhs, ns);
-  do_simplify(ssa_rhs);
+  // Do not simplify!! Apply mutations to exprs as they appear in the original program
+  //(otherwise you might change, e.g., y=x+1 to y=1+x, and then mutating + to - will no longer have the same effect).
+  //do_simplify(ssa_rhs); //bat
   
   symbol_exprt ssa_lhs=lhs;
   state.rename(ssa_lhs, ns, goto_symex_statet::L1);
