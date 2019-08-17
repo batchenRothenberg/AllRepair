@@ -865,9 +865,10 @@ bool cbmc_parse_optionst::process_goto_program(
       full_slicer(goto_functions, ns);
     }
   
-    // do partial inlining
-    status() << "Partial Inlining" << eom;
-    goto_partial_inline(goto_functions, ns, ui_message_handler);
+    // bat - do *not* do partial inlining, since then builtin functions are inlined and we can't tell which code came from the user
+    // also, code location gets mixed up (all code from the inlined function is associated with the location of the call)
+    status() << "Skipping Partial Inlining" << eom;
+    //goto_partial_inline(goto_functions, ns, ui_message_handler);
     
     // remove returns, gcc vectors, complex
     remove_returns(symbol_table, goto_functions);

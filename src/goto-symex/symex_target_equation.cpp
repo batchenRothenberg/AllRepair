@@ -698,9 +698,20 @@ void symex_target_equationt::convert_assignments(
       it!=SSA_steps.end(); it++)
   {
     if(it->is_assignment() && !it->ignore){
-	std::string location_info = it->source.pc->source_location.as_string();
+
+    	const irep_idt &func = it->source.pc->function;
+    	const irep_idt &filename = it->source.pc->source_location.get_file();
+    	bool is_in_builtin = as_string(filename).find("<builtin-") == 0;
+
+    	std::string location_info = it->source.pc->source_location.as_string();
+		//std::cout<< "\nExpr is: "<<*it;
     	//std::cout<< "Expr code location is: "<<location_info<<std::endl;
-    	if (it->assignment_type==assignment_typet::PHI || is_no_mut_function(it->source.pc->function,no_mut_functions)){
+
+    	if (it->assignment_type==assignment_typet::PHI
+    			|| is_no_mut_function(func,no_mut_functions) //user-selected no-mut functions + cbmc_init
+				|| is_in_builtin //code of builtin libraries (e.g., string.h)
+    			|| (it->hidden && it->assignment_type!=assignment_typet::GUARD) //other hidden statements, except assignment to guards (are there any?)
+				){
             decision_procedure.set_to_true(it->cond_expr, 0, location_info);
     	} else {
     		expr_vectort v;
