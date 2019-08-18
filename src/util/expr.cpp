@@ -734,7 +734,7 @@ void exprt::apply_mutations_aux(OutputIterator it, exprt& curr, std::string& mut
 				save_mutated_expr(it);
 				//if (mutation_level=="3"){
 					//c -> 0
-					if (cvalue!=0){
+					if (cvalue!=0 && cvalue!=-1 && cvalue!=1){
 						cexp.from_integer(0);
 						curr=cexp.to_expr();
 						save_mutated_expr(it);
