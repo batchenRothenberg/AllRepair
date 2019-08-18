@@ -837,10 +837,11 @@ void exprt::apply_operator_mutations(OutputIterator it, exprt& curr,
 		if (mutation_level=="2"||mutation_level=="3"){
 			curr.id(ID_mult); //change + to *
 			save_mutated_expr(it);
-			curr.id(ID_div); //change + to /
-			save_mutated_expr(it);
-			curr.id(ID_mod); //change + to %
-			save_mutated_expr(it);
+			// bat- avoid mutations that may create a division by 0.
+			//curr.id(ID_div); //change + to /
+			//save_mutated_expr(it);
+			//curr.id(ID_mod); //change + to %
+			//save_mutated_expr(it);
 		}
 	} else if (old_op == ID_minus) {
 		curr.id(ID_plus); //change - to +
@@ -848,16 +849,18 @@ void exprt::apply_operator_mutations(OutputIterator it, exprt& curr,
 		if (mutation_level=="2"||mutation_level=="3"){
 			curr.id(ID_mult); //change - to *
 			save_mutated_expr(it);
-			curr.id(ID_div); //change - to /
-			save_mutated_expr(it);
-			curr.id(ID_mod); //change - to %
-			save_mutated_expr(it);
+			// bat- avoid mutations that may create a division by 0.
+			//curr.id(ID_div); //change - to /
+			//save_mutated_expr(it);
+			//curr.id(ID_mod); //change - to %
+			//save_mutated_expr(it);
 		}
 	} else if (old_op == ID_mult) {
-		curr.id(ID_div); //change * to /
-		save_mutated_expr(it);
-		curr.id(ID_mod); //change * to %
-		save_mutated_expr(it);
+		// bat- avoid mutations that may create a division by 0.
+		//curr.id(ID_div); //change * to /
+		//save_mutated_expr(it);
+		//curr.id(ID_mod); //change * to %
+		//save_mutated_expr(it);
 		if (mutation_level=="2"||mutation_level=="3"){
 			curr.id(ID_plus); //change * to +
 			save_mutated_expr(it);
@@ -867,6 +870,8 @@ void exprt::apply_operator_mutations(OutputIterator it, exprt& curr,
 	} else if (old_op == ID_div) {
 		curr.id(ID_mod); //change / to %
 		save_mutated_expr(it);
+		// bat- avoid mutations for which a division by 0 is no longer a bug.
+		/*
 		curr.id(ID_mult); //change / to *
 		save_mutated_expr(it);
 		if (mutation_level=="2"||mutation_level=="3"){
@@ -875,9 +880,12 @@ void exprt::apply_operator_mutations(OutputIterator it, exprt& curr,
 			curr.id(ID_minus); //change / to -
 			save_mutated_expr(it);
 		}
+		*/
 	} else if (old_op == ID_mod) {
 		curr.id(ID_div); //change % to /
 		save_mutated_expr(it);
+		// bat- avoid mutations for which a division by 0 is no longer a bug.
+		/*
 		curr.id(ID_mult); //change % to *
 		save_mutated_expr(it);
 		if (mutation_level=="2"||mutation_level=="3"){
@@ -886,6 +894,7 @@ void exprt::apply_operator_mutations(OutputIterator it, exprt& curr,
 			curr.id(ID_minus); //change % to -
 			save_mutated_expr(it);
 		}
+		*/
 	} else if (old_op == ID_and) {
 		curr.id(ID_or); //change && to ||
 		save_mutated_expr(it);
