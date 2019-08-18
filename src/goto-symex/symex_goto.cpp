@@ -37,7 +37,8 @@ void goto_symext::symex_goto(statet &state)
 
   exprt new_guard=old_guard;
   state.rename(new_guard, ns);
-  do_simplify(new_guard);
+  // bat- do *not* simplify - apply mutations to original expressions
+  //do_simplify(new_guard);
   
   if(new_guard.is_false() ||
      state.guard.is_false())
