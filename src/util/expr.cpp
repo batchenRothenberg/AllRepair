@@ -740,9 +740,11 @@ void exprt::apply_mutations_aux(OutputIterator it, exprt& curr, std::string& mut
 						save_mutated_expr(it);
 					}
 					//c -> -c
-					cexp.from_integer(-cvalue);
-					curr=cexp.to_expr();
-					save_mutated_expr(it);
+					if (cvalue!=0){
+						cexp.from_integer(-cvalue);
+						curr=cexp.to_expr();
+						save_mutated_expr(it);
+					}
 				//}
 				//restore original value
 				cexp.from_integer(cvalue);
