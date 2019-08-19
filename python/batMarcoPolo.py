@@ -82,7 +82,7 @@ class batMarcoPolo:
         else:
             roots = self.multi_program.get_root_variables()
             if self.config['blockrepair']=="slicing":
-                print("slicing")
+                # print("slicing")
                 trace_literals = []
                 self.multi_program.postorder(roots, self.multi_program.append_literal(trace_literals))
                 literals = self.multi_program.get_selected_literals_from_list(trace_literals)
