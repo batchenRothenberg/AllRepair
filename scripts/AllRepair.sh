@@ -260,6 +260,10 @@ if [[ $INCREMENTAL != "none" ]] && [[ $INCREMENTAL != "pushpop" ]] && [[ $INCREM
 	echo "Wrong method for --incremental ($INCREMENTAL). Method can be either none, pushpop or assumptions."
 	exit 1
 fi
+if (( $MUTATION != 1 )) && (( $MUTATION != 2 )); then
+	echo "Invalid mutation level ($MUTATION). Mutation level can be either 1 or 2."
+	exit 1
+fi
 
 
 # Handle positional arguments
