@@ -276,86 +276,85 @@ fi
 
 
 # Print settings
-echo -n "AllRepair: Settings: "
+echo "AllRepair: SETTINGS: "
 if [[ ! -z "$UNWIND" ]]; then
-	echo -n "Unwinding bound=$UNWIND "
+	echo "Unwinding bound=$UNWIND "
 fi
 if [[ ! -z "$MUTATION" ]]; then
-	echo -n "Mutation level=$MUTATION "
+	echo "Mutation level=$MUTATION "
 fi
 if [[ ! -z "$TIMEOUT" ]]; then
-	echo -n "Timeout=$TIMEOUT "
+	echo "Timeout=$TIMEOUT "
 fi
 if [[ ! -z "$SIZELIMIT" ]]; then
-	echo -n "Max repair size=$SIZELIMIT "
+	echo "Max repair size=$SIZELIMIT "
 fi
 if [[ ! -z "$PROGRAMLIMIT" ]]; then
-	echo -n "Max programs to check=$PROGRAMLIMIT "
+	echo "Max programs to check=$PROGRAMLIMIT "
 fi
 if [[ ! -z "$REPAIRLIMIT" ]]; then
-	echo -n "Max repairs to find=$REPAIRLIMIT "
+	echo "Max repairs to find=$REPAIRLIMIT "
 fi
 if [[ ! -z "$FUNCTION" ]]; then
-	echo -n "Function to repair=$FUNCTION "
+	echo "Function to repair=$FUNCTION "
 fi
 if [[ ! -z "$ERRORLABEL" ]]; then
-	echo -n "--error-label $ERRORLABEL "
+	echo "--error-label $ERRORLABEL "
 fi
 if [[ ! -z "$ARRAYBOUND" ]]; then
-	echo -n "--bounds-check "
+	echo "Array out of bounds check: on "
 fi
 if [[ ! -z "$POINTER" ]]; then
-	echo -n "--pointer-check "
+	echo "Pointer check: on "
 fi
 if [[ ! -z "$MEMORY" ]]; then
-	echo -n "--memory-leak-check "
+	echo "Memory leak check: on "
 fi
 if [[ ! -z "$DIVBYZERO" ]]; then
-	echo -n "--div-by-zero-check "
+	echo "Div by 0 check: on "
 fi
 if [[ ! -z "$SIGNEDOVERFLOW" ]]; then
-	echo -n "--signed-overflow-check "
+	echo "--signed-overflow-check "
 fi
 if [[ ! -z "$UNSIGNEDOVERFLOW" ]]; then
-	echo -n "--unsigned-overflow-check "
+	echo "--unsigned-overflow-check "
 fi
 if [[ ! -z "$POINTEROVERFLOW" ]]; then
-	echo -n "--pointer-overflow-check "
+	echo "--pointer-overflow-check "
 fi
 if [[ ! -z "$CONVERSION" ]]; then
-	echo -n "--conversion-check "
+	echo "--conversion-check "
 fi
 if [[ ! -z "$UNDEFINEDSHIFT" ]]; then
-	echo -n "--undefined-shift-check "
+	echo "--undefined-shift-check "
 fi
 if [[ ! -z "$FLOATOVERFLOW" ]]; then
-	echo -n "--float-overflow-check "
+	echo "--float-overflow-check "
 fi
 if [[ ! -z "$NAN" ]]; then
-	echo -n "--nan-check "
+	echo "--nan-check "
 fi
 if [[ ! -z "$NOBUILTINASSERTIONS" ]]; then
-	echo -n "--no-built-in-assertions "
+	echo "--no-built-in-assertions "
 fi
 if [[ ! -z "$NOASSERTIONS" ]]; then
-	echo -n "--no-assertions "
+	echo "--no-assertions "
 fi
 if [[ ! -z "$NOASSUMPTIONS" ]]; then
-	echo -n "--no-assumptions "
+	echo "--no-assumptions "
 fi
 if [[ ! -z "$NOMUT" ]]; then
-	echo -n "Functions to avoid mutating=$NOMUT "
+	echo "Functions to avoid mutating=$NOMUT "
 fi
 if [[ ! -z "$INCREMENTAL" ]]; then
-	echo -n "SMT incremental method=$INCREMENTAL "
+	echo "SMT incremental method=$INCREMENTAL "
 fi
 if [[ ! -z "$BLOCK" ]]; then
-	echo -n "Blocking method=$BLOCK "
+	echo "Blocking method=$BLOCK "
 fi
 if [[ ! -z "$GROUPFILES" ]]; then
-	echo -n "Using multiple files mode "
+	echo "Using multiple files mode "
 fi
-echo ""
 # Other settings:
 # echo "BLOCK=$BLOCK"
 # echo "FILES=$FILES"
