@@ -19,7 +19,6 @@ main () {
 	fi
 	create_files_if_dont_exist "$results_filename" "$repairs_filename"
 	make_csv_title_if_necessary "$results_filename"
-	echo "PArsing now,,,"
 	parse_data
 }
 
