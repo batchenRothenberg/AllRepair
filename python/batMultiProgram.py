@@ -87,7 +87,7 @@ class batMultiProgram(Graph):
                             # Add to assignment map only if not already in:
                             # makes sure each variable is mapped to its first assignment, i.e., the assignment in the original program
                             lhs = ass.arg(0)
-                            rhs = cons.arg(1)
+                            rhs = ass.arg(1)
                             lhs_key = lhs.get_id()
                             if lhs_key not in self.assignment_map:
                                 if res[0] == '0': # phi-function or hard constraint that is not an assert or assume (e.g., cbmc init)
