@@ -1,0 +1,24 @@
+96-A-bug-18284844-18284870	single		increase_const			line 42: 0 to 1			cbmc success 10
+357-B-bug-4821770-4823919	multiline	increase_const,increase_const	line 9: 1 to 2, 2 to 3		scanf in loop
+495-A-bug-14848767-14848797 	single		increase_const			line 4: 3 to 4			cbmc success 5
+69-B-bug-18294344-18294349	multiline	increase_const,increase_const	line 7: 1000 to 1001, 1000 to 1001	scanf in loop
+110-A-bug-18223116-18223122	single		logical-op			line 9: && to ||		cbmc success 5
+651-A-bug-18131602-18131652	single		logical-op			line 6: || to &&		cbmc success 5
+670-A-bug-18092540-18092564	multiline	logical-op			line 19: && to || (times 3)	cbmc success 5
+3-A-bug-14796916-14796932	single		logical-op			line 30: && to ||		cbmc too slow
+160-B-bug-14660992-14661027	multiline	arith-op			line 42: > to >=, < to 		uses qsort (not suppported by CBMC)
+483-A-bug-17885639-17885651	single		arith-op			line 6: == to <=		cbmc success 5
+82-A-bug-16870449-16870616	single		arith-op			line 14: > to >=		cbmc success 10 (slow)
+71-A-bug-18255203-18255214	single		arith-op			line 11: >= to >		scanf in loop
+131-A-bug-18069181-18073244	single		decrease_const			line 21: 1 to 0			cbmc success 5 (slow)
+467-A-bug-18348808-18348843	single		arith-op			line 11: >= to <=		scanf in loop
+479-A-bug-18240880-18240906	single		increase_const			line 17: 5 to 6			cbmc success 10
+208-A-bug-18351096-18351104	single		const_to_0			line 13: 3 to 0			cbmc success 5
+208-A-bug-17532993-17533015	single		const_to_0			line 9: 3 to 0 			cbmc success 2 (5 too slow)
+144-A-bug-17545888-17545977	single		decrease_const			line 22: 1 to 0			scanf in loop
+500-A-bug-18160029-18160094	single		decrease_const			line 13: 1 to 0			scanf in loop
+500-A-bug-17810784-17810794	single		increase_const			line 31: 0 to 1			uses calloc (+cbmc bug)
+71-A-bug-18179306-18179326	single		arith-op			line 12: < to <=		scanf in loop
+4-A-bug-18279795-18282404	single		arith-op			line 14: < to <=		cbmc success 5
+50-A-bug-18220832-18220839	single		arith-op			line 7: < to <=			cbmc success 5
+50-A-bug-18220815-18220839	multiline	arith-op,arith-op		line 7: < to <= (times 2)	cbmc success 5
