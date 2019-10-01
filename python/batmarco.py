@@ -287,6 +287,7 @@ def main():
                 print("Possible repair:")
                 if args.alltimes:
                     print("Elapsed time: %0.3f" % (stats.current_time()))
+                print("Program number: "+str(result[2]))
                 # group,cons_i = csolver.soft_constraints[x]
                 # print([(x,csolver.constraints[cons_i]) for x in result[1]])
                 relevant_soft_cons = [multiprog.soft_constraints[i] for i in result[1]]

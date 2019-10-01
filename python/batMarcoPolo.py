@@ -34,8 +34,8 @@ class batMarcoPolo:
                     print("- Program " + str(self.i) + "/" + str(self.multi_program.mutants))
                     print("Initial seed: %s" % " ".join([str(x + 1) for x in seed]))
                     print("Constraints of original code lines: " + str(self.map.original_vars))
-                    self.i = self.i + 1
                     print(str(len(list(set([x + 1 for x in seed]) - set(self.map.original_vars)))) + " mutations")
+                self.i = self.i + 1
 
             # To print all times add verbose=True
             with self.stats.time('SMT check'):
@@ -50,7 +50,7 @@ class batMarcoPolo:
                     #	print "%s = %s" % (d.name(), m[d])
                     # for c in self.subs.s.assertions():
                     #	print c
-                    yield ("S", seed)
+                    yield ("S", seed, self.i-1)
                     self.multi_program.smt_model = self.subs.s.model()
                     if self.config['smus']:
                         clause = self.block_bad_repair(seed)
@@ -66,7 +66,7 @@ class batMarcoPolo:
                     if self.map.k == self.map.m:
                         print ("Original program is correct. No need for repair.")
                         exit(8)
-                    yield ("U", seed)
+                    yield ("U", seed, self.i-1)
                     if self.config['smus']:
                         clause = self.map.block_good_repair(seed)
                         # print "block good repair"
