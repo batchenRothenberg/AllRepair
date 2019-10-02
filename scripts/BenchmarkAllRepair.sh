@@ -45,6 +45,7 @@ main() {
 	get_constant_allrepair_args # save arguments that remain the same across all files. e.g., --no-mut
 	create_output_directory
 	determine_csv_filename
+	determine_repair_table_filename
 	input_dir="${DIRS[0]}"
 	for file in "$input_dir"/* ; do
 	#file can be either a file or a dir(in which case all *.c files under it will be repaired together)
@@ -56,8 +57,8 @@ main() {
 
 recursive_run_allrepair () { # parameters: file (file to run AllRepair on), settings_index (current index in SETTINGS_ARRAY)
 	if (( $2 == ${#SETTINGS_ARRAY[@]} )); then
-		echo "./AllRepair.sh" "$1" "${CONSTANT_ALLREPAIR_ARGS[@]}" "--group-files" "${CHANGING_ALLREPAIR_ARGS[@]}" "2>&1 | ./ParseAllRepair.sh" "$CSV_FILENAME" "$REPAIR_FILENAME"
-		./AllRepair.sh "$1" "${CONSTANT_ALLREPAIR_ARGS[@]}" "--group-files" "${CHANGING_ALLREPAIR_ARGS[@]}" 2>&1 | ./ParseAllRepair.sh "$CSV_FILENAME" "$REPAIR_FILENAME"
+		echo "./AllRepair.sh" "$1" "${CONSTANT_ALLREPAIR_ARGS[@]}" "--group-files" "${CHANGING_ALLREPAIR_ARGS[@]}" "2>&1 | ./ParseAllRepair.sh" "$CSV_FILENAME" "$REPAIR_FILENAME" "$REPAIR_TABLE_FILENAME"
+		./AllRepair.sh "$1" "${CONSTANT_ALLREPAIR_ARGS[@]}" "--group-files" "${CHANGING_ALLREPAIR_ARGS[@]}" 2>&1 | ./ParseAllRepair.sh "$CSV_FILENAME" "$REPAIR_FILENAME" "$REPAIR_TABLE_FILENAME"
 		# ./AllRepair.sh "$1" "${CONSTANT_ALLREPAIR_ARGS[@]}" "--group-files" "${CHANGING_ALLREPAIR_ARGS[@]}"
 		return 0
 	fi
@@ -384,6 +385,12 @@ determine_csv_filename () {
 CSV_FILENAME="$base_dir/${results_dir}/${results_dir}_results.csv"
 # for debug
 # echo "$CSV_FILENAME"
+}
+
+determine_repair_table_filename () {
+REPAIR_TABLE_FILENAME="$base_dir/${results_dir}/${results_dir}_repair_table.csv"
+# for debug
+# echo "$REPAIR_TABLE_FILENAME"
 }
 
 determine_repairs_filename () {
