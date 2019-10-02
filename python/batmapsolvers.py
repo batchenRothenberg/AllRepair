@@ -182,8 +182,7 @@ class MinicardMapSolver(MapSolver):
             stats.size = self.m  # record max reviewed size as max size
             return None
         # move to the next bound
-        stats.size = self.m - self.k  # record max reviewed size
-        self.k -= 1
+        self.increase_mutation_size(stats)
         if self.limit is not None and self.m - self.k > self.limit:
             print("Mutation size limit reached")
             exit(5)
@@ -196,8 +195,7 @@ class MinicardMapSolver(MapSolver):
 
         while not self.solve_with_bound(self.k):
             # if self.bias:
-            stats.size = self.m - self.k  # record max reviewed size
-            self.k -= 1
+            self.increase_mutation_size(stats)
             if self.limit is not None and self.m - self.k > self.limit:
                 print("Mutation size limit reached")
                 exit(5)
@@ -207,6 +205,10 @@ class MinicardMapSolver(MapSolver):
         assert 0 <= self.k <= self.n
 
         return self.get_seed()
+
+    def increase_mutation_size(self, stats):
+        stats.size = self.m - self.k  # record max reviewed size
+        self.k -= 1
 
     def block_above_size(self, size):
         self.solver.add_atmost([(x + 1) for x in range(self.n)], size)
