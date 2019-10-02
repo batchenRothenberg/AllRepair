@@ -179,7 +179,7 @@ class MinicardMapSolver(MapSolver):
         # if self.bias:
         if not self.solve_with_bound(0):
             # no more models
-            stats.size = self.m - self.k  # record max reviewed size
+            stats.size = self.m  # record max reviewed size as max size
             return None
         # move to the next bound
         stats.size = self.m - self.k  # record max reviewed size
