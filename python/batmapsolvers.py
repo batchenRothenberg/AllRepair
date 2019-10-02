@@ -208,6 +208,7 @@ class MinicardMapSolver(MapSolver):
 
     def increase_mutation_size(self, stats):
         stats.size = self.m - self.k  # record max reviewed size
+        print("Time to cover search space up to size "+str(self.m - self.k)+": %.3f" % stats.current_time())
         self.k -= 1
 
     def block_above_size(self, size):
