@@ -51,7 +51,7 @@ parse_data () {
 			for key in "${column_keys[@]}"; do 
 		    		echo -n "${current_row[$key]}," >> "$results_filename"
 			done
-			echo "" >> $results_filename
+			echo "" >> "$results_filename"
 			# Initialize current_row array
 			unset current_row
 			declare -A current_row

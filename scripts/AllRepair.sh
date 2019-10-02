@@ -29,9 +29,9 @@ opts="ufmntsphr:"
 # always clean before exit
 clean(){
 	# delete files created by script
-	if [[ -f $creating_file ]] && [[ $KEEP -ne 1 ]] && [[ $REPAIR -ne 0 ]]; then
+	if [[ -f "creating_file" ]] && [[ $KEEP -ne 1 ]] && [[ $REPAIR -ne 0 ]]; then
 		#echo "Last file created: $creating_file";
-		rm $creating_file
+		rm "$creating_file"
 	fi
 	# restore PYTHONPATH
 	export PYTHONPATH=$OLDPYTHONPATH
