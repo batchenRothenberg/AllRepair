@@ -197,7 +197,7 @@ unset_repair_table_variables () {
 
 print_repair_table_entry () {
 	for key in "${repair_table_column_keys[@]}"; do 
-		echo -n "${current_row[$key]}," >> "$repair_table_filename"
+		echo -n '"'"${current_row[$key]}"'",' >> "$repair_table_filename"
 	done
 	echo "" >> "$repair_table_filename"
 }
