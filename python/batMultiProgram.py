@@ -92,7 +92,7 @@ class batMultiProgram(Graph):
                             if lhs_key not in self.assignment_map:
                                 # print_var_to_key_map(lhs)
                                 if res[0] == '0': # phi-function or hard constraint that is not an assert or assume (e.g., cbmc init)
-                                    if is_If(rhs):  # phi-function assignment
+                                    if is_If(rhs) and is_const(rhs.arg(0)) and is_const(rhs.arg(1)) and is_const(rhs.arg(2)):  # phi-function assignment
                                         guard = rhs.arg(0)
                                         true_var = rhs.arg(1)
                                         false_var = rhs.arg(2)
