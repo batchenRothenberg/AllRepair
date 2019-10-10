@@ -4,7 +4,7 @@ from z3 import *
 
 from InGeneer import stmt
 from InGeneer.z3_utils import evaluate_phi_function
-from batutils import Graph, get_vars_as_keys, is_If, parse_If, findall_regular_expression
+from batutils import Graph, get_vars_as_keys, is_If, parse_If, findall_regular_expression, MyGraph
 from InGeneer.formula_strengthener import nnf_simplify,remove_or
 
 
@@ -90,6 +90,7 @@ class batMultiProgram(Graph):
                             rhs = ass.arg(1)
                             lhs_key = lhs.get_id()
                             if lhs_key not in self.assignment_map:
+                                # print_var_to_key_map(lhs)
                                 if res[0] == '0': # phi-function or hard constraint that is not an assert or assume (e.g., cbmc init)
                                     if is_If(rhs):  # phi-function assignment
                                         guard = rhs.arg(0)
@@ -102,7 +103,28 @@ class batMultiProgram(Graph):
                                     self.assignment_map[lhs_key] = (soft_i-1, get_vars_as_keys(rhs)) # soft_i was already increased
                 cons_i = cons_i + 1
         self.demands_formula = And([nnf_simplify(self.constraints[i]) for i in demand_constraints])
+        # self.debug_dependency_graph()
         f.close()
+
+    @staticmethod
+    def print_var_to_key_map(lhs):
+        print(str(lhs) + ": " + str(lhs.get_id()))
+
+    def debug_dependency_graph(self):
+        graph_map = {}
+        for key in self.assignment_map:
+            value = self.assignment_map[key][1]
+            # print (str(key)+" -> "+str(value))
+            if isinstance(value, PhiFunction):
+                graph_map[key] = [value.guard.get_id(), value.true_var.get_id(), value.false_var.get_id()]
+            else:
+                graph_map[key] = value
+        dependency_grpah = MyGraph(graph_map)
+        print(dependency_grpah.find_path(657,
+                                         363))  # [657, 640L, 590L, 574L, 575L, 586L, 550L, 547L, 525L, 513L, 477L, 478L, 384L]
+        print(dependency_grpah.find_path(478, 150))
+        print(dependency_grpah.find_path(478, 381))
+        print(dependency_grpah.find_path(381, 150))  # [381, 361L, 359L, 150L]
 
     def parse_and_save_location_information(self, groupnum, line):
         if groupnum not in self.group_info_map.keys():
@@ -228,6 +250,12 @@ class PhiFunction:
         self.guard = guard
         self.true_var = true_var
         self.false_var = false_var
+
+    def __str__(self):
+        return "["+str(self.guard.get_id())+", "+str(self.true_var.get_id())+", "+str(self.false_var.get_id())+"]"
+
+    def __repr__(self):
+        return str(self)
 
 
 class DependencyTransition(stmt.Stmt):
